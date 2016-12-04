@@ -1,3 +1,29 @@
+# Edit by Treason
+.DS_Store
+.svn
+.git
+.gradle
+.idea
+build
+bin
+captures
+local.properties
+*.iml
+
+
+# Default by Android Studio
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+
+
+# Default by Github
 # Built application files
 *.apk
 *.ap_
