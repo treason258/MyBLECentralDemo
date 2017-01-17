@@ -6,7 +6,7 @@ package com.mjiayou.trecore.lib;
 
 public class HelloUtil {
 
-    public static String hi() {
+    public static String getHI() {
         return "HI from HelloUtil in TreCoreLib!";
     }
 }
