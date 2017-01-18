@@ -1,4 +1,4 @@
-package com.mjiayou.trecore.lib;
+package com.mjiayou.trecorelib;
 
 import org.junit.Test;
 

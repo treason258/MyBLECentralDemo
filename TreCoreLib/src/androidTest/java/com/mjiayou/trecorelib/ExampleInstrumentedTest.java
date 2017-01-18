@@ -1,4 +1,4 @@
-package com.mjiayou.trecore.lib;
+package com.mjiayou.trecorelib;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.mjiayou.trecore.lib.test", appContext.getPackageName());
+        assertEquals("com.mjiayou.trecorelib.test", appContext.getPackageName());
     }
 }

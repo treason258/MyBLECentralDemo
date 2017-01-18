@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import com.mjiayou.trecore.lib.HelloUtil;
+import com.mjiayou.trecorelib.HelloUtil;
 
 public class MainActivity extends AppCompatActivity {
 

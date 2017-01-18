@@ -1,4 +1,4 @@
-package com.mjiayou.trecore.lib;
+package com.mjiayou.trecorelib;
 
 /**
  * Created by treason on 2017/1/17.
