@@ -1,18 +1,33 @@
 package com.mjiayou.trecore;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import com.mjiayou.trecorelib.HelloUtil;
+import com.mjiayou.trecorelib.util.AppUtil;
+import com.mjiayou.trecorelib.util.HelloUtil;
+import com.mjiayou.trecorelib.util.ToastUtil;
 
 public class MainActivity extends AppCompatActivity {
+
+    private TextView mTvInfo;
+
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mContext = this;
 
-        Toast.makeText(this, HelloUtil.getHI(), Toast.LENGTH_SHORT).show();
+        // findViewById
+        mTvInfo = (TextView) findViewById(R.id.tv_info);
+
+        // mTvInfo
+        mTvInfo.append("\n" + HelloUtil.getHI() + "\n");
+        mTvInfo.append(AppUtil.getAppInfoDetail(mContext));
+
+        ToastUtil.show("ToastUtil TEST");
     }
 }
