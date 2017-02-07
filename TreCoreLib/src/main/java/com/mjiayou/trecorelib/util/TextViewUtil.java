@@ -8,7 +8,7 @@ import android.widget.TextView;
  */
 public class TextViewUtil {
 
-    public static final String TAG = "TextViewUtil";
+    public static final String TAG = TextViewUtil.class.getSimpleName();
 
     /**
      * 显示Text

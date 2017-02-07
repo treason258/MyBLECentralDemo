@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 
 public final class MD5Util {
 
-    private static final String TAG = "MD5Util";
+    private static final String TAG = MD5Util.class.getSimpleName();
 
     public static final String MD5 = "MD5";
     public static final String SHA1 = "SHA1";

@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class AssetUtil {
 
-    private static final String TAG = "AssetUtil";
+    private static final String TAG = AssetUtil.class.getSimpleName();
 
     public static final String DIR_FONTS = "fonts";
     public static final String DIR_LIBS = "libs";

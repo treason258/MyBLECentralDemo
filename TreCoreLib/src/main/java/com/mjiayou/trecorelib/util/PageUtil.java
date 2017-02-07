@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class PageUtil {
 
-    private static final String TAG = "PageUtil";
+    private static final String TAG = PageUtil.class.getSimpleName();
 
     private static final int ITEM_ALL_COUNT = 4;
     public static final int ITEM_DEFAULT = 0;

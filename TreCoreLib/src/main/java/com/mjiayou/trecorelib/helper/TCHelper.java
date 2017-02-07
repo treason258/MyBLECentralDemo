@@ -23,5 +23,7 @@ public class TCHelper {
 
         mContext = context;
         mAppName = appName;
+
+        GsonHelper.init();
     }
 }

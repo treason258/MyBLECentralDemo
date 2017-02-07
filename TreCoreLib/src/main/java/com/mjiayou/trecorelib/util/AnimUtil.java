@@ -19,6 +19,8 @@ import android.widget.LinearLayout;
  */
 public class AnimUtil {
 
+    private static final String TAG = AnimUtil.class.getSimpleName();
+
     // ******************************** 出现 ********************************
 
     /**
