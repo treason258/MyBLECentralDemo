@@ -29,10 +29,9 @@ public class MainActivity extends AppCompatActivity {
         mTvInfo.append("\n");
         mTvInfo.append(HelloUtil.getHI());
         mTvInfo.append("\n");
-
-        ToastUtil.show("ToastUtil TEST");
-
         mTvInfo.append(AppUtil.getAppInfoDetail(mContext));
         mTvInfo.append("\n");
+
+        ToastUtil.show("ToastUtil TEST");
     }
 }
