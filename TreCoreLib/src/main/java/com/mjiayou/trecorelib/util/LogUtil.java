@@ -126,20 +126,20 @@ public class LogUtil {
 
     private static Stack<Long> traceTimeStack = new Stack<>();
 
-    public static void traceStart(String msg) {
+    public static void traceStart(String tag) {
         traceTimeStack.push(System.currentTimeMillis());
-        LogUtil.i(TAG_TRACE_TIME, "startTime = " + System.currentTimeMillis() + " | " + msg);
+        LogUtil.i(TAG_TRACE_TIME + "-" + tag, "startTime = " + System.currentTimeMillis());
     }
 
-    public static void traceStop(String msg) {
+    public static void traceStop(String tag) {
         if (traceTimeStack.isEmpty()) {
             LogUtil.e("traceTimeStack.isEmpty()");
             return;
         }
         long startTime = traceTimeStack.pop();
         long durationTime = System.currentTimeMillis() - startTime;
-        LogUtil.i(TAG_TRACE_TIME, "endTime = " + System.currentTimeMillis() + " | " + msg);
-        LogUtil.i(TAG_TRACE_TIME, "durationTime = " + durationTime);
+        LogUtil.i(TAG_TRACE_TIME + "-" + tag, "endTime = " + System.currentTimeMillis());
+        LogUtil.i(TAG_TRACE_TIME + "-" + tag, "durationTime = " + durationTime + "ms");
     }
 
     public static void traceReset() {
