@@ -50,6 +50,11 @@ public class DirectoryUtil {
      */
     private DirectoryUtil() {
         Context context = TCHelper.getContext();
+        if (context == null) {
+            LogUtil.e(TAG, TCHelper.ERROR_CONTEXT_NULL);
+            return;
+        }
+
         SYSTEM_APP_CACHE = context.getCacheDir().getPath() + "/"; // /data/data/cn.soccerapp.soccer/cache/
         SYSTEM_APP_FILES = context.getFilesDir().getPath() + "/"; // /data/data/cn.soccerapp.soccer/files/
         try {

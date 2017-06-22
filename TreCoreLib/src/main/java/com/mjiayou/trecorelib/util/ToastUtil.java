@@ -13,7 +13,6 @@ import com.mjiayou.trecorelib.helper.TCHelper;
 public class ToastUtil {
 
     private static final String TAG = ToastUtil.class.getSimpleName();
-    private static final String ERROR_CONTEXT_NULL = "context == null";
 
     private static Toast mToast = null;
 
@@ -21,22 +20,23 @@ public class ToastUtil {
      * 显示 Toast - 默认 context
      */
     public static void show(String text, int duration) {
-        showToast(TCHelper.getContext(), text, duration);
+        showToast(text, duration);
     }
 
     /**
      * 显示 Toast - 默认 LENGTH_SHORT - 默认 context
      */
     public static void show(String text) {
-        showToast(TCHelper.getContext(), text, Toast.LENGTH_SHORT);
+        showToast(text, Toast.LENGTH_SHORT);
     }
 
     /**
      * 显示 Toast - core
      */
-    private static void showToast(Context context, String text, int duration) {
+    private static void showToast(String text, int duration) {
+        Context context = TCHelper.getContext();
         if (context == null) {
-            LogUtil.e(TAG, ERROR_CONTEXT_NULL);
+            LogUtil.e(TAG, TCHelper.ERROR_CONTEXT_NULL);
             return;
         }
 

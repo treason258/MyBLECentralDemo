@@ -14,6 +14,6 @@ public class MyApp extends Application {
     public void onCreate() {
         super.onCreate();
 
-        TCHelper.init(this, "trecore");
+        TCHelper.init(this);
     }
 }
