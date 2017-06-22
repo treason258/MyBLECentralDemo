@@ -15,8 +15,9 @@ public class LogUtil {
 
     private static final String TAG = LogUtil.class.getSimpleName();
 
-    private static boolean mShow = true;
-    private static boolean mShowPath = false;
+    private static boolean mShow = true; // 配置是否显示LOG，默认显示
+    private static boolean mShowPath = false; // 配置是否显示路径，默认隐藏
+    private static int mPathLine = 3; // 配置显示路径的行数，默认3行
 
     /**
      * 配置是否显示LOG
@@ -30,6 +31,13 @@ public class LogUtil {
      */
     public static void setShowPath(boolean show) {
         mShowPath = show;
+    }
+
+    /**
+     * 配置显示路径的行数
+     */
+    public static void setPathLine(int pathLine) {
+        mPathLine = pathLine;
     }
 
     /**
@@ -178,14 +186,30 @@ public class LogUtil {
      */
     private static String buildMessage(String msg) {
         StringBuilder builder = new StringBuilder();
-        if (mShowPath) {
-            StackTraceElement caller = new Throwable().fillInStackTrace().getStackTrace()[2];
-            builder.append(caller.getClassName());
-            builder.append(".");
-            builder.append(caller.getMethodName());
-            builder.append("(): \n");
-        }
         builder.append(msg);
+        if (mShowPath) {
+            for (int i = 0; i < mPathLine; i++) {
+                if (i == 0 || i == 1) { // 因为封装过程中已经有两层为固定的
+                    continue;
+                }
+                
+                StackTraceElement caller = new Throwable().fillInStackTrace().getStackTrace()[i];
+                if (caller == null) {
+                    continue;
+                }
+
+                builder.append("\n");
+                builder.append("at ");
+                builder.append(caller.getClassName());
+                builder.append(".");
+                builder.append(caller.getMethodName());
+                builder.append("(");
+                builder.append(caller.getFileName());
+                builder.append(":");
+                builder.append(caller.getLineNumber());
+                builder.append(")");
+            }
+        }
         return builder.toString();
     }
 }
