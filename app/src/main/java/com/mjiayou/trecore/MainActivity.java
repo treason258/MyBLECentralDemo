@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         mTvInfo.append(AppUtil.getAppInfoDetail(mContext));
         mTvInfo.append("\n");
 
+        // ToastUtil
         ToastUtil.show("ToastUtil TEST");
     }
 }
