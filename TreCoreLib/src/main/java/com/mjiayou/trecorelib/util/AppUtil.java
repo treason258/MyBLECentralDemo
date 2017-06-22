@@ -90,10 +90,23 @@ public class AppUtil {
         builder.append("**** getApplicationInfoStr ****").append("\n");
         builder.append(getApplicationInfoStr(context, packageName));
 
-        // getBuildConfigInfoStr
-        builder.append("\n");
-        builder.append("**** getBuildConfigInfoStr ****").append("\n");
-        builder.append(getBuildConfigInfoStr(com.mjiayou.trecorelib.BuildConfig.class));
+        // getBuildConfigInfoStr-app
+        try {
+            builder.append("\n");
+            builder.append("**** getBuildConfigInfoStr-app ****").append("\n");
+            builder.append(getBuildConfigInfoStr(Class.forName(getPackageName(context) + ".BuildConfig")));
+        } catch (ClassNotFoundException e) {
+            LogUtil.printStackTrace(e);
+        }
+
+        // getBuildConfigInfoStr-trecorelib
+        try {
+            builder.append("\n");
+            builder.append("**** getBuildConfigInfoStr-trecorelib ****").append("\n");
+            builder.append(getBuildConfigInfoStr(com.mjiayou.trecorelib.BuildConfig.class));
+        } catch (Exception e) {
+            LogUtil.printStackTrace(e);
+        }
 
         return builder.toString();
     }
@@ -158,6 +171,7 @@ public class AppUtil {
     public static String getApplicationInfoStr(Context context, String packageName) {
         try {
             StringBuilder builder = new StringBuilder();
+            builder.append("PackageName = ").append(packageName).append("\n");
             builder.append("Label = ").append(getLabel(context, packageName)).append("\n");
             builder.append("DataDir = ").append(getDataDir(context, packageName)).append("\n");
             builder.append("SourceDir = ").append(getSourceDir(context, packageName)).append("\n");
