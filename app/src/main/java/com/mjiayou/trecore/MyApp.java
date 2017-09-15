@@ -3,7 +3,7 @@ package com.mjiayou.trecore;
 import android.app.Application;
 
 import com.mjiayou.trecorelib.helper.TCHelper;
-import com.mjiayou.trecorelib.util.LogUtil;
+import com.mjiayou.trecorelib.util.LogUtils;
 
 /**
  * Created by treason on 2017/6/15.
@@ -15,11 +15,11 @@ public class MyApp extends Application {
 
     @Override
     public void onCreate() {
-        LogUtil.traceStart(TAG);
+        LogUtils.traceStart(TAG);
         super.onCreate();
 
         TCHelper.init(this);
 
-        LogUtil.traceStop(TAG);
+        LogUtils.traceStop(TAG);
     }
 }

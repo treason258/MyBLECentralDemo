@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import com.mjiayou.trecorelib.util.AppUtil;
-import com.mjiayou.trecorelib.util.HelloUtil;
-import com.mjiayou.trecorelib.util.ToastUtil;
+import com.mjiayou.trecorelib.util.AppUtils;
+import com.mjiayou.trecorelib.util.HelloUtils;
+import com.mjiayou.trecorelib.util.ToastUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,12 +27,12 @@ public class MainActivity extends AppCompatActivity {
 
         // mTvInfo
         mTvInfo.append("\n");
-        mTvInfo.append(HelloUtil.getHI());
+        mTvInfo.append(HelloUtils.getHI());
         mTvInfo.append("\n");
-        mTvInfo.append(AppUtil.getAppInfoDetail(mContext));
+        mTvInfo.append(AppUtils.getAppInfoDetail(mContext));
         mTvInfo.append("\n");
 
         // ToastUtil
-        ToastUtil.show("ToastUtil TEST");
+        ToastUtils.show("ToastUtil TEST");
     }
 }

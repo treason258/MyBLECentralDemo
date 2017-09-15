@@ -19,7 +19,7 @@ import java.util.zip.GZIPInputStream;
 /**
  * Created by treason on 16/5/14.
  */
-public class ConvertUtil<T> {
+public class ConvertUtils<T> {
 
     // ******************************** List & Array & String ********************************
 
@@ -125,7 +125,7 @@ public class ConvertUtil<T> {
             }
             return sb.toString();
         } finally {
-            StreamUtil.closeQuietly(is);
+            StreamUtils.closeQuietly(is);
         }
     }
 
@@ -213,7 +213,7 @@ public class ConvertUtil<T> {
                 field.setAccessible(true);
                 builder.append(field.getName()).append(" = ").append(field.get(null) == null ? "null" : field.get(null).toString()).append("\n");
             } catch (Exception e) {
-                LogUtil.printStackTrace(e);
+                LogUtils.printStackTrace(e);
             }
         }
         return builder.toString();

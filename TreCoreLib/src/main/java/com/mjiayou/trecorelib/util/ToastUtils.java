@@ -10,9 +10,9 @@ import com.mjiayou.trecorelib.helper.TCHelper;
  * <p>
  * Created by treason on 16/5/14.
  */
-public class ToastUtil {
+public class ToastUtils {
 
-    private static final String TAG = ToastUtil.class.getSimpleName();
+    private static final String TAG = ToastUtils.class.getSimpleName();
 
     private static Toast mToast = null;
 
@@ -36,7 +36,7 @@ public class ToastUtil {
     private static void showToast(String text, int duration) {
         Context context = TCHelper.getContext();
         if (context == null) {
-            LogUtil.e(TAG, TCHelper.ERROR_CONTEXT_NULL);
+            LogUtils.e(TAG, TCHelper.ERROR_CONTEXT_NULL);
             return;
         }
 
@@ -46,6 +46,6 @@ public class ToastUtil {
             mToast.setText(text);
         }
         mToast.show();
-        LogUtil.i(TAG, text);
+        LogUtils.i(TAG, text);
     }
 }

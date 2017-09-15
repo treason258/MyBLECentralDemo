@@ -88,7 +88,7 @@ public class DeviceUtil {
         builder.append("Altitude（高度） = ").append(getAltitude(context)).append("\n");
         builder.append("Provider（获取提供者） = ").append(getProvider(context)).append("\n");
         builder.append("Accuracy（获取精确度） = ").append(getAccuracy(context)).append("\n");
-        builder.append("getExtras（获取Extras） = ").append(ConvertUtil.parseString(getExtras(context))).append("\n");
+        builder.append("getExtras（获取Extras） = ").append(ConvertUtils.parseString(getExtras(context))).append("\n");
 
         // ConnectivityManager
         builder.append("\n");
@@ -117,7 +117,7 @@ public class DeviceUtil {
         // build.prop
         builder.append("\n");
         builder.append("**** build.prop ****").append("\n");
-        builder.append(ConvertUtil.parseString(RomUtil.getBuildProperties()));
+        builder.append(ConvertUtils.parseString(RomUtils.getBuildProperties()));
 
         return builder.toString();
     }
@@ -131,13 +131,13 @@ public class DeviceUtil {
         StringBuilder builder = new StringBuilder();
 
         builder.append("** Build.class **").append("\n");
-        builder.append(ConvertUtil.parseString(android.os.Build.class));
+        builder.append(ConvertUtils.parseString(android.os.Build.class));
 
         builder.append("** Build.VERSION.class **").append("\n");
-        builder.append(ConvertUtil.parseString(android.os.Build.VERSION.class));
+        builder.append(ConvertUtils.parseString(android.os.Build.VERSION.class));
 
         builder.append("** Build.VERSION_CODES.class **").append("\n");
-        builder.append(ConvertUtil.parseString(android.os.Build.VERSION_CODES.class));
+        builder.append(ConvertUtils.parseString(android.os.Build.VERSION_CODES.class));
 
 //        // android.os.Build
 //        builder.append("** android.os.Build.class **").append("\n");
@@ -256,13 +256,13 @@ public class DeviceUtil {
      */
     public static String getIMEI(Context context) {
         try {
-            if (AppUtil.checkMissingPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+            if (AppUtils.checkMissingPermission(context, Manifest.permission.READ_PHONE_STATE)) {
                 return null;
             }
             TelephonyManager telephonyManager = getTelephonyManager(context);
             return telephonyManager.getDeviceId();
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -272,13 +272,13 @@ public class DeviceUtil {
      */
     public static String getIMSI(Context context) {
         try {
-            if (AppUtil.checkMissingPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+            if (AppUtils.checkMissingPermission(context, Manifest.permission.READ_PHONE_STATE)) {
                 return null;
             }
             TelephonyManager telephonyManager = getTelephonyManager(context);
             return telephonyManager.getSubscriberId();
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -288,13 +288,13 @@ public class DeviceUtil {
      */
     public static String getPhoneNumber(Context context) {
         try {
-            if (AppUtil.checkMissingPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+            if (AppUtils.checkMissingPermission(context, Manifest.permission.READ_PHONE_STATE)) {
                 return null;
             }
             TelephonyManager telephonyManager = getTelephonyManager(context);
             return telephonyManager.getLine1Number();
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -304,13 +304,13 @@ public class DeviceUtil {
      */
     public static String getSimSerialNumber(Context context) {
         try {
-            if (AppUtil.checkMissingPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+            if (AppUtils.checkMissingPermission(context, Manifest.permission.READ_PHONE_STATE)) {
                 return null;
             }
             TelephonyManager telephonyManager = getTelephonyManager(context);
             return telephonyManager.getSimSerialNumber();
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -323,7 +323,7 @@ public class DeviceUtil {
             TelephonyManager telephonyManager = getTelephonyManager(context);
             return telephonyManager.getSimOperatorName();
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -336,7 +336,7 @@ public class DeviceUtil {
             TelephonyManager telephonyManager = getTelephonyManager(context);
             return telephonyManager.getNetworkOperatorName();
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -355,7 +355,7 @@ public class DeviceUtil {
      * 获取WifiInfo对象
      */
     private static WifiInfo getWifiInfo(Context context) throws Exception {
-        if (AppUtil.checkMissingPermission(context, Manifest.permission.ACCESS_WIFI_STATE)) {
+        if (AppUtils.checkMissingPermission(context, Manifest.permission.ACCESS_WIFI_STATE)) {
             return null;
         }
         WifiManager wifiManager = getWifiManager(context);
@@ -370,7 +370,7 @@ public class DeviceUtil {
             WifiInfo wifiInfo = getWifiInfo(context);
             return wifiInfo.getMacAddress();
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -383,7 +383,7 @@ public class DeviceUtil {
             WifiInfo wifiInfo = getWifiInfo(context);
             return wifiInfo.getSSID();
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -402,8 +402,8 @@ public class DeviceUtil {
      * 获取Location对象
      */
     private static Location getLocation(Context context) throws Exception {
-        if (AppUtil.checkMissingPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
-                && AppUtil.checkMissingPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+        if (AppUtils.checkMissingPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
+                && AppUtils.checkMissingPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)) {
             return null;
         }
         LocationManager locationManager = getLocationManager(context);
@@ -419,7 +419,7 @@ public class DeviceUtil {
             Location location = getLocation(context);
             return location.getLongitude();
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return 0;
     }
@@ -432,7 +432,7 @@ public class DeviceUtil {
             Location location = getLocation(context);
             return location.getLatitude();
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return 0;
     }
@@ -445,7 +445,7 @@ public class DeviceUtil {
             Location location = getLocation(context);
             return location.getAltitude();
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return 0;
     }
@@ -458,7 +458,7 @@ public class DeviceUtil {
             Location location = getLocation(context);
             return location.getProvider();
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -471,7 +471,7 @@ public class DeviceUtil {
             Location location = getLocation(context);
             return location.getAccuracy();
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return 0;
     }
@@ -484,7 +484,7 @@ public class DeviceUtil {
             Location location = getLocation(context);
             return location.getExtras();
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -503,7 +503,7 @@ public class DeviceUtil {
      * 获取NetworkInfo对象
      */
     public static NetworkInfo getNetworkInfo(Context context) throws Exception {
-        if (AppUtil.checkMissingPermission(context, Manifest.permission.ACCESS_NETWORK_STATE)) {
+        if (AppUtils.checkMissingPermission(context, Manifest.permission.ACCESS_NETWORK_STATE)) {
             return null;
         }
         ConnectivityManager connectivityManager = getConnectivityManager(context);
@@ -520,7 +520,7 @@ public class DeviceUtil {
                 return true;
             }
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return false;
     }
@@ -535,7 +535,7 @@ public class DeviceUtil {
                 return true;
             }
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return false;
     }
@@ -666,7 +666,7 @@ public class DeviceUtil {
             builder.append(getMacAddress(context));
         }
 
-        return MD5Util.md5(builder.toString());
+        return MD5Utils.md5(builder.toString());
     }
 
     /**
@@ -705,7 +705,7 @@ public class DeviceUtil {
             statusBarHeight = context.getResources().getDimensionPixelSize(x);
             return statusBarHeight;
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return 0;
     }
@@ -714,7 +714,7 @@ public class DeviceUtil {
      * 手机震动
      */
     public static void vibrate(final Context context, long milliseconds) {
-        if (AppUtil.checkMissingPermission(context, Manifest.permission.VIBRATE)) {
+        if (AppUtils.checkMissingPermission(context, Manifest.permission.VIBRATE)) {
             return;
         }
         Vibrator vibrator = (Vibrator) context.getSystemService(Service.VIBRATOR_SERVICE);
@@ -736,7 +736,7 @@ public class DeviceUtil {
             bitmap = Bitmap.createBitmap(bitmap, 0, statusBarHeight, width, height - statusBarHeight);
             return bitmap;
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -744,25 +744,25 @@ public class DeviceUtil {
     public static void printMemoryInfo(Context context) {
         // Runtime.getRuntime().maxMemory()
         long maxMemory = Runtime.getRuntime().maxMemory();
-        LogUtil.i(TAG, "maxMemory -> " + maxMemory + "B");
-        LogUtil.i(TAG, "maxMemory -> " + maxMemory / 1024 / 1024 + "MB");
-        LogUtil.i(TAG, "maxMemory -> " + (maxMemory >> 10 >> 10) + "MB");
-        LogUtil.i(TAG, "maxMemory -> " + (maxMemory >> 20) + "MB");
+        LogUtils.i(TAG, "maxMemory -> " + maxMemory + "B");
+        LogUtils.i(TAG, "maxMemory -> " + maxMemory / 1024 / 1024 + "MB");
+        LogUtils.i(TAG, "maxMemory -> " + (maxMemory >> 10 >> 10) + "MB");
+        LogUtils.i(TAG, "maxMemory -> " + (maxMemory >> 20) + "MB");
 
         // android.os.Process
         int myPid = android.os.Process.myPid();
         int myUid = android.os.Process.myUid();
         int myTid = android.os.Process.myTid();
-        LogUtil.i(TAG, "myPid -> " + myPid);
-        LogUtil.i(TAG, "myUid -> " + myUid);
-        LogUtil.i(TAG, "myTid -> " + myTid);
+        LogUtils.i(TAG, "myPid -> " + myPid);
+        LogUtils.i(TAG, "myUid -> " + myUid);
+        LogUtils.i(TAG, "myTid -> " + myTid);
 
         // ActivityManager
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         int memoryClass = activityManager.getMemoryClass();
         int largeMemoryClass = activityManager.getLargeMemoryClass();
-        LogUtil.i(TAG, "memoryClass -> " + memoryClass + "MB");
-        LogUtil.i(TAG, "largeMemoryClass -> " + largeMemoryClass + "MB");
+        LogUtils.i(TAG, "memoryClass -> " + memoryClass + "MB");
+        LogUtils.i(TAG, "largeMemoryClass -> " + largeMemoryClass + "MB");
 
         // activityManager.getMemoryInfo
         ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
@@ -774,27 +774,27 @@ public class DeviceUtil {
         long availMem = memoryInfo.availMem;
         long threshold = memoryInfo.threshold;
         boolean lowMemory = memoryInfo.lowMemory;
-        LogUtil.i(TAG, "totalMem-系统总共内存 -> " + (totalMem >> 20) + "MB");
-        LogUtil.i(TAG, "availMem-系统剩余内存 -> " + (availMem >> 20) + "MB");
-        LogUtil.i(TAG, "threshold-当系统剩余内存低于 -> " + (threshold >> 20) + "MB时就看成低内存运行");
-        LogUtil.i(TAG, "lowMemory-系统是否处于低内存运行 -> " + lowMemory);
+        LogUtils.i(TAG, "totalMem-系统总共内存 -> " + (totalMem >> 20) + "MB");
+        LogUtils.i(TAG, "availMem-系统剩余内存 -> " + (availMem >> 20) + "MB");
+        LogUtils.i(TAG, "threshold-当系统剩余内存低于 -> " + (threshold >> 20) + "MB时就看成低内存运行");
+        LogUtils.i(TAG, "lowMemory-系统是否处于低内存运行 -> " + lowMemory);
 
         // activityManager.getRunningAppProcesses()
         List<ActivityManager.RunningAppProcessInfo> list = activityManager.getRunningAppProcesses();
         for (int i = 0; i < list.size(); i++) {
-            LogUtil.i(TAG, "pid -> " + list.get(i).pid);
-            LogUtil.i(TAG, "uid -> " + list.get(i).uid);
-            LogUtil.i(TAG, "processName -> " + list.get(i).processName);
-            LogUtil.i(TAG, "pkgList -> " + ConvertUtil.parseString(list.get(i).pkgList, ","));
+            LogUtils.i(TAG, "pid -> " + list.get(i).pid);
+            LogUtils.i(TAG, "uid -> " + list.get(i).uid);
+            LogUtils.i(TAG, "processName -> " + list.get(i).processName);
+            LogUtils.i(TAG, "pkgList -> " + ConvertUtils.parseString(list.get(i).pkgList, ","));
         }
 
         // Debug
         long nativeHeapSize = Debug.getNativeHeapSize();
         long nativeHeapAllocatedSize = Debug.getNativeHeapAllocatedSize();
         long nativeHeapFreeSize = Debug.getNativeHeapFreeSize();
-        LogUtil.i(TAG, "nativeHeapSize-当前进程navtive堆中已使用的内存大小 -> " + (nativeHeapSize >> 10) + "KB");
-        LogUtil.i(TAG, "nativeHeapAllocatedSize-当前进程navtive堆中已经剩余的内存大小 -> " + (nativeHeapAllocatedSize >> 10) + "KB");
-        LogUtil.i(TAG, "nativeHeapFreeSize-当前进程navtive堆本身总的内存大小 -> " + (nativeHeapFreeSize >> 10) + "KB");
+        LogUtils.i(TAG, "nativeHeapSize-当前进程navtive堆中已使用的内存大小 -> " + (nativeHeapSize >> 10) + "KB");
+        LogUtils.i(TAG, "nativeHeapAllocatedSize-当前进程navtive堆中已经剩余的内存大小 -> " + (nativeHeapAllocatedSize >> 10) + "KB");
+        LogUtils.i(TAG, "nativeHeapFreeSize-当前进程navtive堆本身总的内存大小 -> " + (nativeHeapFreeSize >> 10) + "KB");
 
         // Debug.getMemoryInfo
         Debug.MemoryInfo memoryInfoDebug = new Debug.MemoryInfo();
@@ -808,14 +808,14 @@ public class DeviceUtil {
         int otherPrivateDirty = memoryInfoDebug.otherPrivateDirty;
         int otherPss = memoryInfoDebug.otherPss;
         int otherSharedDirty = memoryInfoDebug.otherSharedDirty;
-        LogUtil.i(TAG, "dalvikPrivateDirty -> " + dalvikPrivateDirty + "KB");
-        LogUtil.i(TAG, "dalvikPss -> " + dalvikPss + "KB");
-        LogUtil.i(TAG, "dalvikSharedDirty -> " + dalvikSharedDirty + "KB");
-        LogUtil.i(TAG, "nativePrivateDirty -> " + nativePrivateDirty + "KB");
-        LogUtil.i(TAG, "nativePss -> " + nativePss + "KB");
-        LogUtil.i(TAG, "nativeSharedDirty -> " + nativeSharedDirty + "KB");
-        LogUtil.i(TAG, "otherPrivateDirty -> " + otherPrivateDirty + "KB");
-        LogUtil.i(TAG, "otherPss -> " + otherPss + "KB");
-        LogUtil.i(TAG, "otherSharedDirty -> " + otherSharedDirty + "KB");
+        LogUtils.i(TAG, "dalvikPrivateDirty -> " + dalvikPrivateDirty + "KB");
+        LogUtils.i(TAG, "dalvikPss -> " + dalvikPss + "KB");
+        LogUtils.i(TAG, "dalvikSharedDirty -> " + dalvikSharedDirty + "KB");
+        LogUtils.i(TAG, "nativePrivateDirty -> " + nativePrivateDirty + "KB");
+        LogUtils.i(TAG, "nativePss -> " + nativePss + "KB");
+        LogUtils.i(TAG, "nativeSharedDirty -> " + nativeSharedDirty + "KB");
+        LogUtils.i(TAG, "otherPrivateDirty -> " + otherPrivateDirty + "KB");
+        LogUtils.i(TAG, "otherPss -> " + otherPss + "KB");
+        LogUtils.i(TAG, "otherSharedDirty -> " + otherSharedDirty + "KB");
     }
 }

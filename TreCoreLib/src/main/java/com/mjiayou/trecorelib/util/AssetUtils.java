@@ -11,9 +11,9 @@ import java.util.List;
 /**
  * Created by treason on 16/5/14.
  */
-public class AssetUtil {
+public class AssetUtils {
 
-    private static final String TAG = AssetUtil.class.getSimpleName();
+    private static final String TAG = AssetUtils.class.getSimpleName();
 
     public static final String DIR_FONTS = "fonts";
     public static final String DIR_LIBS = "libs";
@@ -41,7 +41,7 @@ public class AssetUtil {
      * 获取assets文件夹path目录内文件名列表
      */
     public static List<String> getAssetList(Context context, String dir) throws IOException {
-        return ConvertUtil.parseStringList(getAssetArray(context, dir));
+        return ConvertUtils.parseStringList(getAssetArray(context, dir));
     }
 
     /**

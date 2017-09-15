@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 /**
  * Created by treason on 15/6/8.
  */
-public class FileUtil {
+public class FileUtils {
 
     /**
      * 创建文件夹，如果文件目录不存在，则递归创建文件目录
@@ -99,7 +99,7 @@ public class FileUtil {
             fileOutputStream.write(bytes);
             fileOutputStream.close();
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
     }
 
@@ -124,7 +124,7 @@ public class FileUtil {
             fileInputStream.close();
             content = new String(buffer);
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return content;
     }

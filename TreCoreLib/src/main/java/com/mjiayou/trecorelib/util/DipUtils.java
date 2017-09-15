@@ -6,7 +6,7 @@ import android.util.TypedValue;
 /**
  * Created by treason on 15-12-21.
  */
-public class DipUtil {
+public class DipUtils {
 
     /**
      * 获得Dip信息

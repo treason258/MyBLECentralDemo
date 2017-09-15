@@ -30,9 +30,9 @@ import java.util.List;
 /**
  * Created by treason on 15/7/18.
  */
-public class AppUtil {
+public class AppUtils {
 
-    private static final String TAG = AppUtil.class.getSimpleName();
+    private static final String TAG = AppUtils.class.getSimpleName();
 
     // ******************************** getAppInfoDetail ********************************
 
@@ -47,7 +47,7 @@ public class AppUtil {
 
         builder.append("\n");
         builder.append("******** getAppInfoStr ********").append("\n");
-        builder.append(AppUtil.getAppInfoStr(context));
+        builder.append(AppUtils.getAppInfoStr(context));
 
         builder.append("\n");
         builder.append("******** getDeviceInfoStr ********").append("\n");
@@ -55,11 +55,11 @@ public class AppUtil {
 
         builder.append("\n");
         builder.append("******** getDirectoryInfoStr ********").append("\n");
-        builder.append(DirectoryUtil.get().getDirectoryInfoStr());
+        builder.append(DirectoryUtils.get().getDirectoryInfoStr());
 
         builder.append("\n");
         builder.append("******** getDipInfoStr ********").append("\n");
-        builder.append(DipUtil.getDipInfoStr(context));
+        builder.append(DipUtils.getDipInfoStr(context));
 
         builder.append("\n");
         builder.append("******** end ********").append("\n");
@@ -96,7 +96,7 @@ public class AppUtil {
             builder.append("**** getBuildConfigInfoStr-app ****").append("\n");
             builder.append(getBuildConfigInfoStr(Class.forName(getPackageName(context) + ".BuildConfig")));
         } catch (ClassNotFoundException e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
 
         // getBuildConfigInfoStr-trecorelib
@@ -105,7 +105,7 @@ public class AppUtil {
             builder.append("**** getBuildConfigInfoStr-trecorelib ****").append("\n");
             builder.append(getBuildConfigInfoStr(com.mjiayou.trecorelib.BuildConfig.class));
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
 
         return builder.toString();
@@ -156,7 +156,7 @@ public class AppUtil {
             builder.append("PublicKey = ").append(certificate.getPublicKey().toString()).append("\n");
             return builder.toString();
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -184,7 +184,7 @@ public class AppUtil {
             builder.append("TaskAffinity = ").append(applicationInfo.taskAffinity).append("\n");
             return builder.toString();
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -202,10 +202,10 @@ public class AppUtil {
             builder.append("BuildConfig = ").append(clazz.getName()).append("\n");
 
             builder.append("** BuildConfig.class **").append("\n");
-            builder.append(ConvertUtil.parseString(clazz));
+            builder.append(ConvertUtils.parseString(clazz));
             return builder.toString();
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -244,7 +244,7 @@ public class AppUtil {
             PackageInfo packageInfo = getPackageInfo(context, packageName);
             return packageInfo.packageName;
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -261,7 +261,7 @@ public class AppUtil {
             PackageInfo packageInfo = getPackageInfo(context, packageName);
             return packageInfo.versionName;
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -278,7 +278,7 @@ public class AppUtil {
             PackageInfo packageInfo = getPackageInfo(context, packageName);
             return packageInfo.versionCode;
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return 0;
     }
@@ -298,10 +298,10 @@ public class AppUtil {
             Signature[] signatures = packageInfo.signatures;
 
             StringBuilder builder = new StringBuilder();
-            builder.append(MD5Util.md5(signatures[0].toByteArray()));
+            builder.append(MD5Utils.md5(signatures[0].toByteArray()));
             return builder.toString();
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -331,7 +331,7 @@ public class AppUtil {
             ApplicationInfo applicationInfo = getApplicationInfo(context, packageName);
             return String.valueOf(applicationInfo.loadLabel(context.getPackageManager()));
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -348,7 +348,7 @@ public class AppUtil {
             ApplicationInfo applicationInfo = getApplicationInfo(context, packageName);
             return applicationInfo.loadIcon(context.getPackageManager());
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -365,7 +365,7 @@ public class AppUtil {
             ApplicationInfo applicationInfo = getApplicationInfo(context, packageName);
             return applicationInfo.dataDir;
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -382,7 +382,7 @@ public class AppUtil {
             ApplicationInfo applicationInfo = getApplicationInfo(context, packageName);
             return applicationInfo.sourceDir;
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -399,7 +399,7 @@ public class AppUtil {
             ApplicationInfo applicationInfo = getApplicationInfo(context, packageName);
             return applicationInfo.publicSourceDir;
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -429,7 +429,7 @@ public class AppUtil {
 //        }
 
         if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
-            LogUtil.printStackTrace(new Exception("Missing permissions: " + permission)); // Missing permissions required by Intent.ACTION_CALL: android.permission.CALL_PHONE
+            LogUtils.printStackTrace(new Exception("Missing permissions: " + permission)); // Missing permissions required by Intent.ACTION_CALL: android.permission.CALL_PHONE
             return true;
         } else {
             return false;
@@ -448,7 +448,7 @@ public class AppUtil {
             Bundle bundle = applicationInfo.metaData;
             return bundle.get(metaName).toString();
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -522,7 +522,7 @@ public class AppUtil {
             intent.setDataAndType(Uri.fromFile(new File(apkPath)), "application/vnd.android.package-archive");
             context.startActivity(intent);
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
     }
 
@@ -534,23 +534,23 @@ public class AppUtil {
             // asset目录结构
             String apkPathForAsset = apkDir + "/" + apkName;
             // SDCard目录结构
-            String apkDirForSDCard = DirectoryUtil.get().APP_CACHE + apkDir + "/";
-            String apkPathForSDCard = DirectoryUtil.get().APP_CACHE + apkDir + "/" + apkName;
+            String apkDirForSDCard = DirectoryUtils.get().APP_CACHE + apkDir + "/";
+            String apkPathForSDCard = DirectoryUtils.get().APP_CACHE + apkDir + "/" + apkName;
 
             // 读取文件数据流
-            InputStream inputStream = AssetUtil.getAssetInputStream(context, apkPathForAsset);
+            InputStream inputStream = AssetUtils.getAssetInputStream(context, apkPathForAsset);
             if (inputStream != null) {
                 // 递归创建 APP_CACHE + NAME_LIBS 文件夹
-                FileUtil.createFolder(apkDirForSDCard);
+                FileUtils.createFolder(apkDirForSDCard);
                 // 将资源中的文件重写到sdcard中
-                FileUtil.writeToFile(apkPathForSDCard, inputStream);
+                FileUtils.writeToFile(apkPathForSDCard, inputStream);
                 // 安装APK
                 installAPKFromSDCard(context, apkPathForSDCard);
             } else {
-                LogUtil.e(TAG, "asset目录下找不到文件：" + apkPathForAsset);
+                LogUtils.e(TAG, "asset目录下找不到文件：" + apkPathForAsset);
             }
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
     }
 
@@ -562,7 +562,7 @@ public class AppUtil {
             Intent intent = new Intent(Intent.ACTION_PACKAGE_ADDED, Uri.fromParts("package", path, null));
             context.startActivity(intent);
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
     }
 
@@ -574,7 +574,7 @@ public class AppUtil {
             getPackageManager(context).getPackageInfo(packageName, 0);
             return true;
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return false;
     }
@@ -585,14 +585,14 @@ public class AppUtil {
     public static void uninstallAPP(Context context, String packageName) {
         try {
             if (!isAPPInstalled(context, packageName)) {
-                ToastUtil.show("程序未安装");
+                ToastUtils.show("程序未安装");
                 return;
             }
             Intent intent = new Intent(Intent.ACTION_DELETE);
             intent.setData(Uri.fromParts("package", packageName, null));
             context.startActivity(intent);
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
     }
 
@@ -618,7 +618,7 @@ public class AppUtil {
                 context.startActivity(intent);
             }
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
     }
 
@@ -636,13 +636,13 @@ public class AppUtil {
             BroadcastReceiver deleteReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-                    ToastUtil.show("deleteReceiver | onReceive");
+                    ToastUtils.show("deleteReceiver | onReceive");
                 }
             };
             context.registerReceiver(deleteReceiver, filter); // 注册广播监听应用
             return deleteReceiver;
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -657,7 +657,7 @@ public class AppUtil {
             Intent intent = new Intent(Settings.ACTION_SETTINGS);
             context.startActivity(intent);
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
     }
 
@@ -669,7 +669,7 @@ public class AppUtil {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             context.startActivity(intent);
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
     }
 
@@ -681,7 +681,7 @@ public class AppUtil {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + lat + "," + lon)); // Uri.parse("geo:38.899533,-77.036476")
             context.startActivity(intent);
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
     }
 
@@ -693,7 +693,7 @@ public class AppUtil {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("file://" + path));
             context.startActivity(intent);
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
     }
 
@@ -705,7 +705,7 @@ public class AppUtil {
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + number));
             context.startActivity(intent);
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
     }
 
@@ -721,7 +721,7 @@ public class AppUtil {
             Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + number));
             context.startActivity(intent);
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
     }
 
@@ -735,7 +735,7 @@ public class AppUtil {
             intent.setType("vnd.android-dir/mms-sms");
             context.startActivity(intent);
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
     }
 
@@ -749,7 +749,7 @@ public class AppUtil {
             intent.setType("vnd.android-dir/mms-sms");
             context.startActivity(intent);
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
     }
 
@@ -765,7 +765,7 @@ public class AppUtil {
             intent.setType("image/png");
             context.startActivity(intent);
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
     }
 
@@ -777,7 +777,7 @@ public class AppUtil {
             Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + emailTo));
             context.startActivity(intent);
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
     }
 
@@ -794,7 +794,7 @@ public class AppUtil {
             intent.setType("message/rfc882");
             context.startActivity(Intent.createChooser(intent, "选择邮件客户端"));
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
         }
     }
 }

@@ -11,9 +11,9 @@ import java.util.Stack;
  * <p>
  * Created by treason on 16/5/14.
  */
-public class LogUtil {
+public class LogUtils {
 
-    private static final String TAG = LogUtil.class.getSimpleName();
+    private static final String TAG = LogUtils.class.getSimpleName();
 
     private static boolean mShow = true; // 配置是否显示LOG，默认显示
     private static boolean mShowPath = false; // 配置是否显示路径，默认隐藏
@@ -136,18 +136,18 @@ public class LogUtil {
 
     public static void traceStart(String tag) {
         traceTimeStack.push(System.currentTimeMillis());
-        LogUtil.i(TAG_TRACE_TIME + "-" + tag, "startTime = " + System.currentTimeMillis());
+        LogUtils.i(TAG_TRACE_TIME + "-" + tag, "startTime = " + System.currentTimeMillis());
     }
 
     public static void traceStop(String tag) {
         if (traceTimeStack.isEmpty()) {
-            LogUtil.e("traceTimeStack.isEmpty()");
+            LogUtils.e("traceTimeStack.isEmpty()");
             return;
         }
         long startTime = traceTimeStack.pop();
         long durationTime = System.currentTimeMillis() - startTime;
-        LogUtil.i(TAG_TRACE_TIME + "-" + tag, "endTime = " + System.currentTimeMillis());
-        LogUtil.i(TAG_TRACE_TIME + "-" + tag, "durationTime = " + durationTime + "ms");
+        LogUtils.i(TAG_TRACE_TIME + "-" + tag, "endTime = " + System.currentTimeMillis());
+        LogUtils.i(TAG_TRACE_TIME + "-" + tag, "durationTime = " + durationTime + "ms");
     }
 
     public static void traceReset() {
@@ -158,14 +158,14 @@ public class LogUtil {
      * 打印初始化信息
      */
     public static void printInit(String module) {
-        LogUtil.i(module, "初始化数据 -> " + module);
+        LogUtils.i(module, "初始化数据 -> " + module);
     }
 
     /**
      * 打印异常信息
      */
     public static void printStackTrace(Throwable throwable) {
-        LogUtil.e(buildMessage("printStackTrace"), throwable);
+        LogUtils.e(buildMessage("printStackTrace"), throwable);
         throwable.printStackTrace();
     }
 
@@ -178,7 +178,7 @@ public class LogUtil {
         for (int i = 0; i < activityList.size(); i++) {
             builder.append("\n").append(i).append(" -> ").append(activityList.get(i).getClass().getSimpleName());
         }
-        LogUtil.i(builder.toString());
+        LogUtils.i(builder.toString());
     }
 
     /**

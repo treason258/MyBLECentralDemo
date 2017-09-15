@@ -12,7 +12,7 @@ import java.util.Properties;
  * Created by treason on 2016/11/24.
  */
 
-public class RomUtil {
+public class RomUtils {
 
     /**
      * 考虑到的ROM枚举
@@ -91,7 +91,7 @@ public class RomUtil {
                     fis.close();
                     fis = null;
                 } catch (IOException e) {
-                    LogUtil.printStackTrace(e);
+                    LogUtils.printStackTrace(e);
                 } finally {
                     if (fis != null) {
                         try {
@@ -104,7 +104,7 @@ public class RomUtil {
             }
             return properties;
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
             return null;
         }
     }
@@ -115,7 +115,7 @@ public class RomUtil {
             properties.load(new FileInputStream(new File(Environment.getRootDirectory(), "build.prop")));
             return properties;
         } catch (IOException e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
             return null;
         }
     }
@@ -129,7 +129,7 @@ public class RomUtil {
             Method get = clz.getMethod("get", String.class, String.class);
             return (String) get.invoke(clz, key, defaultValue);
         } catch (Exception e) {
-            LogUtil.printStackTrace(e);
+            LogUtils.printStackTrace(e);
             return defaultValue;
         }
     }

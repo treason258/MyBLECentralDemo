@@ -4,9 +4,9 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public final class MD5Util {
+public final class MD5Utils {
 
-    private static final String TAG = MD5Util.class.getSimpleName();
+    private static final String TAG = MD5Utils.class.getSimpleName();
 
     public static final String MD5 = "MD5";
     public static final String SHA1 = "SHA1";

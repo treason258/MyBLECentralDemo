@@ -3,7 +3,7 @@ package com.mjiayou.trecorelib.helper;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.mjiayou.trecorelib.util.LogUtil;
+import com.mjiayou.trecorelib.util.LogUtils;
 
 /**
  * Created by treason on 2017/6/15.
@@ -23,7 +23,7 @@ public class TCHelper {
      * 初始化
      */
     public static void init(Context context, String appName) {
-        LogUtil.printInit(TAG);
+        LogUtils.printInit(TAG);
 
         if (context != null) {
             mContext = context;
@@ -42,7 +42,7 @@ public class TCHelper {
      */
     public static Context getContext() {
         if (mContext == null) {
-            LogUtil.e(TAG, ERROR_CONTEXT_NULL + " | " + CALL_INIT_FIRST);
+            LogUtils.e(TAG, ERROR_CONTEXT_NULL + " | " + CALL_INIT_FIRST);
             return null;
         }
         return mContext;

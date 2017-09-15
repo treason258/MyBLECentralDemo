@@ -8,11 +8,11 @@ import com.mjiayou.trecorelib.helper.TCHelper;
 /**
  * Created by treason on 15/6/14.
  */
-public class DirectoryUtil {
+public class DirectoryUtils {
 
-    private static final String TAG = DirectoryUtil.class.getSimpleName();
+    private static final String TAG = DirectoryUtils.class.getSimpleName();
 
-    private static DirectoryUtil mDirectoryUtil = null;
+    private static DirectoryUtils mDirectoryUtils = null;
 
     /**
      * 默认手机存储常用目录
@@ -48,10 +48,10 @@ public class DirectoryUtil {
     /**
      * 构造函数
      */
-    private DirectoryUtil() {
+    private DirectoryUtils() {
         Context context = TCHelper.getContext();
         if (context == null) {
-            LogUtil.e(TAG, TCHelper.ERROR_CONTEXT_NULL);
+            LogUtils.e(TAG, TCHelper.ERROR_CONTEXT_NULL);
             return;
         }
 
@@ -120,11 +120,11 @@ public class DirectoryUtil {
     /**
      * 单例模式
      */
-    public static DirectoryUtil get() {
-        if (mDirectoryUtil == null) {
-            mDirectoryUtil = new DirectoryUtil();
+    public static DirectoryUtils get() {
+        if (mDirectoryUtils == null) {
+            mDirectoryUtils = new DirectoryUtils();
         }
-        return mDirectoryUtil;
+        return mDirectoryUtils;
     }
 
     /**
