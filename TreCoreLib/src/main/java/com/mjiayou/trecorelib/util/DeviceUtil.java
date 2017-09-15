@@ -14,6 +14,7 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Debug;
 import android.os.Environment;
 import android.os.StatFs;
@@ -38,7 +39,7 @@ public class DeviceUtil {
     private final static String TAG = DeviceUtil.class.getSimpleName();
 
     /**
-     * 获得设备信息
+     * 获取设备信息
      */
     public static String getDeviceInfoStr(Context context) {
         StringBuilder builder = new StringBuilder();
@@ -70,7 +71,8 @@ public class DeviceUtil {
         builder.append("SubscriberId（IMSI国际移动客户识别码） = ").append(getIMSI(context)).append("\n");
         builder.append("PhoneNumber（手机号码） = ").append(getPhoneNumber(context)).append("\n");
         builder.append("SimSerialNumber（SIM卡序列号） = ").append(getSimSerialNumber(context)).append("\n");
-        builder.append("SimOperatorName（服务商） = ").append(getSimOperatorName(context)).append("\n");
+        builder.append("SimOperatorName（SIM卡运营商） = ").append(getSimOperatorName(context)).append("\n");
+        builder.append("NetworkOperatorName（网络运营商） = ").append(getNetworkOperatorName(context)).append("\n");
 
         // WifiManager
         builder.append("\n");
@@ -83,6 +85,10 @@ public class DeviceUtil {
         builder.append("**** LocationManager ****").append("\n");
         builder.append("Longitude（经度） = ").append(getLongitude(context)).append("\n");
         builder.append("Latitude（纬度） = ").append(getLatitude(context)).append("\n");
+        builder.append("Altitude（高度） = ").append(getAltitude(context)).append("\n");
+        builder.append("Provider（获取提供者） = ").append(getProvider(context)).append("\n");
+        builder.append("Accuracy（获取精确度） = ").append(getAccuracy(context)).append("\n");
+        builder.append("getExtras（获取Extras） = ").append(ConvertUtil.parseString(getExtras(context))).append("\n");
 
         // ConnectivityManager
         builder.append("\n");
@@ -168,7 +174,7 @@ public class DeviceUtil {
     // ******************************** getDisplayMetrics ********************************
 
     /**
-     * 获得DisplayMetrics对象
+     * 获取DisplayMetrics对象
      */
     private static DisplayMetrics getDisplayMetrics(Context context) {
         if (context instanceof Activity) {
@@ -181,7 +187,7 @@ public class DeviceUtil {
     }
 
     /**
-     * 获得屏幕尺寸
+     * 获取屏幕尺寸
      */
     public static String getScreenInfo(Context context) {
         DisplayMetrics displayMetrics = getDisplayMetrics(context);
@@ -192,7 +198,7 @@ public class DeviceUtil {
     }
 
     /**
-     * 获得屏幕宽度 - widthPixels
+     * 获取屏幕宽度 - widthPixels
      */
     public static int getScreenWidth(Context context) {
         DisplayMetrics displayMetrics = getDisplayMetrics(context);
@@ -203,7 +209,7 @@ public class DeviceUtil {
     }
 
     /**
-     * 获得屏幕高度 - heightPixels
+     * 获取屏幕高度 - heightPixels
      */
     public static int getScreenHeight(Context context) {
         DisplayMetrics displayMetrics = getDisplayMetrics(context);
@@ -214,7 +220,7 @@ public class DeviceUtil {
     }
 
     /**
-     * 获得Display对象
+     * 获取Display对象
      */
     private static Display getDisplay(Context context) {
         if (context instanceof Activity) {
@@ -224,7 +230,7 @@ public class DeviceUtil {
     }
 
     /**
-     * 获得屏幕尺寸
+     * 获取屏幕尺寸
      */
     @Deprecated
     public static String getScreenInfoByDisplay(Context context) {
@@ -238,7 +244,7 @@ public class DeviceUtil {
     // ******************************** getTelephonyManager ********************************
 
     /**
-     * 获得TelephonyManager对象
+     * 获取TelephonyManager对象
      */
     private static TelephonyManager getTelephonyManager(Context context) throws Exception {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -246,7 +252,7 @@ public class DeviceUtil {
     }
 
     /**
-     * 获得IMEI - telephonyManager.getDeviceId
+     * 获取IMEI - telephonyManager.getDeviceId
      */
     public static String getIMEI(Context context) {
         try {
@@ -262,7 +268,7 @@ public class DeviceUtil {
     }
 
     /**
-     * 获得IMSI - telephonyManager.getSubscriberId
+     * 获取IMSI - telephonyManager.getSubscriberId
      */
     public static String getIMSI(Context context) {
         try {
@@ -278,7 +284,7 @@ public class DeviceUtil {
     }
 
     /**
-     * 获得手机号 - telephonyManager.getLine1Number
+     * 获取手机号 - telephonyManager.getLine1Number
      */
     public static String getPhoneNumber(Context context) {
         try {
@@ -294,7 +300,7 @@ public class DeviceUtil {
     }
 
     /**
-     * 获得SIM卡序列号 - telephonyManager.getSimSerialNumber
+     * 获取SIM卡序列号 - telephonyManager.getSimSerialNumber
      */
     public static String getSimSerialNumber(Context context) {
         try {
@@ -310,7 +316,7 @@ public class DeviceUtil {
     }
 
     /**
-     * 获得服务商名称 - telephonyManager.getSimOperatorName
+     * 获取SIM卡运营商名称 - telephonyManager.getSimOperatorName
      */
     public static String getSimOperatorName(Context context) {
         try {
@@ -322,10 +328,23 @@ public class DeviceUtil {
         return null;
     }
 
+    /**
+     * 获取注册的网络运营商的名字 - telephonyManager.getNetworkOperatorName
+     */
+    public static String getNetworkOperatorName(Context context) {
+        try {
+            TelephonyManager telephonyManager = getTelephonyManager(context);
+            return telephonyManager.getNetworkOperatorName();
+        } catch (Exception e) {
+            LogUtil.printStackTrace(e);
+        }
+        return null;
+    }
+
     // ******************************** getWifiManager ********************************
 
     /**
-     * 获得WifiManager对象
+     * 获取WifiManager对象
      */
     private static WifiManager getWifiManager(Context context) throws Exception {
         WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -333,7 +352,7 @@ public class DeviceUtil {
     }
 
     /**
-     * 获得WifiInfo对象
+     * 获取WifiInfo对象
      */
     private static WifiInfo getWifiInfo(Context context) throws Exception {
         if (AppUtil.checkMissingPermission(context, Manifest.permission.ACCESS_WIFI_STATE)) {
@@ -344,7 +363,7 @@ public class DeviceUtil {
     }
 
     /**
-     * 获得Mac地址 - wifiInfo.getMacAddress()
+     * 获取Mac地址 - wifiInfo.getMacAddress()
      */
     public static String getMacAddress(Context context) {
         try {
@@ -357,7 +376,7 @@ public class DeviceUtil {
     }
 
     /**
-     * 获得SSID - wifiInfo.getSSID()
+     * 获取SSID - wifiInfo.getSSID()
      */
     public static String getSSID(Context context) {
         try {
@@ -372,7 +391,7 @@ public class DeviceUtil {
     // ******************************** getLocationManager ********************************
 
     /**
-     * 获得LocationManager对象
+     * 获取LocationManager对象
      */
     private static LocationManager getLocationManager(Context context) throws Exception {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -380,7 +399,7 @@ public class DeviceUtil {
     }
 
     /**
-     * 获得Location对象
+     * 获取Location对象
      */
     private static Location getLocation(Context context) throws Exception {
         if (AppUtil.checkMissingPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -393,7 +412,7 @@ public class DeviceUtil {
     }
 
     /**
-     * 获得经度（location.getLongitude()）
+     * 获取经度（location.getLongitude()）
      */
     public static double getLongitude(Context context) {
         try {
@@ -406,7 +425,7 @@ public class DeviceUtil {
     }
 
     /**
-     * 获得纬度（location.getLatitude()）
+     * 获取纬度（location.getLatitude()）
      */
     public static double getLatitude(Context context) {
         try {
@@ -418,10 +437,62 @@ public class DeviceUtil {
         return 0;
     }
 
+    /**
+     * 获取高度（location.getAltitude()）
+     */
+    public static double getAltitude(Context context) {
+        try {
+            Location location = getLocation(context);
+            return location.getAltitude();
+        } catch (Exception e) {
+            LogUtil.printStackTrace(e);
+        }
+        return 0;
+    }
+
+    /**
+     * 获取提供者（location.getProvider()）
+     */
+    public static String getProvider(Context context) {
+        try {
+            Location location = getLocation(context);
+            return location.getProvider();
+        } catch (Exception e) {
+            LogUtil.printStackTrace(e);
+        }
+        return null;
+    }
+
+    /**
+     * 获取精确度（location.getAccuracy()）
+     */
+    public static float getAccuracy(Context context) {
+        try {
+            Location location = getLocation(context);
+            return location.getAccuracy();
+        } catch (Exception e) {
+            LogUtil.printStackTrace(e);
+        }
+        return 0;
+    }
+
+    /**
+     * 获取Extras（location.getExtras()）
+     */
+    public static Bundle getExtras(Context context) {
+        try {
+            Location location = getLocation(context);
+            return location.getExtras();
+        } catch (Exception e) {
+            LogUtil.printStackTrace(e);
+        }
+        return null;
+    }
+
     // ******************************** getConnectivityManager ********************************
 
     /**
-     * 获得ConnectivityManager对象
+     * 获取ConnectivityManager对象
      */
     public static ConnectivityManager getConnectivityManager(Context context) throws Exception {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -429,7 +500,7 @@ public class DeviceUtil {
     }
 
     /**
-     * 获得NetworkInfo对象
+     * 获取NetworkInfo对象
      */
     public static NetworkInfo getNetworkInfo(Context context) throws Exception {
         if (AppUtil.checkMissingPermission(context, Manifest.permission.ACCESS_NETWORK_STATE)) {
@@ -584,7 +655,7 @@ public class DeviceUtil {
     // ******************************** other ********************************
 
     /**
-     * 获得手机唯一标识
+     * 获取手机唯一标识
      */
     public static String getUDID(Context context) {
         StringBuilder builder = new StringBuilder();
