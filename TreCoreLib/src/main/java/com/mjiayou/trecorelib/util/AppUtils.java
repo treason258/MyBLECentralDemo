@@ -51,7 +51,7 @@ public class AppUtils {
 
         builder.append("\n");
         builder.append("******** getDeviceInfoStr ********").append("\n");
-        builder.append(DeviceUtil.getDeviceInfoStr(context));
+        builder.append(DeviceUtils.getDeviceInfoStr(context));
 
         builder.append("\n");
         builder.append("******** getDirectoryInfoStr ********").append("\n");

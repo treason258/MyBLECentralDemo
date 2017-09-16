@@ -34,9 +34,9 @@ import java.util.UUID;
 /**
  * Created by treason on 15/6/8.
  */
-public class DeviceUtil {
+public class DeviceUtils {
 
-    private final static String TAG = DeviceUtil.class.getSimpleName();
+    private final static String TAG = DeviceUtils.class.getSimpleName();
 
     /**
      * 获取设备信息
