@@ -27,5 +27,5 @@ ext {
     compileSdkVersion = System.getProperty("android.compileSdkVersion") ?: 25
     buildToolsVersion = System.getProperty("android.buildToolsVersion") ?: "25.0.2"
     minSdkVersion = 15
-    targetSdkVersion = 25
+    targetSdkVersion = 19
 }
