@@ -13,6 +13,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.zip.GZIPInputStream;
 
@@ -98,6 +99,30 @@ public class ConvertUtils<T> {
                 result += array[i];
             } else {
                 result += (space + array[i]);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Set TO String
+     *
+     * @param space 间隔符
+     */
+    public static String parseString(Set<String> sets, String space) {
+        if (sets == null) {
+            return null;
+        }
+
+        String result = "";
+        for (String key : sets) {
+            if (key.equals("")) {
+                continue;
+            }
+            if (result.equals("")) {
+                result += key;
+            } else {
+                result += (space + key);
             }
         }
         return result;
