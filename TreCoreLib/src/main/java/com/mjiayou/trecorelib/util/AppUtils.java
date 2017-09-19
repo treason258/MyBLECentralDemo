@@ -28,7 +28,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by treason on 15/7/18.
+ * AppUtils
  */
 public class AppUtils {
 
@@ -75,6 +75,24 @@ public class AppUtils {
     public static String getAppInfoStr(Context context, String packageName) {
         StringBuilder builder = new StringBuilder();
 
+        // getBuildConfigInfoStr-trecorelib
+        try {
+            builder.append("\n");
+            builder.append("**** getBuildConfigInfoStr-trecorelib ****").append("\n");
+            builder.append(getBuildConfigInfoStr(com.mjiayou.trecorelib.BuildConfig.class));
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+
+        // getBuildConfigInfoStr-app
+        try {
+            builder.append("\n");
+            builder.append("**** getBuildConfigInfoStr-app ****").append("\n");
+            builder.append(getBuildConfigInfoStr(Class.forName(getPackageName(context) + ".BuildConfig")));
+        } catch (ClassNotFoundException e) {
+            LogUtils.printStackTrace(e);
+        }
+
         // getVersionInfoStr
         builder.append("\n");
         builder.append("**** getVersionInfoStr ****").append("\n");
@@ -90,24 +108,6 @@ public class AppUtils {
         builder.append("**** getApplicationInfoStr ****").append("\n");
         builder.append(getApplicationInfoStr(context, packageName));
 
-        // getBuildConfigInfoStr-app
-        try {
-            builder.append("\n");
-            builder.append("**** getBuildConfigInfoStr-app ****").append("\n");
-            builder.append(getBuildConfigInfoStr(Class.forName(getPackageName(context) + ".BuildConfig")));
-        } catch (ClassNotFoundException e) {
-            LogUtils.printStackTrace(e);
-        }
-
-        // getBuildConfigInfoStr-trecorelib
-        try {
-            builder.append("\n");
-            builder.append("**** getBuildConfigInfoStr-trecorelib ****").append("\n");
-            builder.append(getBuildConfigInfoStr(com.mjiayou.trecorelib.BuildConfig.class));
-        } catch (Exception e) {
-            LogUtils.printStackTrace(e);
-        }
-
         return builder.toString();
     }
 
@@ -118,6 +118,28 @@ public class AppUtils {
     public static String getAppInfoStr(Context context, ApplicationInfo applicationInfo) {
         return getAppInfoStr(context, applicationInfo.packageName);
     }
+
+    /**
+     * getBuildConfigInfoStr
+     */
+    public static String getBuildConfigInfoStr(Class clazz) {
+        try {
+            StringBuilder builder = new StringBuilder();
+            builder.append("BuildConfig = ").append(clazz.getName()).append("\n");
+
+            builder.append("** BuildConfig.class **").append("\n");
+            builder.append(ConvertUtils.parseString(clazz));
+            return builder.toString();
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return null;
+    }
+
+    public static String getBuildConfigInfoStr() {
+        return getBuildConfigInfoStr(com.mjiayou.trecorelib.BuildConfig.class);
+    }
+
 
     /**
      * getVersionInfoStr
@@ -193,31 +215,10 @@ public class AppUtils {
         return getApplicationInfoStr(context, context.getPackageName());
     }
 
-    /**
-     * getBuildConfigInfoStr
-     */
-    public static String getBuildConfigInfoStr(Class clazz) {
-        try {
-            StringBuilder builder = new StringBuilder();
-            builder.append("BuildConfig = ").append(clazz.getName()).append("\n");
-
-            builder.append("** BuildConfig.class **").append("\n");
-            builder.append(ConvertUtils.parseString(clazz));
-            return builder.toString();
-        } catch (Exception e) {
-            LogUtils.printStackTrace(e);
-        }
-        return null;
-    }
-
-    public static String getBuildConfigInfoStr() {
-        return getBuildConfigInfoStr(com.mjiayou.trecorelib.BuildConfig.class);
-    }
-
     // ******************************** getPackageManager ********************************
 
     /**
-     * 获取PackageManager
+     * 获取 PackageManager 对象
      */
     public static PackageManager getPackageManager(Context context) {
         return context.getPackageManager();
@@ -226,7 +227,7 @@ public class AppUtils {
     // ******************************** getPackageInfo ********************************
 
     /**
-     * 获得 PackageInfo 对象
+     * 获取 PackageInfo 对象
      */
     public static PackageInfo getPackageInfo(Context context, String packageName) throws PackageManager.NameNotFoundException {
         return getPackageManager(context).getPackageInfo(packageName, PackageManager.GET_SIGNATURES); // PackageManager.GET_ACTIVITIES
@@ -237,7 +238,7 @@ public class AppUtils {
     }
 
     /**
-     * 获得包名 - packageInfo.packageName
+     * 获取包名 - packageInfo.packageName
      */
     public static String getPackageName(Context context, String packageName) {
         try {
@@ -254,7 +255,7 @@ public class AppUtils {
     }
 
     /**
-     * 获得版本名 - packageInfo.versionName
+     * 获取版本名 - packageInfo.versionName
      */
     public static String getVersionName(Context context, String packageName) {
         try {
@@ -271,7 +272,7 @@ public class AppUtils {
     }
 
     /**
-     * 获得版本号 - packageInfo.versionCode
+     * 获取版本号 - packageInfo.versionCode
      */
     public static int getVersionCode(Context context, String packageName) {
         try {
@@ -324,7 +325,7 @@ public class AppUtils {
     }
 
     /**
-     * 获得应用名称
+     * 获取应用名称
      */
     public static String getLabel(Context context, String packageName) {
         try {
@@ -341,7 +342,7 @@ public class AppUtils {
     }
 
     /**
-     * 获得应用图标
+     * 获取应用图标
      */
     public static Drawable getIcon(Context context, String packageName) {
         try {
@@ -358,7 +359,7 @@ public class AppUtils {
     }
 
     /**
-     * 获得 DataDir
+     * 获取 DataDir
      */
     public static String getDataDir(Context context, String packageName) {
         try {
@@ -375,7 +376,7 @@ public class AppUtils {
     }
 
     /**
-     * 获得 SourceDir
+     * 获取 SourceDir
      */
     public static String getSourceDir(Context context, String packageName) {
         try {
@@ -392,7 +393,7 @@ public class AppUtils {
     }
 
     /**
-     * 获得 PublicSourceDir
+     * 获取 PublicSourceDir
      */
     public static String getPublicSourceDir(Context context, String packageName) {
         try {
