@@ -14,6 +14,7 @@ import java.util.Stack;
 public class LogUtils {
 
     private static final String TAG = LogUtils.class.getSimpleName();
+    private static final String EXCEPTION_STRING = "";
 
     private static boolean mShow = true; // 配置是否显示LOG，默认显示
     private static boolean mShowPath = false; // 配置是否显示路径，默认隐藏
@@ -44,14 +45,22 @@ public class LogUtils {
      * Send a VERBOSE log message.
      */
     public static void v(String tag, String msg) {
-        if (mShow) {
-            Log.v(TAG + "-" + tag, buildMessage(msg));
+        try {
+            if (mShow) {
+                Log.v(TAG + "-" + tag, buildMessage(msg));
+            }
+        } catch (Exception e) {
+            printStackTrace(e);
         }
     }
 
     public static void v(String msg) {
-        if (mShow) {
-            Log.v(TAG, buildMessage(msg));
+        try {
+            if (mShow) {
+                Log.v(TAG, buildMessage(msg));
+            }
+        } catch (Exception e) {
+            printStackTrace(e);
         }
     }
 
@@ -59,14 +68,22 @@ public class LogUtils {
      * Send a DEBUG log message.
      */
     public static void d(String tag, String msg) {
-        if (mShow) {
-            Log.d(TAG + "-" + tag, buildMessage(msg));
+        try {
+            if (mShow) {
+                Log.d(TAG + "-" + tag, buildMessage(msg));
+            }
+        } catch (Exception e) {
+            printStackTrace(e);
         }
     }
 
     public static void d(String msg) {
-        if (mShow) {
-            Log.d(TAG, buildMessage(msg));
+        try {
+            if (mShow) {
+                Log.d(TAG, buildMessage(msg));
+            }
+        } catch (Exception e) {
+            printStackTrace(e);
         }
     }
 
@@ -74,14 +91,22 @@ public class LogUtils {
      * Send an INFO log message.
      */
     public static void i(String tag, String msg) {
-        if (mShow) {
-            Log.i(TAG + "-" + tag, buildMessage(msg));
+        try {
+            if (mShow) {
+                Log.i(TAG + "-" + tag, buildMessage(msg));
+            }
+        } catch (Exception e) {
+            printStackTrace(e);
         }
     }
 
     public static void i(String msg) {
-        if (mShow) {
-            Log.i(TAG, buildMessage(msg));
+        try {
+            if (mShow) {
+                Log.i(TAG, buildMessage(msg));
+            }
+        } catch (Exception e) {
+            printStackTrace(e);
         }
     }
 
@@ -89,41 +114,65 @@ public class LogUtils {
      * Send a WARN log message
      */
     public static void w(String tag, String msg) {
-        if (mShow) {
-            Log.w(TAG + "-" + tag, buildMessage(msg));
+        try {
+            if (mShow) {
+                Log.w(TAG + "-" + tag, buildMessage(msg));
+            }
+        } catch (Exception e) {
+            printStackTrace(e);
         }
     }
 
     public static void w(String msg) {
-        if (mShow) {
-            Log.w(TAG, buildMessage(msg));
+        try {
+            if (mShow) {
+                Log.w(TAG, buildMessage(msg));
+            }
+        } catch (Exception e) {
+            printStackTrace(e);
         }
     }
 
     /**
      * Send an ERROR log message.
      */
-    public static void e(String tag, String msg, Throwable throwable) {
-        if (mShow) {
-            Log.e(TAG + "-" + tag, buildMessage(msg), throwable);
-        }
-    }
-
     public static void e(String tag, String msg) {
-        if (mShow) {
-            Log.e(TAG + "-" + tag, buildMessage(msg));
+        try {
+            if (mShow) {
+                Log.e(TAG + "-" + tag, buildMessage(msg));
+            }
+        } catch (Exception e) {
+            printStackTrace(e);
         }
     }
 
     public static void e(String msg) {
-        if (mShow) {
-            Log.e(TAG, buildMessage(msg));
+        try {
+            if (mShow) {
+                Log.e(TAG, buildMessage(msg));
+            }
+        } catch (Exception e) {
+            printStackTrace(e);
+        }
+    }
+
+    public static void e(String tag, String msg, Throwable throwable) {
+        try {
+            if (mShow) {
+                Log.e(TAG + "-" + tag, buildMessage(msg), throwable);
+            }
+        } catch (Exception e) {
+            printStackTrace(e);
         }
     }
 
     public static void e(String msg, Throwable throwable) {
-        if (mShow) {
-            Log.e(TAG, buildMessage(msg), throwable);
+        try {
+            if (mShow) {
+                Log.e(TAG, buildMessage(msg), throwable);
+            }
+        } catch (Exception e) {
+            printStackTrace(e);
         }
     }
 
@@ -135,81 +184,110 @@ public class LogUtils {
     private static Stack<Long> traceTimeStack = new Stack<>();
 
     public static void traceStart(String tag) {
-        traceTimeStack.push(System.currentTimeMillis());
-        LogUtils.i(TAG_TRACE_TIME + "-" + tag, "startTime = " + System.currentTimeMillis());
+        try {
+            traceTimeStack.push(System.currentTimeMillis());
+            LogUtils.i(TAG_TRACE_TIME + "-" + tag, "startTime = " + System.currentTimeMillis());
+        } catch (Exception e) {
+            printStackTrace(e);
+        }
     }
 
     public static void traceStop(String tag) {
-        if (traceTimeStack.isEmpty()) {
-            LogUtils.e("traceTimeStack.isEmpty()");
-            return;
+        try {
+            if (traceTimeStack.isEmpty()) {
+                LogUtils.e("traceTimeStack.isEmpty()");
+                return;
+            }
+            long startTime = traceTimeStack.pop();
+            long durationTime = System.currentTimeMillis() - startTime;
+            LogUtils.i(TAG_TRACE_TIME + "-" + tag, "endTime = " + System.currentTimeMillis());
+            LogUtils.i(TAG_TRACE_TIME + "-" + tag, "durationTime = " + durationTime + "ms");
+        } catch (Exception e) {
+            printStackTrace(e);
         }
-        long startTime = traceTimeStack.pop();
-        long durationTime = System.currentTimeMillis() - startTime;
-        LogUtils.i(TAG_TRACE_TIME + "-" + tag, "endTime = " + System.currentTimeMillis());
-        LogUtils.i(TAG_TRACE_TIME + "-" + tag, "durationTime = " + durationTime + "ms");
     }
 
     public static void traceReset() {
-        traceTimeStack.clear();
+        try {
+            traceTimeStack.clear();
+        } catch (Exception e) {
+            printStackTrace(e);
+        }
     }
 
     /**
      * 打印初始化信息
      */
     public static void printInit(String module) {
-        LogUtils.i(module, "初始化数据 -> " + module);
-    }
-
-    /**
-     * 打印异常信息
-     */
-    public static void printStackTrace(Throwable throwable) {
-        LogUtils.e(buildMessage("printStackTrace"), throwable);
-        throwable.printStackTrace();
+        try {
+            LogUtils.i(module, "初始化数据 -> " + module);
+        } catch (Exception e) {
+            printStackTrace(e);
+        }
     }
 
     /**
      * 打印 ActivityManager
      */
     public static void printActivityList(LinkedList<Activity> activityList) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("printActivityList | size -> ").append(activityList.size());
-        for (int i = 0; i < activityList.size(); i++) {
-            builder.append("\n").append(i).append(" -> ").append(activityList.get(i).getClass().getSimpleName());
+        try {
+            StringBuilder builder = new StringBuilder();
+            builder.append("printActivityList | size -> ").append(activityList.size());
+            for (int i = 0; i < activityList.size(); i++) {
+                builder.append("\n").append(i).append(" -> ").append(activityList.get(i).getClass().getSimpleName());
+            }
+            LogUtils.i(builder.toString());
+        } catch (Exception e) {
+            printStackTrace(e);
         }
-        LogUtils.i(builder.toString());
     }
 
     /**
      * Building Message
      */
     private static String buildMessage(String msg) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(msg);
-        if (mShowPath) {
-            for (int i = 0; i < mPathLine; i++) {
-                if (i == 0 || i == 1) { // 因为封装过程中已经有两层为固定的
-                    continue;
-                }
-                
-                StackTraceElement caller = new Throwable().fillInStackTrace().getStackTrace()[i];
-                if (caller == null) {
-                    continue;
-                }
+        try {
+            StringBuilder builder = new StringBuilder();
+            builder.append(msg);
+            if (mShowPath) {
+                for (int i = 0; i < mPathLine; i++) {
+                    if (i == 0 || i == 1) { // 因为封装过程中已经有两层为固定的
+                        continue;
+                    }
 
-                builder.append("\n");
-                builder.append("at ");
-                builder.append(caller.getClassName());
-                builder.append(".");
-                builder.append(caller.getMethodName());
-                builder.append("(");
-                builder.append(caller.getFileName());
-                builder.append(":");
-                builder.append(caller.getLineNumber());
-                builder.append(")");
+                    StackTraceElement caller = new Throwable().fillInStackTrace().getStackTrace()[i];
+                    if (caller == null) {
+                        continue;
+                    }
+
+                    builder.append("\n");
+                    builder.append("at ");
+                    builder.append(caller.getClassName());
+                    builder.append(".");
+                    builder.append(caller.getMethodName());
+                    builder.append("(");
+                    builder.append(caller.getFileName());
+                    builder.append(":");
+                    builder.append(caller.getLineNumber());
+                    builder.append(")");
+                }
             }
+            return builder.toString();
+        } catch (Exception e) {
+            printStackTrace(e);
+            return EXCEPTION_STRING;
         }
-        return builder.toString();
+    }
+
+    /**
+     * 打印异常信息
+     */
+    public static void printStackTrace(Throwable throwable) {
+        throwable.printStackTrace();
+        try {
+            LogUtils.e(buildMessage("printStackTrace"), throwable);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
