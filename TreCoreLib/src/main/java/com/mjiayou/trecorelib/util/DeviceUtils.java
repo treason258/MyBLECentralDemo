@@ -47,8 +47,6 @@ import java.util.UUID;
 public class DeviceUtils {
 
     private final static String TAG = DeviceUtils.class.getSimpleName();
-    private static final String EXCEPTION_STRING = "";
-    private static final String EXCEPTION_OBJECT = null;
 
     /**
      * 获取设备信息
@@ -162,8 +160,8 @@ public class DeviceUtils {
             return builder.toString();
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
-            return EXCEPTION_STRING;
         }
+        return "";
     }
 
     // ******************************** java.util.Locale ********************************
@@ -185,8 +183,8 @@ public class DeviceUtils {
             return java.util.Locale.getDefault().getLanguage();
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
-            return EXCEPTION_STRING;
         }
+        return "";
     }
 
     // ******************************** DisplayMetrics ********************************
@@ -195,33 +193,46 @@ public class DeviceUtils {
      * 获取DisplayMetrics对象
      */
     private static DisplayMetrics getDisplayMetrics(Context context) {
-        if (context instanceof Activity) {
-            DisplayMetrics displayMetrics = new DisplayMetrics();
-            ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-            return displayMetrics;
-        } else {
-            return context.getResources().getDisplayMetrics();
+        try {
+            if (context instanceof Activity) {
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                return displayMetrics;
+            } else {
+                return context.getResources().getDisplayMetrics();
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
         }
+        return null;
     }
 
     /**
      * 获取屏幕尺寸
      */
     public static String getScreenInfo(Context context) {
-        DisplayMetrics displayMetrics = getDisplayMetrics(context);
-        if (displayMetrics != null) {
-            return displayMetrics.widthPixels + "*" + displayMetrics.heightPixels;
+        try {
+            DisplayMetrics displayMetrics = getDisplayMetrics(context);
+            if (displayMetrics != null) {
+                return displayMetrics.widthPixels + "*" + displayMetrics.heightPixels;
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
         }
-        return null;
+        return "";
     }
 
     /**
      * 获取屏幕宽度 - widthPixels
      */
     public static int getScreenWidth(Context context) {
-        DisplayMetrics displayMetrics = getDisplayMetrics(context);
-        if (displayMetrics != null) {
-            return displayMetrics.widthPixels;
+        try {
+            DisplayMetrics displayMetrics = getDisplayMetrics(context);
+            if (displayMetrics != null) {
+                return displayMetrics.widthPixels;
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
         }
         return 0;
     }
@@ -230,9 +241,13 @@ public class DeviceUtils {
      * 获取屏幕高度 - heightPixels
      */
     public static int getScreenHeight(Context context) {
-        DisplayMetrics displayMetrics = getDisplayMetrics(context);
-        if (displayMetrics != null) {
-            return displayMetrics.heightPixels;
+        try {
+            DisplayMetrics displayMetrics = getDisplayMetrics(context);
+            if (displayMetrics != null) {
+                return displayMetrics.heightPixels;
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
         }
         return 0;
     }
@@ -241,9 +256,13 @@ public class DeviceUtils {
      * 获取屏幕高度 - heightPixels
      */
     public static int getDensityDpi(Context context) {
-        DisplayMetrics displayMetrics = getDisplayMetrics(context);
-        if (displayMetrics != null) {
-            return displayMetrics.densityDpi;
+        try {
+            DisplayMetrics displayMetrics = getDisplayMetrics(context);
+            if (displayMetrics != null) {
+                return displayMetrics.densityDpi;
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
         }
         return 0;
     }
@@ -252,8 +271,12 @@ public class DeviceUtils {
      * 获取Display对象
      */
     private static Display getDisplay(Context context) {
-        if (context instanceof Activity) {
-            return ((Activity) context).getWindowManager().getDefaultDisplay();
+        try {
+            if (context instanceof Activity) {
+                return ((Activity) context).getWindowManager().getDefaultDisplay();
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
         }
         return null;
     }
@@ -263,14 +286,23 @@ public class DeviceUtils {
      */
     @Deprecated
     public static String getScreenInfoByDisplay(Context context) {
-        Display display = getDisplay(context);
-        if (display != null) {
-            return display.getWidth() + "*" + display.getHeight();
+        try {
+            Display display = getDisplay(context);
+            if (display != null) {
+                return display.getWidth() + "*" + display.getHeight();
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
         }
-        return null;
+        return "";
     }
 
     // ******************************** TelephonyManager ********************************
+
+//    try {
+//    } catch (Exception e) {
+//        LogUtils.printStackTrace(e);
+//    }
 
     /**
      * 获取TelephonyManager对象
