@@ -299,17 +299,17 @@ public class DeviceUtils {
 
     // ******************************** TelephonyManager ********************************
 
-//    try {
-//    } catch (Exception e) {
-//        LogUtils.printStackTrace(e);
-//    }
-
     /**
      * 获取TelephonyManager对象
      */
     private static TelephonyManager getTelephonyManager(Context context) throws Exception {
-        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        return telephonyManager;
+        try {
+            TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            return telephonyManager;
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return null;
     }
 
     /**
@@ -321,11 +321,13 @@ public class DeviceUtils {
                 return null;
             }
             TelephonyManager telephonyManager = getTelephonyManager(context);
-            return telephonyManager.getDeviceId();
+            if (telephonyManager != null) {
+                return telephonyManager.getDeviceId();
+            }
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
         }
-        return null;
+        return "";
     }
 
     /**
@@ -337,11 +339,13 @@ public class DeviceUtils {
                 return null;
             }
             TelephonyManager telephonyManager = getTelephonyManager(context);
-            return telephonyManager.getSubscriberId();
+            if (telephonyManager != null) {
+                return telephonyManager.getSubscriberId();
+            }
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
         }
-        return null;
+        return "";
     }
 
     /**
@@ -353,11 +357,13 @@ public class DeviceUtils {
                 return null;
             }
             TelephonyManager telephonyManager = getTelephonyManager(context);
-            return telephonyManager.getLine1Number();
+            if (telephonyManager != null) {
+                return telephonyManager.getLine1Number();
+            }
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
         }
-        return null;
+        return "";
     }
 
     /**
@@ -369,11 +375,13 @@ public class DeviceUtils {
                 return null;
             }
             TelephonyManager telephonyManager = getTelephonyManager(context);
-            return telephonyManager.getSimSerialNumber();
+            if (telephonyManager != null) {
+                return telephonyManager.getSimSerialNumber();
+            }
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
         }
-        return null;
+        return "";
     }
 
     /**
@@ -382,11 +390,13 @@ public class DeviceUtils {
     public static String getSimOperatorName(Context context) {
         try {
             TelephonyManager telephonyManager = getTelephonyManager(context);
-            return telephonyManager.getSimOperatorName();
+            if (telephonyManager != null) {
+                return telephonyManager.getSimOperatorName();
+            }
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
         }
-        return null;
+        return "";
     }
 
     /**
@@ -395,11 +405,13 @@ public class DeviceUtils {
     public static String getNetworkOperatorName(Context context) {
         try {
             TelephonyManager telephonyManager = getTelephonyManager(context);
-            return telephonyManager.getNetworkOperatorName();
+            if (telephonyManager != null) {
+                return telephonyManager.getNetworkOperatorName();
+            }
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
         }
-        return null;
+        return "";
     }
 
     // ******************************** getWifiManager ********************************
@@ -408,6 +420,10 @@ public class DeviceUtils {
      * 获取WifiManager对象
      */
     private static WifiManager getWifiManager(Context context) throws Exception {
+        try {
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
         WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         return wifiManager;
     }
