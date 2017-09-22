@@ -430,7 +430,7 @@ public class AppUtils {
 //        }
 
         if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
-            LogUtils.printStackTrace(new Exception("Missing permissions: " + permission)); // Missing permissions required by Intent.ACTION_CALL: android.permission.CALL_PHONE
+            LogUtils.printStackTrace(new Exception("TreCore Missing permissions: " + permission)); // Missing permissions required by Intent.ACTION_CALL: android.permission.CALL_PHONE
             return true;
         } else {
             return false;
