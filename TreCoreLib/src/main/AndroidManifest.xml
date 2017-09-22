@@ -1,13 +1,36 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mjiayou.trecorelib">
 
+    <!-- READ_PHONE_STATE -->
+    <!-- telephonyManager.getDeviceId(); -->
+    <!-- telephonyManager.getSubscriberId(); -->
+    <!-- telephonyManager.getLine1Number(); -->
+    <!-- telephonyManager.getSimSerialNumber(); -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- ACCESS_WIFI_STATE -->
+    <!-- wifiManager.getConnectionInfo(); -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!-- ACCESS_NETWORK_STATE -->
+    <!-- connectivityManager.getActiveNetworkInfo(); -->
+    <!-- connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI) -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION -->
+    <!-- locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER); -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <!-- CHANGE_WIFI_STATE -->
+    <!-- wifiManager.setWifiEnabled(true) -->
+    <!--<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />-->
+
+    <!-- CALL_PHONE -->
+    <!--<uses-permission android:name="android.permission.CALL_PHONE" />-->
+
+    <!-- VIBRATE -->
+    <!--<uses-permission android:name="android.permission.VIBRATE" />-->
 
     <application
         android:allowBackup="true"
