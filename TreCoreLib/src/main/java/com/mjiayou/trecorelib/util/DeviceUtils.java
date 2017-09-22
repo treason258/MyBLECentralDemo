@@ -105,8 +105,8 @@ public class DeviceUtils {
             builder.append("**** ConnectivityManager ****").append("\n");
             builder.append("网络是否连接 = ").append(isNetConnected(context)).append("\n");
             builder.append("网络是否是wifi连接 = ").append(isWifiConnected(context)).append("\n");
-            builder.append("MAC地址 = ").append(getMACAddress(context)).append("\n");
-            builder.append("IP地址 = ").append(getIPAddress(context)).append("\n");
+            builder.append("MAC地址 = ").append(getMacAddress(context)).append("\n");
+            builder.append("IP地址 = ").append(getIpAddress(context)).append("\n");
 
             // StatFs
             builder.append("\n");
@@ -415,27 +415,43 @@ public class DeviceUtils {
 
     // ******************************** getWifiManager ********************************
 
+//    try {
+//    } catch (Exception e) {
+//        LogUtils.printStackTrace(e);
+//    }
+
+//    if (AppUtils.checkMissingPermission(context, Manifest.permission.ACCESS_WIFI_STATE)) {
+//        return null;
+//    }
+
     /**
      * 获取WifiManager对象
      */
     private static WifiManager getWifiManager(Context context) throws Exception {
         try {
+            return (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
         }
-        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        return wifiManager;
+        return null;
     }
 
     /**
      * 获取WifiInfo对象
      */
     private static WifiInfo getConnectionInfo(Context context) throws Exception {
-        if (AppUtils.checkMissingPermission(context, Manifest.permission.ACCESS_WIFI_STATE)) {
-            return null;
+        try {
+            if (AppUtils.checkMissingPermission(context, Manifest.permission.ACCESS_WIFI_STATE)) {
+                return null;
+            }
+            WifiManager wifiManager = getWifiManager(context);
+            if (wifiManager != null) {
+                return wifiManager.getConnectionInfo();
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
         }
-        WifiManager wifiManager = getWifiManager(context);
-        return wifiManager.getConnectionInfo();
+        return null;
     }
 
     /**
@@ -444,11 +460,13 @@ public class DeviceUtils {
     public static String getSSID(Context context) {
         try {
             WifiInfo wifiInfo = getConnectionInfo(context);
-            return wifiInfo.getSSID();
+            if (wifiInfo != null) {
+                return wifiInfo.getSSID();
+            }
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
         }
-        return null;
+        return "";
     }
 
     // ******************************** getLocationManager ********************************
@@ -457,21 +475,31 @@ public class DeviceUtils {
      * 获取LocationManager对象
      */
     private static LocationManager getLocationManager(Context context) throws Exception {
-        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        return locationManager;
+        try {
+            return (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return null;
     }
 
     /**
      * 获取Location对象
      */
     private static Location getLocation(Context context) throws Exception {
-        if (AppUtils.checkMissingPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
-                && AppUtils.checkMissingPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)) {
-            return null;
+        try {
+            if (AppUtils.checkMissingPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
+                    && AppUtils.checkMissingPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                return null;
+            }
+            LocationManager locationManager = getLocationManager(context);
+            if (locationManager != null) {
+                return locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
         }
-        LocationManager locationManager = getLocationManager(context);
-        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        return location;
+        return null;
     }
 
     /**
@@ -480,11 +508,13 @@ public class DeviceUtils {
     public static double getLongitude(Context context) {
         try {
             Location location = getLocation(context);
-            return location.getLongitude();
+            if (location != null) {
+                return location.getLongitude();
+            }
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
         }
-        return 0;
+        return 0d;
     }
 
     /**
@@ -493,11 +523,13 @@ public class DeviceUtils {
     public static double getLatitude(Context context) {
         try {
             Location location = getLocation(context);
-            return location.getLatitude();
+            if (location != null) {
+                return location.getLatitude();
+            }
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
         }
-        return 0;
+        return 0d;
     }
 
     /**
@@ -506,11 +538,13 @@ public class DeviceUtils {
     public static double getAltitude(Context context) {
         try {
             Location location = getLocation(context);
-            return location.getAltitude();
+            if (location != null) {
+                return location.getAltitude();
+            }
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
         }
-        return 0;
+        return 0d;
     }
 
     /**
@@ -519,11 +553,13 @@ public class DeviceUtils {
     public static String getProvider(Context context) {
         try {
             Location location = getLocation(context);
-            return location.getProvider();
+            if (location != null) {
+                return location.getProvider();
+            }
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
         }
-        return null;
+        return "";
     }
 
     /**
@@ -532,11 +568,13 @@ public class DeviceUtils {
     public static float getAccuracy(Context context) {
         try {
             Location location = getLocation(context);
-            return location.getAccuracy();
+            if (location != null) {
+                return location.getAccuracy();
+            }
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
         }
-        return 0;
+        return 0f;
     }
 
     /**
@@ -545,7 +583,9 @@ public class DeviceUtils {
     public static Bundle getExtras(Context context) {
         try {
             Location location = getLocation(context);
-            return location.getExtras();
+            if (location != null) {
+                return location.getExtras();
+            }
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
         }
@@ -558,19 +598,30 @@ public class DeviceUtils {
      * 获取ConnectivityManager对象
      */
     public static ConnectivityManager getConnectivityManager(Context context) throws Exception {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        return connectivityManager;
+        try {
+            return (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return null;
     }
 
     /**
      * 获取NetworkInfo对象
      */
     public static NetworkInfo getActiveNetworkInfo(Context context) throws Exception {
-        if (AppUtils.checkMissingPermission(context, Manifest.permission.ACCESS_NETWORK_STATE)) {
-            return null;
+        try {
+            if (AppUtils.checkMissingPermission(context, Manifest.permission.ACCESS_NETWORK_STATE)) {
+                return null;
+            }
+            ConnectivityManager connectivityManager = getConnectivityManager(context);
+            if (connectivityManager != null) {
+                return connectivityManager.getActiveNetworkInfo();
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
         }
-        ConnectivityManager connectivityManager = getConnectivityManager(context);
-        return connectivityManager.getActiveNetworkInfo();
+        return null;
     }
 
     /**
@@ -594,7 +645,7 @@ public class DeviceUtils {
     public static boolean isWifiConnected(Context context) {
         try {
             NetworkInfo networkInfo = getActiveNetworkInfo(context);
-            if (isNetConnected(context) && networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+            if (isNetConnected(context) && networkInfo != null && networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
                 return true;
             }
         } catch (Exception e) {
@@ -606,90 +657,107 @@ public class DeviceUtils {
     /**
      * 获取Mac地址
      */
-    public static String getMACAddress(Context context) {
-        String macAddress;
+    public static String getMacAddress(Context context) {
         try {
             ConnectivityManager connectivityManager = getConnectivityManager(context);
-            NetworkInfo.State wifiState = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState();
-            if (wifiState == NetworkInfo.State.CONNECTED) { // 判断当前是否使用wifi连接
-                WifiManager wifiManager = getWifiManager(context);
-                if (!wifiManager.isWifiEnabled()) { // 如果当前wifi不可用
-                    wifiManager.setWifiEnabled(true);
+            if (connectivityManager != null) {
+                NetworkInfo.State wifiState = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState();
+                if (wifiState != null && wifiState == NetworkInfo.State.CONNECTED) { // 判断当前是否使用wifi连接
+                    WifiManager wifiManager = getWifiManager(context);
+                    if (wifiManager != null) {
+                        if (!wifiManager.isWifiEnabled()) { // 如果当前wifi不可用
+                            wifiManager.setWifiEnabled(true);
+                        }
+                        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+                        if (wifiInfo != null) {
+                            String macAddress = wifiInfo.getMacAddress();
+                            if (TextUtils.isEmpty(macAddress) || "02:00:00:00:00:00".equals(macAddress)) {
+                                macAddress = getMacAddressByFile();
+                            }
+                            return macAddress;
+                        }
+                    }
                 }
-                WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-                macAddress = wifiInfo.getMacAddress();
-
-                if (TextUtils.isEmpty(macAddress) || "02:00:00:00:00:00".equals(macAddress)) {
-                    macAddress = getAddressMacByFile();
-                }
-                return macAddress;
             }
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
         }
-        return null;
+        return "";
     }
 
-    private static String getAddressMacByFile() {
-        String ret = null;
+    private static String getMacAddressByFile() {
         try {
-            ret = loadFileAsString("/sys/class/net/wlan0/address");
-            if (TextUtils.isEmpty(ret)) {
-                ret = loadFileAsString("/sys/class/net/eth0/address");
+            String macAddress = loadFileAsString("/sys/class/net/wlan0/address");
+            if (TextUtils.isEmpty(macAddress)) {
+                macAddress = loadFileAsString("/sys/class/net/eth0/address");
             }
+            return macAddress;
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtils.printStackTrace(e);
         }
-        return ret;
+        return "";
     }
 
-    private static String loadFileAsString(String fileName) throws Exception {
-        FileReader reader = new FileReader(fileName);
-        String text = loadReaderAsString(reader);
-        reader.close();
-        return text.substring(0, 17);
+    private static String loadFileAsString(String fileName) {
+        try {
+            FileReader reader = new FileReader(fileName);
+            String text = loadReaderAsString(reader);
+            reader.close();
+            return text.substring(0, 17);
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return "";
     }
 
-    private static String loadReaderAsString(Reader reader) throws Exception {
-        StringBuilder builder = new StringBuilder();
-        char[] buffer = new char[4096];
-        int readLength = reader.read(buffer);
-        while (readLength >= 0) {
-            builder.append(buffer, 0, readLength);
-            readLength = reader.read(buffer);
+    private static String loadReaderAsString(Reader reader) {
+        try {
+            StringBuilder builder = new StringBuilder();
+            char[] buffer = new char[4096];
+            int readLength = reader.read(buffer);
+            while (readLength >= 0) {
+                builder.append(buffer, 0, readLength);
+                readLength = reader.read(buffer);
+            }
+            return builder.toString();
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
         }
-        return builder.toString();
+        return "";
     }
 
     /**
      * 获取IP地址
      */
-    public static String getIPAddress(Context context) {
+    public static String getIpAddress(Context context) {
         try {
             ConnectivityManager connectivityManager = getConnectivityManager(context);
-            NetworkInfo mobileNetworkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-            NetworkInfo wifiNetworkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-            if (mobileNetworkInfo.isConnected()) {
-                return getLocalIpAddress();
-            } else if (wifiNetworkInfo.isConnected()) {
-                WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-                WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-                int ipAddress = wifiInfo.getIpAddress();
-                return intToIp(ipAddress);
+            if (connectivityManager != null) {
+                NetworkInfo mobileNetworkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+                NetworkInfo wifiNetworkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                if (mobileNetworkInfo != null && mobileNetworkInfo.isConnected()) {
+                    return getIpAddressByLocal();
+                } else if (wifiNetworkInfo != null && wifiNetworkInfo.isConnected()) {
+                    WifiInfo wifiInfo = getConnectionInfo(context);
+                    if (wifiInfo != null) {
+                        int ipAddress = wifiInfo.getIpAddress();
+                        return intToIp(ipAddress);
+                    }
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return "";
     }
 
-    private static String getLocalIpAddress() {
+    private static String getIpAddressByLocal() {
         try {
             ArrayList<NetworkInterface> networkInterfaceList = Collections.list(NetworkInterface.getNetworkInterfaces());
             for (NetworkInterface networkInterface : networkInterfaceList) {
                 ArrayList<InetAddress> inetAddressList = Collections.list(networkInterface.getInetAddresses());
                 for (InetAddress inetAddress : inetAddressList) {
-                    if (!inetAddress.isLoopbackAddress() && (inetAddress instanceof Inet4Address)) {
+                    if (inetAddress != null && !inetAddress.isLoopbackAddress() && (inetAddress instanceof Inet4Address)) {
                         return inetAddress.getHostAddress();
                     }
                 }
@@ -697,16 +765,21 @@ public class DeviceUtils {
         } catch (SocketException e) {
             LogUtils.printStackTrace(e);
         }
-        return null;
+        return "";
     }
 
     private static String intToIp(int ipInt) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(ipInt & 0xFF).append(".");
-        builder.append((ipInt >> 8) & 0xFF).append(".");
-        builder.append((ipInt >> 16) & 0xFF).append(".");
-        builder.append((ipInt >> 24) & 0xFF);
-        return builder.toString();
+        try {
+            StringBuilder builder = new StringBuilder();
+            builder.append(ipInt & 0xFF).append(".");
+            builder.append((ipInt >> 8) & 0xFF).append(".");
+            builder.append((ipInt >> 16) & 0xFF).append(".");
+            builder.append((ipInt >> 24) & 0xFF);
+            return builder.toString();
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return "";
     }
 
     // ******************************** StatFs ********************************
@@ -717,11 +790,16 @@ public class DeviceUtils {
      * 单位：字节（B）
      */
     public static float getInternalTotalMemorySize() {
-        File path = Environment.getDataDirectory();
-        StatFs stat = new StatFs(path.getPath());
-        long blockSize = stat.getBlockSize();
-        float totalBlocks = stat.getBlockCount();
-        return totalBlocks * blockSize;
+        try {
+            File path = Environment.getDataDirectory();
+            StatFs stat = new StatFs(path.getPath());
+            long blockSize = stat.getBlockSize();
+            float totalBlocks = stat.getBlockCount();
+            return totalBlocks * blockSize;
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return 0f;
     }
 
     /**
@@ -730,11 +808,16 @@ public class DeviceUtils {
      * 单位：字节（B）
      */
     public static float getInternalAvailableMemorySize() {
-        File path = Environment.getDataDirectory();
-        StatFs stat = new StatFs(path.getPath());
-        long blockSize = stat.getBlockSize();
-        float availableBlocks = stat.getAvailableBlocks();
-        return availableBlocks * blockSize;
+        try {
+            File path = Environment.getDataDirectory();
+            StatFs stat = new StatFs(path.getPath());
+            long blockSize = stat.getBlockSize();
+            float availableBlocks = stat.getAvailableBlocks();
+            return availableBlocks * blockSize;
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return 0f;
     }
 
     /**
@@ -743,7 +826,12 @@ public class DeviceUtils {
      * 单位：字节（B）
      */
     public static float getInternalUsedMemorySize() {
-        return getInternalTotalMemorySize() - getInternalAvailableMemorySize();
+        try {
+            return getInternalTotalMemorySize() - getInternalAvailableMemorySize();
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return 0f;
     }
 
     /**
@@ -751,11 +839,16 @@ public class DeviceUtils {
      */
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     public static boolean existExternalCard() {
-        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) || !Environment.isExternalStorageRemovable()) {
-            return true;
-        } else {
-            return false;
+        try {
+            if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) || !Environment.isExternalStorageRemovable()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
         }
+        return false;
     }
 
     /**
@@ -764,11 +857,16 @@ public class DeviceUtils {
      * 单位：字节（B）
      */
     public static float getExternalTotalMemorySize() {
-        File path = Environment.getExternalStorageDirectory();
-        StatFs stat = new StatFs(path.getPath());
-        long blockSize = stat.getBlockSize();
-        float totalBlocks = stat.getBlockCount();
-        return totalBlocks * blockSize;
+        try {
+            File path = Environment.getExternalStorageDirectory();
+            StatFs stat = new StatFs(path.getPath());
+            long blockSize = stat.getBlockSize();
+            float totalBlocks = stat.getBlockCount();
+            return totalBlocks * blockSize;
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return 0f;
     }
 
     /**
@@ -777,11 +875,16 @@ public class DeviceUtils {
      * 单位：字节（B）
      */
     public static float getExternalAvailableMemorySize() {
-        File path = Environment.getExternalStorageDirectory();
-        StatFs stat = new StatFs(path.getPath());
-        long blockSize = stat.getBlockSize();
-        float availableBlocks = stat.getAvailableBlocks();
-        return availableBlocks * blockSize;
+        try {
+            File path = Environment.getExternalStorageDirectory();
+            StatFs stat = new StatFs(path.getPath());
+            long blockSize = stat.getBlockSize();
+            float availableBlocks = stat.getAvailableBlocks();
+            return availableBlocks * blockSize;
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return 0f;
     }
 
     /**
@@ -790,35 +893,60 @@ public class DeviceUtils {
      * 单位：字节（B）
      */
     public static float getExternalUsedMemorySize() {
-        return getExternalTotalMemorySize() - getExternalAvailableMemorySize();
+        try {
+            return getExternalTotalMemorySize() - getExternalAvailableMemorySize();
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return 0f;
     }
 
     /**
      * 字节B转成KB
      */
     public static float getKB(float B) {
-        return B / 1024;
+        try {
+            return B / 1024;
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return 0f;
     }
 
     /**
      * 字节B转成MB
      */
     public static float getMB(float B) {
-        return B / 1024 / 1024;
+        try {
+            return B / 1024 / 1024;
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return 0f;
     }
 
     /**
      * 字节B转成GB
      */
     public static float getGB(float B) {
-        return B / 1024 / 1024 / 1024;
+        try {
+            return B / 1024 / 1024 / 1024;
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return 0f;
     }
 
     /**
      * 字节B转成GB
      */
     public static String getGBStr(float B) {
-        return getGB(B) + " GB";
+        try {
+            return getGB(B) + " GB";
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return "";
     }
 
     // ******************************** other ********************************
@@ -827,52 +955,70 @@ public class DeviceUtils {
      * 获取手机唯一标识
      */
     public static String getUDID(Context context) {
-        StringBuilder builder = new StringBuilder();
-
-        builder.append(getIMEI(context));
-        builder.append(getIMSI(context));
-        if (!TextUtils.isEmpty(getMACAddress(context))) {
-            builder.append(getMACAddress(context));
+        try {
+            StringBuilder builder = new StringBuilder();
+            builder.append(getIMEI(context));
+            builder.append(getIMSI(context));
+            if (!TextUtils.isEmpty(getMacAddress(context))) {
+                builder.append(getMacAddress(context));
+            }
+            return MD5Utils.md5(builder.toString());
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
         }
-
-        return MD5Utils.md5(builder.toString());
+        return "";
     }
 
     /**
      * 获取标准的UUID字符串
      */
     public static String getUUID() {
-        return UUID.randomUUID().toString();
+        try {
+            return UUID.randomUUID().toString();
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return "";
     }
 
     /**
      * 获取ActionBar的高度，单位为px
      */
     public static int getActionBarHeight(Context context) {
-        int actionBarHeight = 0;
-        TypedValue typedValue = new TypedValue();
-        if (context.getTheme().resolveAttribute(android.R.attr.actionBarSize, typedValue, true)) {
-            actionBarHeight = TypedValue.complexToDimensionPixelSize(typedValue.data, context.getResources().getDisplayMetrics());
+        try {
+            int actionBarHeight = 0;
+            TypedValue typedValue = new TypedValue();
+            if (context.getTheme().resolveAttribute(android.R.attr.actionBarSize, typedValue, true)) {
+                actionBarHeight = TypedValue.complexToDimensionPixelSize(typedValue.data, context.getResources().getDisplayMetrics());
+            }
+            return actionBarHeight;
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
         }
-        return actionBarHeight;
+        return 0;
     }
 
     /**
      * 获取手机状态栏高度
      */
     public static int getStatusBarHeight(Context context) {
-        int statusBarHeight;
-        int x;
-        Class<?> c;
-        Object obj;
-        Field field;
         try {
-            c = Class.forName("com.android.internal.R$dimen");
-            obj = c.newInstance();
-            field = c.getField("status_bar_height");
-            x = Integer.parseInt(field.get(obj).toString());
-            statusBarHeight = context.getResources().getDimensionPixelSize(x);
-            return statusBarHeight;
+            int statusBarHeight;
+            int x;
+            Class<?> c;
+            Object obj;
+            Field field;
+            try {
+                c = Class.forName("com.android.internal.R$dimen");
+                obj = c.newInstance();
+                field = c.getField("status_bar_height");
+                x = Integer.parseInt(field.get(obj).toString());
+                statusBarHeight = context.getResources().getDimensionPixelSize(x);
+                return statusBarHeight;
+            } catch (Exception e) {
+                LogUtils.printStackTrace(e);
+            }
+            return 0;
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
         }
@@ -903,11 +1049,16 @@ public class DeviceUtils {
      * 6-智能TV
      */
     public static int getDeviceType(Context context) {
-        int deviceType = DEVICE_TYPE_ANDROID_PHONE;
-        if (isPad(context)) {
-            deviceType = DEVICE_TYPE_ANDROID_PAD;
+        try {
+            int deviceType = DEVICE_TYPE_ANDROID_PHONE;
+            if (isPad(context)) {
+                deviceType = DEVICE_TYPE_ANDROID_PAD;
+            }
+            return deviceType;
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
         }
-        return deviceType;
+        return DEVICE_TYPE_UNKNOWN;
     }
 
     /**
@@ -916,8 +1067,13 @@ public class DeviceUtils {
      * @return 平板返回 True，手机返回 False
      */
     public static boolean isPad(Context context) {
-        return (context.getResources().getConfiguration().screenLayout
-                & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+        try {
+            return (context.getResources().getConfiguration().screenLayout
+                    & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return false;
     }
 
     /**
@@ -944,7 +1100,6 @@ public class DeviceUtils {
      * 6-蜂窝数据网络-4G
      */
     public static int getConnectionType(Context context) {
-        // 获取系统的网络服务
         try {
             ConnectivityManager connectivityManager = getConnectivityManager(context);
 
@@ -1033,23 +1188,28 @@ public class DeviceUtils {
      * @return 1, 代表中国移动，2，代表中国联通，3，代表中国电信，0，代表未知
      */
     public static String getCarrier(Context context) {
-        String imsi = getIMSI(context);
-        if (TextUtils.isEmpty(imsi)) {
-            return CARRIER_UNKNOWN;
-        } else {
-            // 移动设备网络代码（英语：Mobile Network Code，MNC）是与移动设备国家代码（Mobile Country Code，MCC）
-            // （也称为“MCC/MNC”）相结合, 例如46000，前三位是MCC，后两位是MNC，获取手机服务商信息
-            // IMSI号前面3位460是国家，紧接着后面2位00运营商代码
-            if (imsi.startsWith("46000") || imsi.startsWith("46002") || imsi.startsWith("46007")) { // 中国移动
-                return CARRIER_CHINA_MOBILE;
-            } else if (imsi.startsWith("46001") || imsi.startsWith("46006")) { // 中国联通
-                return CARRIER_CHINA_UNICOM;
-            } else if (imsi.startsWith("46003") || imsi.startsWith("46005")) { // 中国电信
-                return CARRIER_CHINA_TELECOM;
-            } else {
+        try {
+            String imsi = getIMSI(context);
+            if (TextUtils.isEmpty(imsi)) {
                 return CARRIER_UNKNOWN;
+            } else {
+                // 移动设备网络代码（英语：Mobile Network Code，MNC）是与移动设备国家代码（Mobile Country Code，MCC）
+                // （也称为“MCC/MNC”）相结合, 例如46000，前三位是MCC，后两位是MNC，获取手机服务商信息
+                // IMSI号前面3位460是国家，紧接着后面2位00运营商代码
+                if (imsi.startsWith("46000") || imsi.startsWith("46002") || imsi.startsWith("46007")) { // 中国移动
+                    return CARRIER_CHINA_MOBILE;
+                } else if (imsi.startsWith("46001") || imsi.startsWith("46006")) { // 中国联通
+                    return CARRIER_CHINA_UNICOM;
+                } else if (imsi.startsWith("46003") || imsi.startsWith("46005")) { // 中国电信
+                    return CARRIER_CHINA_TELECOM;
+                } else {
+                    return CARRIER_UNKNOWN;
+                }
             }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
         }
+        return CARRIER_UNKNOWN;
     }
 
     /**
@@ -1066,79 +1226,106 @@ public class DeviceUtils {
      * 1–横屏
      */
     public static int getScreenOrientation(Context context) {
-        if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) { // 竖屏
-            return ORIENTATION_VERTICAL;
-        } else { // 横屏
-            return ORIENTATION_HORIZONTAL;
+        try {
+            if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) { // 竖屏
+                return ORIENTATION_VERTICAL;
+            } else { // 横屏
+                return ORIENTATION_HORIZONTAL;
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
         }
+        return ORIENTATION_VERTICAL;
     }
 
     /**
      * 获取AndroidId
      */
     public static String getAndroidId(Context context) {
-        String androidId = "";
         try {
-            androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+            return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
         }
-        return androidId;
+        return "";
     }
 
     /**
      * 获取手机设备厂商
      */
     public static String getManufacturer() {
-        return android.os.Build.MANUFACTURER;
+        try {
+            return android.os.Build.MANUFACTURER;
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return "";
     }
 
     /**
      * 获取手机设备型号
      */
     public static String getModel() {
-        return android.os.Build.MODEL;
+        try {
+            return android.os.Build.MODEL;
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return "";
     }
 
     /**
      * 获取手机操作系统版本
      */
     public static String getOSV() {
-        return android.os.Build.VERSION.RELEASE;
+        try {
+            return android.os.Build.VERSION.RELEASE;
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return "";
     }
 
     /**
      * 获取当前系统时间，默认13位
      */
     public static long getSystemTime() {
-        return System.currentTimeMillis();
+        try {
+            return System.currentTimeMillis();
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return 0L;
     }
 
     /**
      * 手机震动
      */
     public static void vibrate(final Context context, long milliseconds) {
-        if (AppUtils.checkMissingPermission(context, Manifest.permission.VIBRATE)) {
-            return;
+        try {
+            if (AppUtils.checkMissingPermission(context, Manifest.permission.VIBRATE)) {
+                return;
+            }
+            Vibrator vibrator = (Vibrator) context.getSystemService(Service.VIBRATOR_SERVICE);
+            vibrator.vibrate(milliseconds);
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
         }
-        Vibrator vibrator = (Vibrator) context.getSystemService(Service.VIBRATOR_SERVICE);
-        vibrator.vibrate(milliseconds);
     }
 
     /**
      * 手机截屏
      */
     public static Bitmap takeScreenShot(Activity activity) {
-        View view = activity.getWindow().getDecorView();
-        view.setDrawingCacheEnabled(true);
-        view.buildDrawingCache();
-        Bitmap bitmap = view.getDrawingCache();
-        int statusBarHeight = getStatusBarHeight(activity);
-        int width = activity.getResources().getDisplayMetrics().widthPixels;
-        int height = activity.getResources().getDisplayMetrics().heightPixels;
         try {
-            bitmap = Bitmap.createBitmap(bitmap, 0, statusBarHeight, width, height - statusBarHeight);
-            return bitmap;
+            View view = activity.getWindow().getDecorView();
+            view.setDrawingCacheEnabled(true);
+            view.buildDrawingCache();
+            Bitmap bitmap = view.getDrawingCache();
+            int statusBarHeight = getStatusBarHeight(activity);
+            int width = activity.getResources().getDisplayMetrics().widthPixels;
+            int height = activity.getResources().getDisplayMetrics().heightPixels;
+            return Bitmap.createBitmap(bitmap, 0, statusBarHeight, width, height - statusBarHeight);
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
         }
