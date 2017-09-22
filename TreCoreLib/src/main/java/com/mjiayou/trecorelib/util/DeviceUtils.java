@@ -89,6 +89,14 @@ public class DeviceUtils {
             builder.append("**** WifiManager ****").append("\n");
             builder.append("SSID（网络名称） = ").append(getSSID(context)).append("\n");
 
+            // ConnectivityManager
+            builder.append("\n");
+            builder.append("**** ConnectivityManager ****").append("\n");
+            builder.append("网络是否连接 = ").append(isNetConnected(context)).append("\n");
+            builder.append("网络是否是wifi连接 = ").append(isWifiConnected(context)).append("\n");
+            builder.append("MAC地址 = ").append(getMacAddress(context)).append("\n");
+            builder.append("IP地址 = ").append(getIpAddress(context)).append("\n");
+
             // LocationManager
             builder.append("\n");
             builder.append("**** LocationManager ****").append("\n");
@@ -99,14 +107,6 @@ public class DeviceUtils {
             builder.append("Accuracy（获取精确度） = ").append(getAccuracy(context)).append("\n");
             builder.append("** getExtras **").append("\n");
             builder.append(ConvertUtils.parseString(getExtras(context)));
-
-            // ConnectivityManager
-            builder.append("\n");
-            builder.append("**** ConnectivityManager ****").append("\n");
-            builder.append("网络是否连接 = ").append(isNetConnected(context)).append("\n");
-            builder.append("网络是否是wifi连接 = ").append(isWifiConnected(context)).append("\n");
-            builder.append("MAC地址 = ").append(getMacAddress(context)).append("\n");
-            builder.append("IP地址 = ").append(getIpAddress(context)).append("\n");
 
             // StatFs
             builder.append("\n");
@@ -469,6 +469,24 @@ public class DeviceUtils {
         return "";
     }
 
+    /**
+     * 打开WIFI - setWifiEnabled(true);
+     */
+    public static void setWifiEnabled(Context context) {
+        try {
+            if (AppUtils.checkMissingPermission(context, Manifest.permission.CHANGE_WIFI_STATE)) {
+                return;
+            }
+
+            WifiManager wifiManager = getWifiManager(context);
+            if (wifiManager != null && !wifiManager.isWifiEnabled()) { // 如果当前wifi不可用
+                wifiManager.setWifiEnabled(true);
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+    }
+
     // ******************************** getLocationManager ********************************
 
     /**
@@ -607,7 +625,7 @@ public class DeviceUtils {
     }
 
     /**
-     * 获取NetworkInfo对象
+     * 获取当前连接NetworkInfo对象
      */
     public static NetworkInfo getActiveNetworkInfo(Context context) throws Exception {
         try {
@@ -617,6 +635,42 @@ public class DeviceUtils {
             ConnectivityManager connectivityManager = getConnectivityManager(context);
             if (connectivityManager != null) {
                 return connectivityManager.getActiveNetworkInfo();
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return null;
+    }
+
+    /**
+     * 获取 Wifi NetworkInfo 对象
+     */
+    public static NetworkInfo getWifiNetworkInfo(Context context) {
+        try {
+            if (AppUtils.checkMissingPermission(context, Manifest.permission.ACCESS_NETWORK_STATE)) {
+                return null;
+            }
+            ConnectivityManager connectivityManager = getConnectivityManager(context);
+            if (connectivityManager != null) {
+                return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return null;
+    }
+
+    /**
+     * 获取 Mobile NetworkInfo 对象
+     */
+    public static NetworkInfo getMobileNetworkInfo(Context context) {
+        try {
+            if (AppUtils.checkMissingPermission(context, Manifest.permission.ACCESS_NETWORK_STATE)) {
+                return null;
+            }
+            ConnectivityManager connectivityManager = getConnectivityManager(context);
+            if (connectivityManager != null) {
+                return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
             }
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
@@ -659,23 +713,19 @@ public class DeviceUtils {
      */
     public static String getMacAddress(Context context) {
         try {
-            ConnectivityManager connectivityManager = getConnectivityManager(context);
-            if (connectivityManager != null) {
-                NetworkInfo.State wifiState = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState();
-                if (wifiState != null && wifiState == NetworkInfo.State.CONNECTED) { // 判断当前是否使用wifi连接
-                    WifiManager wifiManager = getWifiManager(context);
-                    if (wifiManager != null) {
-                        if (!wifiManager.isWifiEnabled()) { // 如果当前wifi不可用
-                            wifiManager.setWifiEnabled(true);
+            NetworkInfo wifiNetworkInfo = getWifiNetworkInfo(context);
+            if (wifiNetworkInfo != null
+                    && wifiNetworkInfo.getState() != null
+                    && wifiNetworkInfo.getState() == NetworkInfo.State.CONNECTED) { // 判断当前是否使用wifi连接
+                WifiManager wifiManager = getWifiManager(context);
+                if (wifiManager != null) {
+                    WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+                    if (wifiInfo != null) {
+                        String macAddress = wifiInfo.getMacAddress();
+                        if (TextUtils.isEmpty(macAddress) || "02:00:00:00:00:00".equals(macAddress)) {
+                            macAddress = getMacAddressByFile();
                         }
-                        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-                        if (wifiInfo != null) {
-                            String macAddress = wifiInfo.getMacAddress();
-                            if (TextUtils.isEmpty(macAddress) || "02:00:00:00:00:00".equals(macAddress)) {
-                                macAddress = getMacAddressByFile();
-                            }
-                            return macAddress;
-                        }
+                        return macAddress;
                     }
                 }
             }
@@ -733,8 +783,8 @@ public class DeviceUtils {
         try {
             ConnectivityManager connectivityManager = getConnectivityManager(context);
             if (connectivityManager != null) {
-                NetworkInfo mobileNetworkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-                NetworkInfo wifiNetworkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                NetworkInfo mobileNetworkInfo = getMobileNetworkInfo(context);
+                NetworkInfo wifiNetworkInfo = getWifiNetworkInfo(context);
                 if (mobileNetworkInfo != null && mobileNetworkInfo.isConnected()) {
                     return getIpAddressByLocal();
                 } else if (wifiNetworkInfo != null && wifiNetworkInfo.isConnected()) {
@@ -1101,23 +1151,16 @@ public class DeviceUtils {
      */
     public static int getConnectionType(Context context) {
         try {
-            ConnectivityManager connectivityManager = getConnectivityManager(context);
-
-            // 如果当前没有网络
-            if (null == connectivityManager) {
-                return CONNECTION_TYPE_UNKNOWN;
-            }
-
             // 获取当前网络类型，如果为空，返回无网络
-            NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
-            if (activeNetInfo == null || !activeNetInfo.isAvailable()) {
+            NetworkInfo activeNetInfo = getActiveNetworkInfo(context);
+            if (null == activeNetInfo || !activeNetInfo.isAvailable()) {
                 return CONNECTION_TYPE_UNKNOWN;
             }
 
-            // 判断是不是连接的是不是wifi
-            NetworkInfo wifiInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-            if (null != wifiInfo) {
-                NetworkInfo.State state = wifiInfo.getState();
+            // 判断连接的是不是wifi
+            NetworkInfo wifiNetworkInfo = getWifiNetworkInfo(context);
+            if (null != wifiNetworkInfo) {
+                NetworkInfo.State state = wifiNetworkInfo.getState();
                 if (null != state) {
                     if (state == NetworkInfo.State.CONNECTED || state == NetworkInfo.State.CONNECTING) {
                         return CONNECTION_TYPE_WIFI;
@@ -1126,11 +1169,11 @@ public class DeviceUtils {
             }
 
             // 如果不是wifi，则判断当前连接的是运营商的哪种网络2g、3g、4g等
-            NetworkInfo networkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+            NetworkInfo mobileNetworkInfo = getMobileNetworkInfo(context);
 
-            if (null != networkInfo) {
-                NetworkInfo.State state = networkInfo.getState();
-                String strSubTypeName = networkInfo.getSubtypeName();
+            if (null != mobileNetworkInfo) {
+                NetworkInfo.State state = mobileNetworkInfo.getState();
+                String strSubTypeName = mobileNetworkInfo.getSubtypeName();
                 if (null != state) {
                     if (state == NetworkInfo.State.CONNECTED || state == NetworkInfo.State.CONNECTING) {
                         switch (activeNetInfo.getSubtype()) {
