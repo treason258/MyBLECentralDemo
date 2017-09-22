@@ -304,8 +304,7 @@ public class DeviceUtils {
      */
     private static TelephonyManager getTelephonyManager(Context context) throws Exception {
         try {
-            TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            return telephonyManager;
+            return (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
         }
@@ -318,7 +317,7 @@ public class DeviceUtils {
     public static String getIMEI(Context context) {
         try {
             if (AppUtils.checkMissingPermission(context, Manifest.permission.READ_PHONE_STATE)) {
-                return null;
+                return "";
             }
             TelephonyManager telephonyManager = getTelephonyManager(context);
             if (telephonyManager != null) {
@@ -336,7 +335,7 @@ public class DeviceUtils {
     public static String getIMSI(Context context) {
         try {
             if (AppUtils.checkMissingPermission(context, Manifest.permission.READ_PHONE_STATE)) {
-                return null;
+                return "";
             }
             TelephonyManager telephonyManager = getTelephonyManager(context);
             if (telephonyManager != null) {
@@ -354,7 +353,7 @@ public class DeviceUtils {
     public static String getPhoneNumber(Context context) {
         try {
             if (AppUtils.checkMissingPermission(context, Manifest.permission.READ_PHONE_STATE)) {
-                return null;
+                return "";
             }
             TelephonyManager telephonyManager = getTelephonyManager(context);
             if (telephonyManager != null) {
@@ -372,7 +371,7 @@ public class DeviceUtils {
     public static String getSimSerialNumber(Context context) {
         try {
             if (AppUtils.checkMissingPermission(context, Manifest.permission.READ_PHONE_STATE)) {
-                return null;
+                return "";
             }
             TelephonyManager telephonyManager = getTelephonyManager(context);
             if (telephonyManager != null) {
