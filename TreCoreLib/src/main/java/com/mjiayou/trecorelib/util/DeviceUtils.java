@@ -55,17 +55,6 @@ public class DeviceUtils {
         try {
             StringBuilder builder = new StringBuilder();
 
-            // java.util.Locale
-            builder.append("\n");
-            builder.append("**** java.util.Locale ****").append("\n");
-            builder.append("Language = ").append(getLanguage()).append("\n");
-            builder.append("Country = ").append(java.util.Locale.getDefault().getCountry()).append("\n");
-            builder.append("DisplayLanguage = ").append(java.util.Locale.getDefault().getDisplayLanguage()).append("\n");
-            builder.append("DisplayCountry = ").append(java.util.Locale.getDefault().getDisplayCountry()).append("\n");
-            builder.append("DisplayName = ").append(java.util.Locale.getDefault().getDisplayName()).append("\n");
-            builder.append("ISO3Language = ").append(java.util.Locale.getDefault().getISO3Language()).append("\n");
-            builder.append("ISO3Country = ").append(java.util.Locale.getDefault().getISO3Country()).append("\n");
-
             // DisplayMetrics
             builder.append("\n");
             builder.append("**** DisplayMetrics ****").append("\n");
@@ -84,11 +73,6 @@ public class DeviceUtils {
             builder.append("SimOperatorName（SIM卡运营商） = ").append(getSimOperatorName(context)).append("\n");
             builder.append("NetworkOperatorName（网络运营商） = ").append(getNetworkOperatorName(context)).append("\n");
 
-            // WifiManager
-            builder.append("\n");
-            builder.append("**** WifiManager ****").append("\n");
-            builder.append("SSID（网络名称） = ").append(getSSID(context)).append("\n");
-
             // ConnectivityManager
             builder.append("\n");
             builder.append("**** ConnectivityManager ****").append("\n");
@@ -96,6 +80,11 @@ public class DeviceUtils {
             builder.append("网络是否是wifi连接 = ").append(isWifiConnected(context)).append("\n");
             builder.append("MAC地址 = ").append(getMacAddress(context)).append("\n");
             builder.append("IP地址 = ").append(getIpAddress(context)).append("\n");
+
+            // WifiManager
+            builder.append("\n");
+            builder.append("**** WifiManager ****").append("\n");
+            builder.append("SSID（网络名称） = ").append(getSSID(context)).append("\n");
 
             // LocationManager
             builder.append("\n");
@@ -107,6 +96,17 @@ public class DeviceUtils {
             builder.append("Accuracy（获取精确度） = ").append(getAccuracy(context)).append("\n");
             builder.append("** getExtras **").append("\n");
             builder.append(ConvertUtils.parseString(getExtras(context)));
+
+            // java.util.Locale
+            builder.append("\n");
+            builder.append("**** java.util.Locale ****").append("\n");
+            builder.append("Language = ").append(getLanguage()).append("\n");
+            builder.append("Country = ").append(java.util.Locale.getDefault().getCountry()).append("\n");
+            builder.append("DisplayLanguage = ").append(java.util.Locale.getDefault().getDisplayLanguage()).append("\n");
+            builder.append("DisplayCountry = ").append(java.util.Locale.getDefault().getDisplayCountry()).append("\n");
+            builder.append("DisplayName = ").append(java.util.Locale.getDefault().getDisplayName()).append("\n");
+            builder.append("ISO3Language = ").append(java.util.Locale.getDefault().getISO3Language()).append("\n");
+            builder.append("ISO3Country = ").append(java.util.Locale.getDefault().getISO3Country()).append("\n");
 
             // StatFs
             builder.append("\n");
@@ -158,29 +158,6 @@ public class DeviceUtils {
             builder.append(ConvertUtils.parseString(RomUtils.getBuildProperties()));
 
             return builder.toString();
-        } catch (Exception e) {
-            LogUtils.printStackTrace(e);
-        }
-        return "";
-    }
-
-    // ******************************** java.util.Locale ********************************
-
-    /**
-     * 获取当前系统语言
-     * <p>
-     * 中文 - zh
-     * 英文 - en
-     * 韩语 - ko
-     * 日语 - ja
-     * 法语 - fr
-     * 西班牙语 - es
-     * 德语 - de
-     * 俄语 – ru
-     */
-    public static String getLanguage() {
-        try {
-            return java.util.Locale.getDefault().getLanguage();
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
         }
@@ -302,7 +279,7 @@ public class DeviceUtils {
     /**
      * 获取TelephonyManager对象
      */
-    private static TelephonyManager getTelephonyManager(Context context) throws Exception {
+    private static TelephonyManager getTelephonyManager(Context context) {
         try {
             return (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         } catch (Exception e) {
@@ -413,209 +390,12 @@ public class DeviceUtils {
         return "";
     }
 
-    // ******************************** getWifiManager ********************************
-
-//    try {
-//    } catch (Exception e) {
-//        LogUtils.printStackTrace(e);
-//    }
-
-//    if (AppUtils.checkMissingPermission(context, Manifest.permission.ACCESS_WIFI_STATE)) {
-//        return null;
-//    }
-
-    /**
-     * 获取WifiManager对象
-     */
-    private static WifiManager getWifiManager(Context context) throws Exception {
-        try {
-            return (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        } catch (Exception e) {
-            LogUtils.printStackTrace(e);
-        }
-        return null;
-    }
-
-    /**
-     * 获取WifiInfo对象
-     */
-    private static WifiInfo getConnectionInfo(Context context) throws Exception {
-        try {
-            if (AppUtils.checkMissingPermission(context, Manifest.permission.ACCESS_WIFI_STATE)) {
-                return null;
-            }
-            WifiManager wifiManager = getWifiManager(context);
-            if (wifiManager != null) {
-                return wifiManager.getConnectionInfo();
-            }
-        } catch (Exception e) {
-            LogUtils.printStackTrace(e);
-        }
-        return null;
-    }
-
-    /**
-     * 获取SSID - wifiInfo.getSSID()
-     */
-    public static String getSSID(Context context) {
-        try {
-            WifiInfo wifiInfo = getConnectionInfo(context);
-            if (wifiInfo != null) {
-                return wifiInfo.getSSID();
-            }
-        } catch (Exception e) {
-            LogUtils.printStackTrace(e);
-        }
-        return "";
-    }
-
-    /**
-     * 打开WIFI - setWifiEnabled(true);
-     */
-    public static void setWifiEnabled(Context context) {
-        try {
-            if (AppUtils.checkMissingPermission(context, Manifest.permission.CHANGE_WIFI_STATE)) {
-                return;
-            }
-
-            WifiManager wifiManager = getWifiManager(context);
-            if (wifiManager != null && !wifiManager.isWifiEnabled()) { // 如果当前wifi不可用
-                wifiManager.setWifiEnabled(true);
-            }
-        } catch (Exception e) {
-            LogUtils.printStackTrace(e);
-        }
-    }
-
-    // ******************************** getLocationManager ********************************
-
-    /**
-     * 获取LocationManager对象
-     */
-    private static LocationManager getLocationManager(Context context) throws Exception {
-        try {
-            return (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        } catch (Exception e) {
-            LogUtils.printStackTrace(e);
-        }
-        return null;
-    }
-
-    /**
-     * 获取Location对象
-     */
-    private static Location getLocation(Context context) throws Exception {
-        try {
-            if (AppUtils.checkMissingPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
-                    && AppUtils.checkMissingPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)) {
-                return null;
-            }
-            LocationManager locationManager = getLocationManager(context);
-            if (locationManager != null) {
-                return locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            }
-        } catch (Exception e) {
-            LogUtils.printStackTrace(e);
-        }
-        return null;
-    }
-
-    /**
-     * 获取经度（location.getLongitude()）
-     */
-    public static double getLongitude(Context context) {
-        try {
-            Location location = getLocation(context);
-            if (location != null) {
-                return location.getLongitude();
-            }
-        } catch (Exception e) {
-            LogUtils.printStackTrace(e);
-        }
-        return 0d;
-    }
-
-    /**
-     * 获取纬度（location.getLatitude()）
-     */
-    public static double getLatitude(Context context) {
-        try {
-            Location location = getLocation(context);
-            if (location != null) {
-                return location.getLatitude();
-            }
-        } catch (Exception e) {
-            LogUtils.printStackTrace(e);
-        }
-        return 0d;
-    }
-
-    /**
-     * 获取高度（location.getAltitude()）
-     */
-    public static double getAltitude(Context context) {
-        try {
-            Location location = getLocation(context);
-            if (location != null) {
-                return location.getAltitude();
-            }
-        } catch (Exception e) {
-            LogUtils.printStackTrace(e);
-        }
-        return 0d;
-    }
-
-    /**
-     * 获取提供者（location.getProvider()）
-     */
-    public static String getProvider(Context context) {
-        try {
-            Location location = getLocation(context);
-            if (location != null) {
-                return location.getProvider();
-            }
-        } catch (Exception e) {
-            LogUtils.printStackTrace(e);
-        }
-        return "";
-    }
-
-    /**
-     * 获取精确度（location.getAccuracy()）
-     */
-    public static float getAccuracy(Context context) {
-        try {
-            Location location = getLocation(context);
-            if (location != null) {
-                return location.getAccuracy();
-            }
-        } catch (Exception e) {
-            LogUtils.printStackTrace(e);
-        }
-        return 0f;
-    }
-
-    /**
-     * 获取Extras（location.getExtras()）
-     */
-    public static Bundle getExtras(Context context) {
-        try {
-            Location location = getLocation(context);
-            if (location != null) {
-                return location.getExtras();
-            }
-        } catch (Exception e) {
-            LogUtils.printStackTrace(e);
-        }
-        return null;
-    }
-
-    // ******************************** getConnectivityManager ********************************
+    // ******************************** ConnectivityManager ********************************
 
     /**
      * 获取ConnectivityManager对象
      */
-    public static ConnectivityManager getConnectivityManager(Context context) throws Exception {
+    private static ConnectivityManager getConnectivityManager(Context context) {
         try {
             return (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         } catch (Exception e) {
@@ -627,7 +407,7 @@ public class DeviceUtils {
     /**
      * 获取当前连接NetworkInfo对象
      */
-    public static NetworkInfo getActiveNetworkInfo(Context context) throws Exception {
+    public static NetworkInfo getActiveNetworkInfo(Context context) {
         try {
             if (AppUtils.checkMissingPermission(context, Manifest.permission.ACCESS_NETWORK_STATE)) {
                 return null;
@@ -826,6 +606,217 @@ public class DeviceUtils {
             builder.append((ipInt >> 16) & 0xFF).append(".");
             builder.append((ipInt >> 24) & 0xFF);
             return builder.toString();
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return "";
+    }
+
+    // ******************************** WifiManager ********************************
+
+    /**
+     * 获取WifiManager对象
+     */
+    private static WifiManager getWifiManager(Context context) {
+        try {
+            return (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return null;
+    }
+
+    /**
+     * 获取WifiInfo对象
+     */
+    public static WifiInfo getConnectionInfo(Context context) {
+        try {
+            if (AppUtils.checkMissingPermission(context, Manifest.permission.ACCESS_WIFI_STATE)) {
+                return null;
+            }
+            WifiManager wifiManager = getWifiManager(context);
+            if (wifiManager != null) {
+                return wifiManager.getConnectionInfo();
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return null;
+    }
+
+    /**
+     * 获取SSID - wifiInfo.getSSID()
+     */
+    public static String getSSID(Context context) {
+        try {
+            WifiInfo wifiInfo = getConnectionInfo(context);
+            if (wifiInfo != null) {
+                return wifiInfo.getSSID();
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return "";
+    }
+
+    /**
+     * 打开WIFI - setWifiEnabled(true);
+     */
+    public static void setWifiEnabled(Context context) {
+        try {
+            if (AppUtils.checkMissingPermission(context, Manifest.permission.CHANGE_WIFI_STATE)) {
+                return;
+            }
+
+            WifiManager wifiManager = getWifiManager(context);
+            if (wifiManager != null && !wifiManager.isWifiEnabled()) { // 如果当前wifi不可用
+                wifiManager.setWifiEnabled(true);
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+    }
+
+    // ******************************** LocationManager ********************************
+
+    /**
+     * 获取LocationManager对象
+     */
+    private static LocationManager getLocationManager(Context context) throws Exception {
+        try {
+            return (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return null;
+    }
+
+    /**
+     * 获取Location对象
+     */
+    public static Location getLocation(Context context) throws Exception {
+        try {
+            if (AppUtils.checkMissingPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
+                    && AppUtils.checkMissingPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                return null;
+            }
+            LocationManager locationManager = getLocationManager(context);
+            if (locationManager != null) {
+                return locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return null;
+    }
+
+    /**
+     * 获取经度（location.getLongitude()）
+     */
+    public static double getLongitude(Context context) {
+        try {
+            Location location = getLocation(context);
+            if (location != null) {
+                return location.getLongitude();
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return 0d;
+    }
+
+    /**
+     * 获取纬度（location.getLatitude()）
+     */
+    public static double getLatitude(Context context) {
+        try {
+            Location location = getLocation(context);
+            if (location != null) {
+                return location.getLatitude();
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return 0d;
+    }
+
+    /**
+     * 获取高度（location.getAltitude()）
+     */
+    public static double getAltitude(Context context) {
+        try {
+            Location location = getLocation(context);
+            if (location != null) {
+                return location.getAltitude();
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return 0d;
+    }
+
+    /**
+     * 获取提供者（location.getProvider()）
+     */
+    public static String getProvider(Context context) {
+        try {
+            Location location = getLocation(context);
+            if (location != null) {
+                return location.getProvider();
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return "";
+    }
+
+    /**
+     * 获取精确度（location.getAccuracy()）
+     */
+    public static float getAccuracy(Context context) {
+        try {
+            Location location = getLocation(context);
+            if (location != null) {
+                return location.getAccuracy();
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return 0f;
+    }
+
+    /**
+     * 获取Extras（location.getExtras()）
+     */
+    public static Bundle getExtras(Context context) {
+        try {
+            Location location = getLocation(context);
+            if (location != null) {
+                return location.getExtras();
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+        return null;
+    }
+
+    // ******************************** java.util.Locale ********************************
+
+    /**
+     * 获取当前系统语言
+     * <p>
+     * 中文 - zh
+     * 英文 - en
+     * 韩语 - ko
+     * 日语 - ja
+     * 法语 - fr
+     * 西班牙语 - es
+     * 德语 - de
+     * 俄语 – ru
+     */
+    public static String getLanguage() {
+        try {
+            return java.util.Locale.getDefault().getLanguage();
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
         }
