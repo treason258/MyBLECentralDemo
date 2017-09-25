@@ -1,6 +1,5 @@
 package com.mjiayou.trecore.test;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -25,12 +24,13 @@ public class WebViewActivity extends TCActivity {
     private WebView mWebView;
     private Button mBtnCallJS;
 
-    @SuppressLint("JavascriptInterface")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_webview);
+    protected int getLayoutId() {
+        return R.layout.activity_webview;
+    }
 
+    @Override
+    protected void afterOnCreate(Bundle savedInstanceState) {
         // findViewById
         mWebView = (WebView) findViewById(R.id.webview);
         mBtnCallJS = (Button) findViewById(R.id.btn_call_js);
