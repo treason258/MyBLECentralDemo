@@ -17,6 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- WebViewActivity -->
+        <activity android:name=".test.WebViewActivity" />
     </application>
 
 </manifest>

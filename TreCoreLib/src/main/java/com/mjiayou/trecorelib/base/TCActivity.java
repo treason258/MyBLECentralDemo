@@ -1,76 +1,62 @@
-//package com.mjiayou.trecorelib.base;
-//
-///**
-// * Created by treason on 2017/6/22.
-// */
-//
-//import android.app.Activity;
-//import android.app.ActivityManager;
-//import android.app.Dialog;
-//import android.content.Context;
-//import android.content.Intent;
-//import android.content.pm.ActivityInfo;
-//import android.content.res.Configuration;
-//import android.os.Bundle;
-//import android.support.annotation.IdRes;
-//import android.support.annotation.Nullable;
-//import android.support.annotation.StyleRes;
-//import android.support.v7.app.AppCompatActivity;
-//import android.view.KeyEvent;
-//import android.view.MotionEvent;
-//import android.view.View;
-//import android.widget.FrameLayout;
-//import android.widget.LinearLayout;
-//
-//import com.mjiayou.trecorelib.R;
-//import com.mjiayou.trecorelib.util.ConvertUtil;
-//import com.mjiayou.trecorelib.util.LogUtil;
-//
-///**
-// * TCActivity
-// */
-//
-//public abstract class TCActivity extends AppCompatActivity implements RequestAdapter.DataRequest, RequestAdapter.DataResponse {
-//
-//    // TAG
-//    protected final String TAG = this.getClass().getSimpleName();
-//
-//    // 显示生命周期
-//    protected final String TAG_LIFE_CYCLE = "life_cycle_activity";
-//    protected boolean SHOW_LIFE_CYCLE = true;
-//
-//    // var
-//    protected Activity mActivity;
-//    protected Context mContext;
-//    protected Intent mIntent;
-//
-//    // view
-//    private LinearLayout mLayoutRoot;
-//    private TitleBar mTitleBar;
-//    private FrameLayout mLayoutContainer;
-//
-//    // 正在加载
-//    private Dialog mLoadingDialog;
+package com.mjiayou.trecorelib.base;
+
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+
+import com.mjiayou.trecorelib.util.ConvertUtils;
+import com.mjiayou.trecorelib.util.LogUtils;
+
+/**
+ * TCActivity
+ */
+
+public abstract class TCActivity extends AppCompatActivity {
+
+    // TAG
+    protected final String TAG = this.getClass().getSimpleName();
+
+    // 显示生命周期
+    protected final String TAG_LIFE_CYCLE = "life_cycle_activity";
+    protected boolean SHOW_LIFE_CYCLE = true;
+
+    // var
+    protected Activity mActivity;
+    protected Context mContext;
+    protected Intent mIntent;
+
+    // view
+    private LinearLayout mLayoutRoot;
+    //    private TitleBar mTitleBar;
+    private FrameLayout mLayoutContainer;
+
+    // 正在加载
+    private Dialog mLoadingDialog;
 //    // 页面状态管理
 //    private StatusViewManager mStatusViewManager;
 //    // 网络请求
 //    private RequestAdapter mRequestAdapter;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 //        // beforeOnCreate
 //        beforeOnCreate(savedInstanceState);
-//
-//        if (SHOW_LIFE_CYCLE) {
-//            LogUtil.i(TAG, TAG_LIFE_CYCLE + " | onCreate | savedInstanceState -> " + ConvertUtil.parseString(savedInstanceState));
-//        }
-//        super.onCreate(savedInstanceState);
+
+        if (SHOW_LIFE_CYCLE) {
+            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onCreate | savedInstanceState -> " + ConvertUtils.parseString(savedInstanceState));
+        }
+        super.onCreate(savedInstanceState);
 //        setContentView(R.layout.tc_activity_base);
-//
-//        // var
-//        mActivity = this;
-//        mContext = this;
-//
+
+        // var
+        mActivity = this;
+        mContext = this;
+
 //        // findViewById
 //        mLayoutRoot = (LinearLayout) findViewById(R.id.layout_root);
 //        mTitleBar = (TitleBar) findViewById(R.id.titlebar);
@@ -97,8 +83,8 @@
 //
 //        // afterOnCreate
 //        afterOnCreate(savedInstanceState);
-//    }
-//
+    }
+
 //    @Override
 //    protected void onRestart() {
 //        if (SHOW_LIFE_CYCLE) {
@@ -513,4 +499,4 @@
 //    }
 //
 //    // ******************************** project ********************************
-//}
+}
