@@ -53,6 +53,22 @@ public class MenuUtil {
     }
 
     /**
+     * setInfo
+     */
+    public static void setInfo(TextView textView, String info) {
+        if (textView == null) {
+            LogUtils.w(TAG, "textView == null");
+            return;
+        }
+        if (info == null) {
+            LogUtils.w(TAG, "info == null");
+            return;
+        }
+
+        textView.setText(info);
+    }
+
+    /**
      * getTCMenus
      */
     public static List<TCMenu> getTCMenus(final Context context) {

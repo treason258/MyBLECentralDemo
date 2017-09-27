@@ -3,6 +3,7 @@ package com.mjiayou.trecorelib.util;
 import android.content.Context;
 import android.os.Environment;
 
+import com.mjiayou.trecorelib.base.TCApp;
 import com.mjiayou.trecorelib.helper.TCHelper;
 
 /**
@@ -49,7 +50,7 @@ public class DirectoryUtils {
      * 构造函数
      */
     private DirectoryUtils() {
-        Context context = TCHelper.getContext();
+        Context context = TCApp.get();
         if (context == null) {
             LogUtils.e(TAG, TCHelper.ERROR_CONTEXT_NULL);
             return;

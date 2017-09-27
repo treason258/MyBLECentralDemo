@@ -10,15 +10,10 @@ import com.mjiayou.trecorelib.util.LogUtils;
 
 public class MyApp extends TCApp {
 
-    private static final String TAG = MyApp.class.getSimpleName();
-
     @Override
     public void onCreate() {
         LogUtils.traceStart(TAG);
         super.onCreate();
-
-        TCHelper.init(this);
-
         LogUtils.traceStop(TAG);
     }
 }

@@ -3,14 +3,17 @@ package com.mjiayou.trecorelib.base;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,7 +21,11 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.mjiayou.trecorelib.R;
+import com.mjiayou.trecorelib.bean.TCResponse;
+import com.mjiayou.trecorelib.dialog.TCLoadingDialog;
 import com.mjiayou.trecorelib.manager.ActivityManager;
+import com.mjiayou.trecorelib.manager.StatusViewManager;
+import com.mjiayou.trecorelib.net.RequestAdapter;
 import com.mjiayou.trecorelib.util.ConvertUtils;
 import com.mjiayou.trecorelib.util.LogUtils;
 import com.mjiayou.trecorelib.widget.TitleBar;
@@ -29,7 +36,7 @@ import butterknife.ButterKnife;
  * TCActivity
  */
 
-public abstract class TCActivity extends AppCompatActivity {
+public abstract class TCActivity extends AppCompatActivity implements RequestAdapter.DataRequest, RequestAdapter.DataResponse {
 
     // TAG
     protected final String TAG = this.getClass().getSimpleName();
@@ -50,10 +57,10 @@ public abstract class TCActivity extends AppCompatActivity {
 
     // 正在加载
     private Dialog mLoadingDialog;
-//    // 页面状态管理
-//    private StatusViewManager mStatusViewManager;
-//    // 网络请求
-//    private RequestAdapter mRequestAdapter;
+    // 页面状态管理
+    private StatusViewManager mStatusViewManager;
+    // 网络请求
+    private RequestAdapter mRequestAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -350,123 +357,123 @@ public abstract class TCActivity extends AppCompatActivity {
      */
     protected abstract void afterOnCreate(Bundle savedInstanceState);
 
-//    // ******************************** RequestAdapter.DataRequest ********************************
-//
-//    @Override
-//    public void initView() {
-//        if (SHOW_LIFE_CYCLE) {
-//            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | initView");
-//        }
-//    }
-//
-//    @Override
-//    public void getData(int pageNumber) {
-//        if (SHOW_LIFE_CYCLE) {
-//            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | getData");
-//        }
-//    }
-//
-//    @Override
-//    public void refreshData() {
-//        if (SHOW_LIFE_CYCLE) {
-//            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | refreshData");
-//        }
-//    }
-//
-//    @Override
-//    public void loadMoreData() {
-//        if (SHOW_LIFE_CYCLE) {
-//            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | loadMoreData");
-//        }
-//    }
-//
-//    @Override
-//    public void submitData() {
-//        if (SHOW_LIFE_CYCLE) {
-//            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | submitData");
-//        }
-//    }
-//
-//    // ******************************** RequestAdapter.DataResponse ********************************
-//
-//    @Override
-//    public void callback(Message msg) {
-//        if (SHOW_LIFE_CYCLE) {
-//            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | callback");
-//        }
-//    }
-//
-//    @Override
-//    public void refreshView(TCResponse response) {
-//        if (SHOW_LIFE_CYCLE) {
-//            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | refreshView");
-//        }
-//    }
-//
-//    // ******************************** showLoading ********************************
-//
-//    /**
-//     * 显示、隐藏正在加载对话框
-//     */
-//    public void showLoading(boolean show) {
-//        if (SHOW_LIFE_CYCLE) {
-//            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | showLoading | show -> " + show);
-//        }
-//        try {
-//            // 需要显示时，如果页面已经finish，则return
-//            if (show && isFinishing()) {
-//                return;
-//            }
-//
-//            // 需要显示时，如果正在显示，则return
-//            if (show && (mLoadingDialog != null && mLoadingDialog.isShowing())) {
-//                return;
-//            }
-//
-//            // 需要隐藏时，如果mLoadingDialog不存在或没有在显示，则return
-//            if (!show && (mLoadingDialog == null || !mLoadingDialog.isShowing())) {
-//                return;
-//            }
-//
-//            // 如果mLoadingDialog不存在，则创建
-//            if (mLoadingDialog == null) {
-//                mLoadingDialog = TCLoadingDialog.createDialog(mContext);
-//                mLoadingDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-//                    @Override
-//                    public void onCancel(DialogInterface dialog) {
-//                        if (mRequestAdapter != null) {
-//                            mRequestAdapter.cancelAll();
-//                        }
-//                    }
-//                });
-//            }
-//
-//            // 显示/隐藏
-//            if (show) {
-//                mLoadingDialog.show();
-//            } else {
-//                mLoadingDialog.dismiss();
-//            }
-//        } catch (Exception e) {
-//            LogUtils.printStackTrace(e);
-//        }
-//    }
-//
-//    /**
-//     * 更新信息
-//     */
-//    public void updateLoading(String message) {
-//        if (SHOW_LIFE_CYCLE) {
-//            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | updateLoading | message -> " + message);
-//        }
-//        if (null != mLoadingDialog && mLoadingDialog.isShowing() && !TextUtils.isEmpty(message)) {
-//            if (mLoadingDialog instanceof TCLoadingDialog) {
-//                ((TCLoadingDialog) mLoadingDialog).updateMessage(message);
-//            }
-//        }
-//        LogUtils.i(TAG, "updateLoading -> " + message);
-//    }
-//
+    // ******************************** RequestAdapter.DataRequest ********************************
+
+    @Override
+    public void initView() {
+        if (SHOW_LIFE_CYCLE) {
+            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | initView");
+        }
+    }
+
+    @Override
+    public void getData(int pageNumber) {
+        if (SHOW_LIFE_CYCLE) {
+            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | getData");
+        }
+    }
+
+    @Override
+    public void refreshData() {
+        if (SHOW_LIFE_CYCLE) {
+            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | refreshData");
+        }
+    }
+
+    @Override
+    public void loadMoreData() {
+        if (SHOW_LIFE_CYCLE) {
+            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | loadMoreData");
+        }
+    }
+
+    @Override
+    public void submitData() {
+        if (SHOW_LIFE_CYCLE) {
+            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | submitData");
+        }
+    }
+
+    // ******************************** RequestAdapter.DataResponse ********************************
+
+    @Override
+    public void callback(Message msg) {
+        if (SHOW_LIFE_CYCLE) {
+            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | callback");
+        }
+    }
+
+    @Override
+    public void refreshView(TCResponse response) {
+        if (SHOW_LIFE_CYCLE) {
+            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | refreshView");
+        }
+    }
+
+    // ******************************** showLoading ********************************
+
+    /**
+     * 显示、隐藏正在加载对话框
+     */
+    public void showLoading(boolean show) {
+        if (SHOW_LIFE_CYCLE) {
+            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | showLoading | show -> " + show);
+        }
+        try {
+            // 需要显示时，如果页面已经finish，则return
+            if (show && isFinishing()) {
+                return;
+            }
+
+            // 需要显示时，如果正在显示，则return
+            if (show && (mLoadingDialog != null && mLoadingDialog.isShowing())) {
+                return;
+            }
+
+            // 需要隐藏时，如果mLoadingDialog不存在或没有在显示，则return
+            if (!show && (mLoadingDialog == null || !mLoadingDialog.isShowing())) {
+                return;
+            }
+
+            // 如果mLoadingDialog不存在，则创建
+            if (mLoadingDialog == null) {
+                mLoadingDialog = TCLoadingDialog.createDialog(mContext);
+                mLoadingDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        if (mRequestAdapter != null) {
+                            mRequestAdapter.cancelAll();
+                        }
+                    }
+                });
+            }
+
+            // 显示/隐藏
+            if (show) {
+                mLoadingDialog.show();
+            } else {
+                mLoadingDialog.dismiss();
+            }
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+        }
+    }
+
+    /**
+     * 更新信息
+     */
+    public void updateLoading(String message) {
+        if (SHOW_LIFE_CYCLE) {
+            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | updateLoading | message -> " + message);
+        }
+        if (null != mLoadingDialog && mLoadingDialog.isShowing() && !TextUtils.isEmpty(message)) {
+            if (mLoadingDialog instanceof TCLoadingDialog) {
+                ((TCLoadingDialog) mLoadingDialog).updateMessage(message);
+            }
+        }
+        LogUtils.i(TAG, "updateLoading -> " + message);
+    }
+
     // ******************************** getTitleBar ********************************
 
     /**
@@ -479,35 +486,35 @@ public abstract class TCActivity extends AppCompatActivity {
         return mTitleBar;
     }
 
-//    // ******************************** getStatusViewManager ********************************
-//
-//    /**
-//     * 返回 StatusViewManager 对象
-//     */
-//    public StatusViewManager getStatusViewManager() {
-//        if (SHOW_LIFE_CYCLE) {
-//            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | getStatusViewManager");
-//        }
-//        if (mStatusViewManager == null) {
-//            mStatusViewManager = new StatusViewManager(mLayoutContainer, getLayoutInflater());
-//        }
-//        return mStatusViewManager;
-//    }
-//
-//    // ******************************** getRequestAdapter ********************************
-//
-//    /**
-//     * 返回 RequestAdapter 对象
-//     */
-//    public RequestAdapter getRequestAdapter() {
-//        if (SHOW_LIFE_CYCLE) {
-//            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | getRequestAdapter");
-//        }
-//        if (mRequestAdapter == null) {
-//            mRequestAdapter = new RequestAdapter(mContext, this);
-//        }
-//        return mRequestAdapter;
-//    }
-//
-//    // ******************************** project ********************************
+    // ******************************** getStatusViewManager ********************************
+
+    /**
+     * 返回 StatusViewManager 对象
+     */
+    public StatusViewManager getStatusViewManager() {
+        if (SHOW_LIFE_CYCLE) {
+            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | getStatusViewManager");
+        }
+        if (mStatusViewManager == null) {
+            mStatusViewManager = new StatusViewManager(mLayoutContainer, getLayoutInflater());
+        }
+        return mStatusViewManager;
+    }
+
+    // ******************************** getRequestAdapter ********************************
+
+    /**
+     * 返回 RequestAdapter 对象
+     */
+    public RequestAdapter getRequestAdapter() {
+        if (SHOW_LIFE_CYCLE) {
+            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | getRequestAdapter");
+        }
+        if (mRequestAdapter == null) {
+            mRequestAdapter = new RequestAdapter(mContext, this);
+        }
+        return mRequestAdapter;
+    }
+
+    // ******************************** project ********************************
 }

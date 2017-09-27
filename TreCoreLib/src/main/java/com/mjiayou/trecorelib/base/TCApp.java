@@ -29,7 +29,6 @@ import android.content.res.Configuration;
 
 import com.mjiayou.trecorelib.common.Caches;
 import com.mjiayou.trecorelib.helper.GsonHelper;
-import com.mjiayou.trecorelib.helper.TCHelper;
 import com.mjiayou.trecorelib.helper.VolleyHelper;
 import com.mjiayou.trecorelib.util.LogUtils;
 import com.mjiayou.trecorelib.util.ProcessUtil;
@@ -40,11 +39,8 @@ import com.mjiayou.trecorelib.util.VersionUtil;
  */
 public class TCApp extends Application {
 
-    // APP_NAME
-    public final String APP_NAME = "trebundle";
-
     // TAG
-    private static final String TAG = TCApp.class.getSimpleName();
+    protected static final String TAG = TCApp.class.getSimpleName();
 
     // 显示生命周期
     protected final String TAG_LIFE_CYCLE = "life_cycle_app";
@@ -126,7 +122,6 @@ public class TCApp extends Application {
          */
         Caches.get().init();
         VersionUtil.init();
-        TCHelper.init(mContext, "trebundle");
 
         /**
          * 初始化 第三方库

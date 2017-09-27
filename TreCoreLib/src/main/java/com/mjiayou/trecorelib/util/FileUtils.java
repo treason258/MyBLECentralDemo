@@ -42,8 +42,7 @@ public class FileUtils {
     }
 
     public static File createFile(String filePath) throws IOException {
-        File file = new File(filePath);
-        return createFile(file);
+        return createFile(new File(filePath));
     }
 
     /**
@@ -53,9 +52,9 @@ public class FileUtils {
         try {
             File file = createFile(filePath);
 
-            OutputStream output = null;
+            OutputStream outputStream = null;
             try {
-                output = new FileOutputStream(file);
+                outputStream = new FileOutputStream(file);
             } catch (FileNotFoundException e1) {
                 e1.printStackTrace();
             }
@@ -65,11 +64,11 @@ public class FileUtils {
                     int read;
 
                     while ((read = inputStream.read(buffer)) != -1) {
-                        output.write(buffer, 0, read);
+                        outputStream.write(buffer, 0, read);
                     }
-                    output.flush();
+                    outputStream.flush();
                 } finally {
-                    output.close();
+                    outputStream.close();
                 }
             } catch (Exception e) {
                 e.printStackTrace();

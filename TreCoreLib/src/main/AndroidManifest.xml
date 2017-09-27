@@ -1,26 +1,32 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mjiayou.trecorelib">
 
-    <!-- READ_PHONE_STATE -->
+    <!-- 获取设备状态 - READ_PHONE_STATE -->
     <!-- telephonyManager.getDeviceId(); -->
     <!-- telephonyManager.getSubscriberId(); -->
     <!-- telephonyManager.getLine1Number(); -->
     <!-- telephonyManager.getSimSerialNumber(); -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-    <!-- ACCESS_WIFI_STATE -->
+    <!-- 获取WIFI状态 - ACCESS_WIFI_STATE -->
     <!-- wifiManager.getConnectionInfo(); -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
-    <!-- ACCESS_NETWORK_STATE -->
+    <!-- 获取网络状态 - ACCESS_NETWORK_STATE -->
     <!-- connectivityManager.getActiveNetworkInfo(); -->
     <!-- connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI) -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <!-- ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION -->
+    <!-- 获取位置信息 - ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION -->
     <!-- locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER); -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- 获取外置存储存取权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 获取访问网络权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- CHANGE_WIFI_STATE -->
     <!-- wifiManager.setWifiEnabled(true) -->
@@ -36,7 +42,7 @@
         android:allowBackup="true"
         android:label="@string/tc_app_name"
         android:supportsRtl="true">
-
+        <activity android:name=".base.TCMenuActivity" />
     </application>
 
 </manifest>
