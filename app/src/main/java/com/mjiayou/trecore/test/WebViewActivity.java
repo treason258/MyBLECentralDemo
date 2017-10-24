@@ -40,7 +40,7 @@ public class WebViewActivity extends TCActivity {
         mWebView.setWebChromeClient(mWebChromeClient);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        mWebView.addJavascriptInterface(new MyJavascriptInterface(), "xin");
+        mWebView.addJavascriptInterface(new MyJavascriptInterface(), "mjiayou");
         mWebView.loadUrl("file:///android_asset/javascript.html");
 
         // mBtnCallJS
@@ -48,7 +48,8 @@ public class WebViewActivity extends TCActivity {
             @Override
             public void onClick(View v) {
                 // 约定Android调用JS的方法
-                mWebView.loadUrl("javascript:callJS()");
+                String param = "From Android";
+                mWebView.loadUrl("javascript:callJS('" + param + "')");
             }
         });
     }
@@ -62,8 +63,8 @@ public class WebViewActivity extends TCActivity {
          * 约定JS调用Android的方法
          */
         @JavascriptInterface
-        void callAndroid(String msg) {
-            ToastUtils.show("JS调用了Android的callAndroid()方法 - " + msg);
+        void callAndroid(String param) {
+            ToastUtils.show("JS调用了Android的callAndroid(" + param + ")方法");
         }
     }
 

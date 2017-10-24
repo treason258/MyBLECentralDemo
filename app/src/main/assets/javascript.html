@@ -3,13 +3,13 @@
         <title>JS与Android交互</title>
 
         <script>
-            function callJS() {
-                alert("Android调用了JS的callJS()方法")
+            function callJS(param) {
+                alert("Android调用了JS的callJS(" + param + ")方法")
             }
         </script>
     </head>
 
     <body>
-        <button onclick="window.xin.callAndroid('From JS')" >callAndroid</button>
+        <button onclick="window.mjiayou.callAndroid('From JS')" >callAndroid</button>
     </body>
 </html>
