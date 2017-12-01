@@ -1,16 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion rootProject.buildToolsVersion
+    compileSdkVersion rootProject.ext.android.compileSdkVersion // rootProject.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion // rootProject.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion rootProject.minSdkVersion
-        targetSdkVersion rootProject.targetSdkVersion
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
 
-        applicationId "com.mjiayou.trecore"
-        versionCode 10
-        versionName "2.0.0"
+        applicationId rootProject.ext.android.applicationId
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
