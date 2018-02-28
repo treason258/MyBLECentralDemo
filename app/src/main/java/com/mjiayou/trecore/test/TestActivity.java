@@ -29,7 +29,10 @@ import com.mjiayou.trecorelib.dialog.DialogHelper;
 import com.mjiayou.trecorelib.dialog.TCAlertDialog;
 import com.mjiayou.trecorelib.helper.GsonHelper;
 import com.mjiayou.trecorelib.net.RequestAdapter;
+import com.mjiayou.trecorelib.util.AppUtils;
+import com.mjiayou.trecorelib.util.CustomToastUtils;
 import com.mjiayou.trecorelib.util.HandlerUtil;
+import com.mjiayou.trecorelib.util.HelloUtils;
 import com.mjiayou.trecorelib.util.LogUtils;
 import com.mjiayou.trecorelib.util.MenuUtil;
 import com.mjiayou.trecorelib.util.PageUtil;
@@ -84,9 +87,17 @@ public class TestActivity extends TCActivity {
             }
         });
 
-        // MenuUtil
+        // mLayoutMenuContainer
         MenuUtil.setMenus(mContext, mLayoutMenuContainer, getMenus());
-        MenuUtil.setInfo(mTvInfo, "Hello World!");
+
+        // mTvInfo
+        StringBuilder builder = new StringBuilder();
+        builder.append("\n");
+        builder.append(HelloUtils.getHI());
+        builder.append("\n");
+        builder.append(AppUtils.getAppInfoDetail(mContext));
+        builder.append("\n");
+        MenuUtil.setInfo(mTvInfo, builder.toString());
 
         // MaterialDrawer
         initMaterialDrawer();
@@ -230,6 +241,18 @@ public class TestActivity extends TCActivity {
                     }
                 });
                 requestAdapter.sinaStatuses(String.valueOf(PageUtil.pageReset()));
+            }
+        }));
+        tcMenus.add(new TCMenu("CustomToast 显示5秒 by Toast", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CustomToastUtils.showInDuration("显示5秒 by Toast", 5000);
+            }
+        }));
+        tcMenus.add(new TCMenu("CustomToast 显示5秒 by WindowManager", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CustomToastUtils.showInDurationByWindowManager("显示5秒 by WindowManager", 5000);
             }
         }));
         return tcMenus;
