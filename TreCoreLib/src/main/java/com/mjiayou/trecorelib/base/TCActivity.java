@@ -99,7 +99,7 @@ public abstract class TCActivity extends AppCompatActivity implements RequestAda
         ActivityManager.get().addActivity(mActivity);
 
         // 通过程序改变屏幕显示的方向
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
         // afterOnCreate
         afterOnCreate(savedInstanceState);

@@ -169,6 +169,12 @@ public class TestActivity extends TCActivity {
                 startActivity(new Intent(mContext, WebViewActivity.class));
             }
         }));
+        tcMenus.add(new TCMenu("CameraActivity", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(mContext, CameraActivity.class));
+            }
+        }));
         tcMenus.add(new TCMenu("TCMenuActivity", new View.OnClickListener() {
             @Override
             public void onClick(View view) {

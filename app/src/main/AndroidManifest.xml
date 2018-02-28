@@ -23,6 +23,8 @@
         <activity android:name=".test.TestActivity" />
         <!-- WebViewActivity -->
         <activity android:name=".test.WebViewActivity" />
+        <!-- CameraActivity -->
+        <activity android:name=".test.CameraActivity" />
     </application>
 
 </manifest>
