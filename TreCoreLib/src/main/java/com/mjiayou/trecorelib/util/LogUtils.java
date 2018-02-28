@@ -14,11 +14,14 @@ import java.util.Stack;
 public class LogUtils {
 
     private static final String TAG = LogUtils.class.getSimpleName();
-    private static final String EXCEPTION_STRING = "";
+    private static final String STR_EXCEPTION = "";
+    private static final String TAG_TRACE_TIME = "TraceTime";
+    private static final String TAG_LIFE_CYCLE = "life_cycle";
 
     private static boolean mShow = true; // 配置是否显示LOG，默认显示
     private static boolean mShowPath = false; // 配置是否显示路径，默认隐藏
-    private static int mPathLine = 3; // 配置显示路径的行数，默认3行
+    private static int mPathLine = 5; // 配置显示路径的行数，默认3行
+    private static boolean mShowLifeRecycle = true; // 配置是否显示生命周期，默认显示
 
     /**
      * 配置是否显示LOG
@@ -39,6 +42,13 @@ public class LogUtils {
      */
     public static void setPathLine(int pathLine) {
         mPathLine = pathLine;
+    }
+
+    /**
+     * 配置是否显示生命周期
+     */
+    public static void setShowLifeRecycle(boolean show) {
+        mShowLifeRecycle = show;
     }
 
     /**
@@ -177,10 +187,45 @@ public class LogUtils {
     }
 
     /**
+     * Building Message
+     */
+    private static String buildMessage(String msg) {
+        try {
+            StringBuilder builder = new StringBuilder();
+            builder.append(msg);
+            if (mShowPath) {
+                for (int i = 0; i < mPathLine; i++) {
+                    if (i == 0 || i == 1) { // 因为封装过程中已经有两层为固定的
+                        continue;
+                    }
+
+                    StackTraceElement caller = new Throwable().fillInStackTrace().getStackTrace()[i];
+                    if (caller == null) {
+                        continue;
+                    }
+
+                    builder.append("\n");
+                    builder.append("at ");
+                    builder.append(caller.getClassName());
+                    builder.append(".");
+                    builder.append(caller.getMethodName());
+                    builder.append("(");
+                    builder.append(caller.getFileName());
+                    builder.append(":");
+                    builder.append(caller.getLineNumber());
+                    builder.append(")");
+                }
+            }
+            return builder.toString();
+        } catch (Exception e) {
+            printStackTrace(e);
+            return STR_EXCEPTION;
+        }
+    }
+
+    /**
      * TraceTime
      */
-    public static final String TAG_TRACE_TIME = "TraceTime";
-
     private static Stack<Long> traceTimeStack = new Stack<>();
 
     public static void traceStart(String tag) {
@@ -216,6 +261,15 @@ public class LogUtils {
     }
 
     /**
+     * 打印声明周期
+     */
+    public static void printLifeRecycle(String tag, String msg) {
+        if (mShowLifeRecycle) {
+            LogUtils.i(tag, TAG_LIFE_CYCLE + " | " + msg);
+        }
+    }
+
+    /**
      * 打印初始化信息
      */
     public static void printInit(String module) {
@@ -227,7 +281,7 @@ public class LogUtils {
     }
 
     /**
-     * 打印 ActivityManager
+     * 打印ActivityManager
      */
     public static void printActivityList(LinkedList<Activity> activityList) {
         try {
@@ -239,43 +293,6 @@ public class LogUtils {
             LogUtils.i(builder.toString());
         } catch (Exception e) {
             printStackTrace(e);
-        }
-    }
-
-    /**
-     * Building Message
-     */
-    private static String buildMessage(String msg) {
-        try {
-            StringBuilder builder = new StringBuilder();
-            builder.append(msg);
-            if (mShowPath) {
-                for (int i = 0; i < mPathLine; i++) {
-                    if (i == 0 || i == 1) { // 因为封装过程中已经有两层为固定的
-                        continue;
-                    }
-
-                    StackTraceElement caller = new Throwable().fillInStackTrace().getStackTrace()[i];
-                    if (caller == null) {
-                        continue;
-                    }
-
-                    builder.append("\n");
-                    builder.append("at ");
-                    builder.append(caller.getClassName());
-                    builder.append(".");
-                    builder.append(caller.getMethodName());
-                    builder.append("(");
-                    builder.append(caller.getFileName());
-                    builder.append(":");
-                    builder.append(caller.getLineNumber());
-                    builder.append(")");
-                }
-            }
-            return builder.toString();
-        } catch (Exception e) {
-            printStackTrace(e);
-            return EXCEPTION_STRING;
         }
     }
 

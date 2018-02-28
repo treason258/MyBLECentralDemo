@@ -42,10 +42,6 @@ public class TCApp extends Application {
     // TAG
     protected static final String TAG = TCApp.class.getSimpleName();
 
-    // 显示生命周期
-    protected final String TAG_LIFE_CYCLE = "life_cycle_app";
-    protected boolean SHOW_LIFE_CYCLE = true;
-
     // var
     private static TCApp mInstance;
     private Context mContext;
@@ -59,52 +55,40 @@ public class TCApp extends Application {
 
     @Override
     public void onCreate() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onCreate");
-        }
+        LogUtils.printLifeRecycle(TAG, "onCreate");
         super.onCreate();
 
         // var
         mInstance = this;
         mContext = getApplicationContext();
 
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | process id -> " + ProcessUtil.getProcessId());
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | process name -> " + ProcessUtil.getProcessName(mContext));
-        }
+        LogUtils.printLifeRecycle(TAG, "process id -> " + ProcessUtil.getProcessId());
+        LogUtils.printLifeRecycle(TAG, "process name -> " + ProcessUtil.getProcessName(mContext));
 
         initApp();
     }
 
     @Override
     public void onTerminate() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onTerminate");
-        }
+        LogUtils.printLifeRecycle(TAG, "onTerminate");
         super.onTerminate();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onConfigurationChanged | newConfig -> " + newConfig.toString());
-        }
+        LogUtils.printLifeRecycle(TAG, "onConfigurationChanged | newConfig -> " + newConfig.toString());
         super.onConfigurationChanged(newConfig);
     }
 
     @Override
     public void onLowMemory() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onLowMemory");
-        }
+        LogUtils.printLifeRecycle(TAG, "onLowMemory");
         super.onLowMemory();
     }
 
     @Override
     public void onTrimMemory(int level) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onTrimMemory | level -> " + level);
-        }
+        LogUtils.printLifeRecycle(TAG, "onTrimMemory | level -> " + level);
         super.onTrimMemory(level);
     }
 
@@ -112,9 +96,7 @@ public class TCApp extends Application {
      * 初始化APP
      */
     public void initApp() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | initApp");
-        }
+        LogUtils.printLifeRecycle(TAG, "initApp");
         LogUtils.printInit(TAG);
 
         /**

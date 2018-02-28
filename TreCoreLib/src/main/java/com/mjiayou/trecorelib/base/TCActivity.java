@@ -35,15 +35,10 @@ import butterknife.ButterKnife;
 /**
  * TCActivity
  */
-
 public abstract class TCActivity extends AppCompatActivity implements RequestAdapter.DataRequest, RequestAdapter.DataResponse {
 
     // TAG
     protected final String TAG = this.getClass().getSimpleName();
-
-    // 显示生命周期
-    protected final String TAG_LIFE_CYCLE = "life_cycle_activity";
-    protected boolean SHOW_LIFE_CYCLE = true;
 
     // var
     protected Activity mActivity;
@@ -67,9 +62,7 @@ public abstract class TCActivity extends AppCompatActivity implements RequestAda
         // beforeOnCreate
         beforeOnCreate(savedInstanceState);
 
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onCreate | savedInstanceState -> " + ConvertUtils.parseString(savedInstanceState));
-        }
+        LogUtils.printLifeRecycle(TAG, "onCreate | savedInstanceState -> " + ConvertUtils.parseString(savedInstanceState));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tc_activity_base);
 
@@ -88,9 +81,7 @@ public abstract class TCActivity extends AppCompatActivity implements RequestAda
         } else {
             mLayoutContainer.addView(getLayoutInflater().inflate(getLayoutId(), null));
         }
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, "getLayoutId() -> " + getLayoutId());
-        }
+        LogUtils.printLifeRecycle(TAG, "getLayoutId() -> " + getLayoutId());
 
         // 控件注解
         ButterKnife.inject(this);
@@ -103,32 +94,24 @@ public abstract class TCActivity extends AppCompatActivity implements RequestAda
 
         // afterOnCreate
         afterOnCreate(savedInstanceState);
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | afterOnCreate | savedInstanceState -> " + ConvertUtils.parseString(savedInstanceState));
-        }
+        LogUtils.printLifeRecycle(TAG, "afterOnCreate | savedInstanceState -> " + ConvertUtils.parseString(savedInstanceState));
     }
 
     @Override
     protected void onRestart() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onRestart");
-        }
+        LogUtils.printLifeRecycle(TAG, "onRestart");
         super.onRestart();
     }
 
     @Override
     protected void onStart() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onStart");
-        }
+        LogUtils.printLifeRecycle(TAG, "onStart");
         super.onStart();
     }
 
     @Override
     protected void onResume() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onResume");
-        }
+        LogUtils.printLifeRecycle(TAG, "onResume");
         super.onResume();
         // 打印ActivityManager
         LogUtils.printActivityList(ActivityManager.get().getActivityList());
@@ -136,66 +119,50 @@ public abstract class TCActivity extends AppCompatActivity implements RequestAda
 
     @Override
     protected void onPause() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onPause");
-        }
+        LogUtils.printLifeRecycle(TAG, "onPause");
         super.onPause();
     }
 
     @Override
     protected void onStop() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onStop");
-        }
+        LogUtils.printLifeRecycle(TAG, "onStop");
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onDestroy");
-        }
+        LogUtils.printLifeRecycle(TAG, "onDestroy");
         super.onDestroy();
     }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onPostCreate | savedInstanceState -> " + ConvertUtils.parseString(savedInstanceState));
-        }
+        LogUtils.printLifeRecycle(TAG, "onPostCreate | savedInstanceState -> " + ConvertUtils.parseString(savedInstanceState));
         super.onPostCreate(savedInstanceState);
     }
 
     @Override
     protected void onPostResume() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onPostResume");
-        }
+        LogUtils.printLifeRecycle(TAG, "onPostResume");
         super.onPostResume();
     }
 
     @Override
     public void setContentView(int layoutResID) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | setContentView | layoutResID -> " + layoutResID);
-        }
+        LogUtils.printLifeRecycle(TAG, "setContentView | layoutResID -> " + layoutResID);
         super.setContentView(layoutResID);
     }
 
     @Nullable
     @Override
     public View findViewById(@IdRes int id) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | findViewById | id -> " + id);
-        }
+        LogUtils.printLifeRecycle(TAG, "findViewById | id -> " + id);
         return super.findViewById(id);
     }
 
     @Override
     public void finish() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | finish");
-        }
+        LogUtils.printLifeRecycle(TAG, "finish");
         super.finish();
         // Activity管理，出栈操作
         ActivityManager.get().removeActivity(mActivity);
@@ -203,134 +170,106 @@ public abstract class TCActivity extends AppCompatActivity implements RequestAda
 
     @Override
     public void startActivity(Intent intent) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | startActivity | intent -> " + intent.toString());
-        }
+        LogUtils.printLifeRecycle(TAG, "startActivity | intent -> " + intent.toString());
         super.startActivity(intent);
     }
 
     @Override
     public void startActivityForResult(Intent intent, int requestCode) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | startActivityForResult | intent -> " + intent.toString() + " | requestCode -> " + requestCode);
-        }
+        LogUtils.printLifeRecycle(TAG, "startActivityForResult | intent -> " + intent.toString() + " | requestCode -> " + requestCode);
         super.startActivityForResult(intent, requestCode);
     }
 
     @Override
     public void onBackPressed() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onBackPressed");
-        }
+        LogUtils.printLifeRecycle(TAG, "onBackPressed");
         super.onBackPressed();
     }
 
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onKeyDown | keyCode -> " + keyCode + " | event -> " + event.toString());
-        }
+        LogUtils.printLifeRecycle(TAG, "onKeyDown | keyCode -> " + keyCode + " | event -> " + event.toString());
         return super.onKeyDown(keyCode, event);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onTouchEvent | event -> " + event.toString());
-        }
+        LogUtils.printLifeRecycle(TAG, "onTouchEvent | event -> " + event.toString());
         return super.onTouchEvent(event);
     }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | dispatchTouchEvent | event -> " + ev.toString());
-        }
+        LogUtils.printLifeRecycle(TAG, "dispatchTouchEvent | event -> " + ev.toString());
         return super.dispatchTouchEvent(ev);
     }
 
     @Override
     protected void onTitleChanged(CharSequence title, int color) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onTitleChanged | title —> " + title + " | color -> " + color);
-        }
+        LogUtils.printLifeRecycle(TAG, "onTitleChanged | title —> " + title + " | color -> " + color);
         super.onTitleChanged(title, color);
     }
 
     @Override
     public void setTheme(@StyleRes int resid) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | setTheme | resid -> " + resid);
-        }
+        LogUtils.printLifeRecycle(TAG, "setTheme | resid -> " + resid);
         super.setTheme(resid);
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onNewIntent | intent -> " + intent.toString());
-        }
+        LogUtils.printLifeRecycle(TAG, "onNewIntent | intent -> " + intent.toString());
         super.onNewIntent(intent);
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onSaveInstanceState | outState -> " + ConvertUtils.parseString(outState));
-        }
+        LogUtils.printLifeRecycle(TAG, "onSaveInstanceState | outState -> " + ConvertUtils.parseString(outState));
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onRestoreInstanceState | savedInstanceState -> " + ConvertUtils.parseString(savedInstanceState));
-        }
+        LogUtils.printLifeRecycle(TAG, "onRestoreInstanceState | savedInstanceState -> " + ConvertUtils.parseString(savedInstanceState));
         super.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onConfigurationChanged | newConfig -> " + newConfig.toString());
-        }
+        LogUtils.printLifeRecycle(TAG, "onConfigurationChanged | newConfig -> " + newConfig.toString());
         super.onConfigurationChanged(newConfig);
     }
 
     @Override
     public void onLowMemory() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onLowMemory");
-        }
+        LogUtils.printLifeRecycle(TAG, "onLowMemory");
         super.onLowMemory();
     }
 
     @Override
     public void onTrimMemory(int level) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onTrimMemory | level -> " + level);
-            // 因为onTrimMemory() 是在API 14 里添加的，你可以在老版本里使用onLowMemory() 回调，大致跟TRIM_MEMORY_COMPLETE事件相同。
-            switch (level) {
-                case TRIM_MEMORY_RUNNING_MODERATE:
-                    LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onTrimMemory -> 你的应用正在运行，并且不会被杀死，但设备已经处于低内存状态，并且开始杀死LRU缓存里的内存。");
-                    break;
-                case TRIM_MEMORY_RUNNING_LOW:
-                    LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onTrimMemory -> 你的应用正在运行，并且不会被杀死，但设备处于内存更低的状态，所以你应该释放无用资源以提高系统性能（直接影响app性能）");
-                    break;
-                case TRIM_MEMORY_RUNNING_CRITICAL:
-                    LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onTrimMemory -> 你的应用还在运行，但系统已经杀死了LRU缓存里的大多数进程，所以你应该在此时释放所有非关键的资源。如果系统无法回收足够的内存，它会清理掉所有LRU缓存，并且开始杀死之前优先保持的进程，像那些运行着service的。同时，当你的app进程当前被缓存，你可能会从onTrimMemory() 收到下面的几种level。");
-                    break;
-                case TRIM_MEMORY_BACKGROUND:
-                    LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onTrimMemory -> 系统运行在低内存状态，并且你的进程已经接近LRU列表的顶端（即将被清理）。虽然你的app进程还没有很高的被杀死风险，系统可能已经清理LRU里的进程，你应该释放那些容易被恢复的资源，如此可以让你的进程留在缓存里，并且当用户回到app时快速恢复。");
-                    break;
-                case TRIM_MEMORY_MODERATE:
-                    LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onTrimMemory -> 系统运行在低内存状态，你的进程在LRU列表中间附近。如果系统变得内存紧张，可能会导致你的进程被杀死。");
-                    break;
-                case TRIM_MEMORY_COMPLETE:
-                    LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onTrimMemory -> 系统运行在低内存状态，如果系统没有恢复内存，你的进程是首先被杀死的进程之一。你应该释放所有不重要的资源来恢复你的app状态。");
-                    break;
-            }
+        LogUtils.printLifeRecycle(TAG, "onTrimMemory | level -> " + level);
+        // 因为onTrimMemory() 是在API 14 里添加的，你可以在老版本里使用onLowMemory() 回调，大致跟TRIM_MEMORY_COMPLETE事件相同。
+        switch (level) {
+            case TRIM_MEMORY_RUNNING_MODERATE:
+                LogUtils.printLifeRecycle(TAG, "onTrimMemory -> 你的应用正在运行，并且不会被杀死，但设备已经处于低内存状态，并且开始杀死LRU缓存里的内存。");
+                break;
+            case TRIM_MEMORY_RUNNING_LOW:
+                LogUtils.printLifeRecycle(TAG, "onTrimMemory -> 你的应用正在运行，并且不会被杀死，但设备处于内存更低的状态，所以你应该释放无用资源以提高系统性能（直接影响app性能）");
+                break;
+            case TRIM_MEMORY_RUNNING_CRITICAL:
+                LogUtils.printLifeRecycle(TAG, "onTrimMemory -> 你的应用还在运行，但系统已经杀死了LRU缓存里的大多数进程，所以你应该在此时释放所有非关键的资源。如果系统无法回收足够的内存，它会清理掉所有LRU缓存，并且开始杀死之前优先保持的进程，像那些运行着service的。同时，当你的app进程当前被缓存，你可能会从onTrimMemory() 收到下面的几种level。");
+                break;
+            case TRIM_MEMORY_BACKGROUND:
+                LogUtils.printLifeRecycle(TAG, "onTrimMemory -> 系统运行在低内存状态，并且你的进程已经接近LRU列表的顶端（即将被清理）。虽然你的app进程还没有很高的被杀死风险，系统可能已经清理LRU里的进程，你应该释放那些容易被恢复的资源，如此可以让你的进程留在缓存里，并且当用户回到app时快速恢复。");
+                break;
+            case TRIM_MEMORY_MODERATE:
+                LogUtils.printLifeRecycle(TAG, "onTrimMemory -> 系统运行在低内存状态，你的进程在LRU列表中间附近。如果系统变得内存紧张，可能会导致你的进程被杀死。");
+                break;
+            case TRIM_MEMORY_COMPLETE:
+                LogUtils.printLifeRecycle(TAG, "onTrimMemory -> 系统运行在低内存状态，如果系统没有恢复内存，你的进程是首先被杀死的进程之一。你应该释放所有不重要的资源来恢复你的app状态。");
+                break;
         }
         super.onTrimMemory(level);
     }
@@ -341,9 +280,7 @@ public abstract class TCActivity extends AppCompatActivity implements RequestAda
      * 在 onCreate 之前执行
      */
     protected void beforeOnCreate(Bundle savedInstanceState) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | beforeOnCreate | savedInstanceState -> " + ConvertUtils.parseString(savedInstanceState));
-        }
+        LogUtils.printLifeRecycle(TAG, "beforeOnCreate | savedInstanceState -> " + ConvertUtils.parseString(savedInstanceState));
     }
 
     /**
@@ -361,53 +298,39 @@ public abstract class TCActivity extends AppCompatActivity implements RequestAda
 
     @Override
     public void initView() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | initView");
-        }
+        LogUtils.printLifeRecycle(TAG, "initView");
     }
 
     @Override
     public void getData(int pageNumber) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | getData");
-        }
+        LogUtils.printLifeRecycle(TAG, "getData");
     }
 
     @Override
     public void refreshData() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | refreshData");
-        }
+        LogUtils.printLifeRecycle(TAG, "refreshData");
     }
 
     @Override
     public void loadMoreData() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | loadMoreData");
-        }
+        LogUtils.printLifeRecycle(TAG, "loadMoreData");
     }
 
     @Override
     public void submitData() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | submitData");
-        }
+        LogUtils.printLifeRecycle(TAG, "submitData");
     }
 
     // ******************************** RequestAdapter.DataResponse ********************************
 
     @Override
     public void callback(Message msg) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | callback");
-        }
+        LogUtils.printLifeRecycle(TAG, "callback");
     }
 
     @Override
     public void refreshView(TCResponse response) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | refreshView");
-        }
+        LogUtils.printLifeRecycle(TAG, "refreshView");
     }
 
     // ******************************** showLoading ********************************
@@ -416,9 +339,7 @@ public abstract class TCActivity extends AppCompatActivity implements RequestAda
      * 显示、隐藏正在加载对话框
      */
     public void showLoading(boolean show) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | showLoading | show -> " + show);
-        }
+        LogUtils.printLifeRecycle(TAG, "showLoading | show -> " + show);
         try {
             // 需要显示时，如果页面已经finish，则return
             if (show && isFinishing()) {
@@ -463,9 +384,7 @@ public abstract class TCActivity extends AppCompatActivity implements RequestAda
      * 更新信息
      */
     public void updateLoading(String message) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | updateLoading | message -> " + message);
-        }
+        LogUtils.printLifeRecycle(TAG, "updateLoading | message -> " + message);
         if (null != mLoadingDialog && mLoadingDialog.isShowing() && !TextUtils.isEmpty(message)) {
             if (mLoadingDialog instanceof TCLoadingDialog) {
                 ((TCLoadingDialog) mLoadingDialog).updateMessage(message);
@@ -480,9 +399,7 @@ public abstract class TCActivity extends AppCompatActivity implements RequestAda
      * 返回 TitleBar 对象
      */
     public TitleBar getTitleBar() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | getTitleBar");
-        }
+        LogUtils.printLifeRecycle(TAG, "getTitleBar");
         return mTitleBar;
     }
 
@@ -492,9 +409,7 @@ public abstract class TCActivity extends AppCompatActivity implements RequestAda
      * 返回 StatusViewManager 对象
      */
     public StatusViewManager getStatusViewManager() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | getStatusViewManager");
-        }
+        LogUtils.printLifeRecycle(TAG, "getStatusViewManager");
         if (mStatusViewManager == null) {
             mStatusViewManager = new StatusViewManager(mLayoutContainer, getLayoutInflater());
         }
@@ -507,9 +422,7 @@ public abstract class TCActivity extends AppCompatActivity implements RequestAda
      * 返回 RequestAdapter 对象
      */
     public RequestAdapter getRequestAdapter() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | getRequestAdapter");
-        }
+        LogUtils.printLifeRecycle(TAG, "getRequestAdapter");
         if (mRequestAdapter == null) {
             mRequestAdapter = new RequestAdapter(mContext, this);
         }

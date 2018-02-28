@@ -14,6 +14,9 @@ import com.mjiayou.trecorelib.util.MenuUtil;
 
 import java.util.List;
 
+/**
+ * TCMenuActivity
+ */
 public class TCMenuActivity extends TCActivity {
 
     private LinearLayout mLayoutMenuContainer;

@@ -11,16 +11,12 @@ import com.mjiayou.trecorelib.R;
 import com.mjiayou.trecorelib.util.LogUtils;
 
 /**
- * Created by treason on 16/5/27.
+ * TCDialog
  */
 public class TCDialog extends Dialog {
 
     // TAG
     protected final String TAG = this.getClass().getSimpleName();
-
-    // 显示生命周期
-    protected final String TAG_LIFE_CYCLE = "life_cycle_dialog";
-    protected boolean SHOW_LIFE_CYCLE = true;
 
     protected final static double WIDTH_RATIO_DEFAULT = 0.85;
     protected final static double WIDTH_RATIO_BIG = 0.95;
@@ -32,9 +28,7 @@ public class TCDialog extends Dialog {
 
     public TCDialog(Context context, int themeResId) {
         super(context, themeResId);
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onConstruct");
-        }
+        LogUtils.printLifeRecycle(TAG, "onConstruct");
 
         // var
         mContext = context;
@@ -49,65 +43,49 @@ public class TCDialog extends Dialog {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onCreate");
-        }
+        LogUtils.printLifeRecycle(TAG, "onCreate");
         super.onCreate(savedInstanceState);
     }
 
     @Override
     protected void onStart() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onStart");
-        }
+        LogUtils.printLifeRecycle(TAG, "onStart");
         super.onStart();
     }
 
     @Override
     protected void onStop() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onStop");
-        }
+        LogUtils.printLifeRecycle(TAG, "onStop");
         super.onStop();
     }
 
     @Override
     public void dismiss() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | dismiss");
-        }
+        LogUtils.printLifeRecycle(TAG, "dismiss");
         super.dismiss();
     }
 
     @Override
     public void onBackPressed() {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onBackPressed");
-        }
+        LogUtils.printLifeRecycle(TAG, "onBackPressed");
         super.onBackPressed();
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onKeyDown | keyCode -> " + keyCode + " | event -> " + event.toString());
-        }
+        LogUtils.printLifeRecycle(TAG, "onKeyDown | keyCode -> " + keyCode + " | event -> " + event.toString());
         return super.onKeyDown(keyCode, event);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | onTouchEvent | event -> " + event.toString());
-        }
+        LogUtils.printLifeRecycle(TAG, "onTouchEvent | event -> " + event.toString());
         return super.onTouchEvent(event);
     }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (SHOW_LIFE_CYCLE) {
-            LogUtils.i(TAG, TAG_LIFE_CYCLE + " | dispatchTouchEvent | event -> " + ev.toString());
-        }
+        LogUtils.printLifeRecycle(TAG, "dispatchTouchEvent | event -> " + ev.toString());
         return super.dispatchTouchEvent(ev);
     }
 }
