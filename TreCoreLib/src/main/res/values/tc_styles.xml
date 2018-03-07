@@ -11,20 +11,16 @@
         <item name="android:windowBackground">@color/tc_background</item>
     </style>
 
-    <!-- 无TitleBar -->
-    <style name="TCTheme.NoTitleBar">
+    <!-- 无ActionBar -->
+    <style name="TCTheme.NoActionBar">
         <item name="windowNoTitle">true</item>
         <item name="android:windowNoTitle">true</item>
-    </style>
-
-    <!-- 无ActionBar -->
-    <style name="TCTheme.NoTitleBar.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="android:windowActionBar" tools:targetApi="11">false</item>
     </style>
 
     <!-- 全屏显示 -->
-    <style name="TCTheme.NoTitleBar.NoActionBar.Fullscreen">
+    <style name="TCTheme.NoActionBar.Fullscreen">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
@@ -38,7 +34,7 @@
     <!-- ******************************* TCAppTheme ******************************* -->
 
     <!-- Base application theme. -->
-    <style name="TCAppTheme" parent="TCTheme.NoTitleBar.NoActionBar">
+    <style name="TCAppTheme" parent="TCTheme.NoActionBar">
         <!-- Customize your theme here. -->
     </style>
 
