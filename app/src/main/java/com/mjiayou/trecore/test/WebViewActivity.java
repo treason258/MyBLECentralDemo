@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import com.mjiayou.trecore.R;
 import com.mjiayou.trecorelib.base.TCActivity;
+import com.mjiayou.trecorelib.util.LogUtils;
 import com.mjiayou.trecorelib.util.ToastUtils;
 
 /**
@@ -67,8 +68,14 @@ public class WebViewActivity extends TCActivity {
          * 约定JS调用Android的方法
          */
         @JavascriptInterface
-        void callAndroid(String param) {
-            ToastUtils.show("JS调用了Android的callAndroid(" + param + ")方法");
+        public void callAndroid(final String param) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    LogUtils.d("callAndroid | param -> " + param);
+                    ToastUtils.show("JS调用了Android的callAndroid(" + param + ")方法");
+                }
+            });
         }
     }
 
