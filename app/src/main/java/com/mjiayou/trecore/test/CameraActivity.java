@@ -46,6 +46,10 @@ public class CameraActivity extends TCActivity {
 
     @Override
     protected void afterOnCreate(Bundle savedInstanceState) {
+
+        // mTitleBar
+        getTitleBar().setTitle(TAG);
+
         // findViewById
         mSurfaceView = (SurfaceView) findViewById(R.id.surfaceview);
         mBtnTake = (Button) findViewById(R.id.btn_take);

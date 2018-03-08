@@ -31,6 +31,10 @@ public class WebViewActivity extends TCActivity {
 
     @Override
     protected void afterOnCreate(Bundle savedInstanceState) {
+
+        // mTitleBar
+        getTitleBar().setTitle(TAG);
+
         // findViewById
         mWebView = (WebView) findViewById(R.id.webview);
         mBtnCallJS = (Button) findViewById(R.id.btn_call_js);

@@ -65,6 +65,9 @@ public class FloatTagActivity extends TCActivity {
     @Override
     protected void afterOnCreate(Bundle savedInstanceState) {
 
+        // mTitleBar
+        getTitleBar().setTitle(TAG);
+
         // 通过onGlobalLayout方式获取宽高
         mIvBg.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
