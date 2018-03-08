@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mjiayou.trecore.MainActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="@dimen/tc_margin_small"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_common_bg" />
+
+    <RelativeLayout
+        android:id="@+id/rl_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_bg"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="@dimen/tc_margin_small"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_common_bg" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_add_new_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="增加一个标签" />
+
+    <Button
+        android:id="@+id/btn_remove_last_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="移除最后一个标签" />
+
+    <Button
+        android:id="@+id/btn_remove_all_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="移除全部标签" />
+
+</LinearLayout>

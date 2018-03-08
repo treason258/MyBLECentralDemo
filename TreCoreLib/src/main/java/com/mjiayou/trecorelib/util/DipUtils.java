@@ -1,7 +1,10 @@
 package com.mjiayou.trecorelib.util;
 
 import android.content.Context;
+import android.support.annotation.DimenRes;
 import android.util.TypedValue;
+
+import com.mjiayou.trecorelib.base.TCApp;
 
 /**
  * Created by treason on 15-12-21.
@@ -84,5 +87,19 @@ public class DipUtils {
     public static int px2sp(Context context, float pxValue) {
         float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
+    }
+
+    // ******************************** getDimensionPixelSize ********************************
+
+    /**
+     * getDimensionPixelSize
+     */
+    public static int getDimensionPixelSize(@DimenRes int id) {
+        int size = 0;
+        Context context = TCApp.get();
+        if (context == null) {
+            return size;
+        }
+        return context.getResources().getDimensionPixelSize(id);
     }
 }

@@ -25,6 +25,8 @@
         <activity android:name=".test.WebViewActivity" />
         <!-- CameraActivity -->
         <activity android:name=".test.CameraActivity" />
+        <!-- FloatTagActivity -->
+        <activity android:name=".test.FloatTagActivity" />
     </application>
 
 </manifest>
