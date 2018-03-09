@@ -37,13 +37,15 @@ public class CustomToastUtils {
             return;
         }
 
+        // view
+        View view = LayoutInflater.from(context).inflate(R.layout.tc_layout_custom_toast, null);
+        TextView tvText = (TextView) view.findViewById(R.id.tv_text);
+        tvText.setText(text);
+
+        // mToastCustom
         if (mToastCustom == null) {
             mToastCustom = Toast.makeText(context, text, Toast.LENGTH_LONG);
         }
-        // view
-        View view = LayoutInflater.from(context).inflate(R.layout.tc_layout_custom_toast, null);
-        TextView tvText = (TextView) view.findViewById(R.id.tvText);
-        tvText.setText(text);
         mToastCustom.setView(view);
         mToastCustom.setGravity(Gravity.CENTER, 0, 0);
 
@@ -76,7 +78,7 @@ public class CustomToastUtils {
     }
 
     private static View mView;
-    private static TextView mTextView;
+    private static TextView mTvText;
     private static WindowManager.LayoutParams mLayoutParams;
     private static boolean mShow = false;
     private static Timer timer4Cancel4WindowManager;
@@ -85,30 +87,31 @@ public class CustomToastUtils {
      * Toast显示指定时间
      */
     public static void showInDurationByWindowManager(String text, int duration) {
+        // context
         Context context = TCApp.get();
         if (context == null) {
             LogUtils.e(TAG, TCHelper.ERROR_CONTEXT_NULL);
             return;
         }
 
-        // view
-        if (mView == null || mTextView == null) {
+        // mView
+        if (mView == null || mTvText == null) {
             mView = LayoutInflater.from(context).inflate(R.layout.tc_layout_custom_toast, null);
-            mTextView = (TextView) mView.findViewById(R.id.tvText);
+            mTvText = (TextView) mView.findViewById(R.id.tv_text);
         }
-        mTextView.setText(text);
+        mTvText.setText(text);
 
-        // params
+        // mLayoutParams
         if (mLayoutParams == null) {
             mLayoutParams = new WindowManager.LayoutParams();
             mLayoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
             mLayoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
             mLayoutParams.format = PixelFormat.TRANSLUCENT;
-            mLayoutParams.type = WindowManager.LayoutParams.TYPE_TOAST; // TYPE_APPLICATION_PANEL
+            mLayoutParams.type = WindowManager.LayoutParams.TYPE_TOAST;
             mLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                     | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
                     | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
-            mLayoutParams.gravity = Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL;
+            mLayoutParams.gravity = Gravity.CENTER;
         }
 
         // windowManager
@@ -128,6 +131,7 @@ public class CustomToastUtils {
             e.printStackTrace();
         }
 
+        // timer4Cancel4WindowManager
         if (timer4Cancel4WindowManager != null) {
             timer4Cancel4WindowManager.cancel();
             timer4Cancel4WindowManager = null;
@@ -143,6 +147,79 @@ public class CustomToastUtils {
                     e.printStackTrace();
                 }
             }
-        }, 5000);
+        }, duration);
+    }
+
+    /**
+     * 显示Toast
+     */
+    public static void showGlobalToast() {
+        // context
+        Context context = TCApp.get();
+        if (context == null) {
+            LogUtils.e(TAG, TCHelper.ERROR_CONTEXT_NULL);
+            return;
+        }
+
+        // view
+        if (mView == null || mTvText == null) {
+            mView = LayoutInflater.from(context).inflate(R.layout.tc_layout_custom_toast, null);
+            mTvText = (TextView) mView.findViewById(R.id.tv_text);
+        }
+        mTvText.setText("WINDOW_SERVICE");
+
+        // mLayoutParams
+        if (mLayoutParams == null) {
+            mLayoutParams = new WindowManager.LayoutParams();
+            mLayoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
+            mLayoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            mLayoutParams.format = PixelFormat.TRANSLUCENT;
+            mLayoutParams.type = WindowManager.LayoutParams.TYPE_TOAST;
+            mLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                    | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
+                    | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
+            mLayoutParams.gravity = Gravity.CENTER;
+        }
+
+        // windowManager
+        final WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        if (mShow) {
+            try {
+                windowManager.removeView(mView);
+                mShow = false;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            windowManager.addView(mView, mLayoutParams);
+            mShow = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * 移除Toast
+     */
+    public static void hideGlobalToast() {
+        // context
+        Context context = TCApp.get();
+        if (context == null) {
+            LogUtils.e(TAG, TCHelper.ERROR_CONTEXT_NULL);
+            return;
+        }
+
+        // windowManager
+        final WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        if (mShow) {
+            try {
+                windowManager.removeView(mView);
+                mShow = false;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
