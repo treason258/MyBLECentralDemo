@@ -30,7 +30,7 @@ public class CustomToastUtils {
     /**
      * Toast显示指定时间
      */
-    public static void showInDuration(String text, int duration) {
+    public static void showToast(String text, int duration) {
         Context context = TCApp.get();
         if (context == null) {
             LogUtils.e(TAG, TCHelper.ERROR_CONTEXT_NULL);
@@ -77,17 +77,17 @@ public class CustomToastUtils {
         }, duration);
     }
 
-    private static View mView;
-    private static TextView mTvText;
     private static WindowManager mWindowManager;
     private static WindowManager.LayoutParams mLayoutParams;
+    private static View mView;
+    private static TextView mTvText;
     private static boolean mShow = false;
     private static Timer timer4Cancel4WindowManager;
 
     /**
-     * Toast显示指定时间
+     * 显示 WindowsToast
      */
-    public static void showInDurationByWindowManager(String text, int duration) {
+    public static void showWindowToast(String text, int duration) {
         // context
         Context context = TCApp.get();
         if (context == null) {
@@ -132,79 +132,39 @@ public class CustomToastUtils {
             e.printStackTrace();
         }
 
-        // timer4Cancel4WindowManager
-        if (timer4Cancel4WindowManager != null) {
-            timer4Cancel4WindowManager.cancel();
-            timer4Cancel4WindowManager = null;
-        }
-        timer4Cancel4WindowManager = new Timer();
-        timer4Cancel4WindowManager.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    mWindowManager.removeView(mView);
-                    mShow = false;
-                } catch (Exception e) {
-                    e.printStackTrace();
+        // 定时隐藏
+        if (duration != 0) {
+            // timer4Cancel4WindowManager
+            if (timer4Cancel4WindowManager != null) {
+                timer4Cancel4WindowManager.cancel();
+                timer4Cancel4WindowManager = null;
+            }
+            timer4Cancel4WindowManager = new Timer();
+            timer4Cancel4WindowManager.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+                        mWindowManager.removeView(mView);
+                        mShow = false;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        }, duration);
+            }, duration);
+        }
     }
 
     /**
-     * 显示Toast
+     * 显示 WindowsToast
      */
-    public static void showGlobalToast() {
-        // context
-        Context context = TCApp.get();
-        if (context == null) {
-            LogUtils.e(TAG, TCHelper.ERROR_CONTEXT_NULL);
-            return;
-        }
-
-        // mView
-        if (mView == null || mTvText == null) {
-            mView = LayoutInflater.from(context).inflate(R.layout.tc_layout_custom_toast, null);
-            mTvText = (TextView) mView.findViewById(R.id.tv_text);
-        }
-        mTvText.setText("WINDOW_SERVICE");
-
-        // mLayoutParams
-        if (mLayoutParams == null) {
-            mLayoutParams = new WindowManager.LayoutParams();
-            mLayoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
-            mLayoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
-            mLayoutParams.format = PixelFormat.TRANSLUCENT;
-            mLayoutParams.type = WindowManager.LayoutParams.TYPE_TOAST;
-            mLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                    | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
-                    | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
-            mLayoutParams.gravity = Gravity.CENTER;
-        }
-
-        // mWindowManager
-        mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        if (mShow) {
-            try {
-                mWindowManager.removeView(mView);
-                mShow = false;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        try {
-            mWindowManager.addView(mView, mLayoutParams);
-            mShow = true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+    public static void showWindowToast(String text) {
+        showWindowToast(text, 0);
     }
 
     /**
-     * 移除Toast
+     * 隐藏 WindowToast
      */
-    public static void hideGlobalToast() {
+    public static void hideWindowToast() {
         // context
         Context context = TCApp.get();
         if (context == null) {
