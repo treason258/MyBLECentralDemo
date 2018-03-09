@@ -52,6 +52,11 @@
         android:label="@string/tc_app_name"
         android:supportsRtl="true">
         <activity android:name=".base.TCMenuActivity" />
+
+        <!-- HeartService -->
+        <service android:name=".service.HeartService" />
+        <!-- FloatService -->
+        <service android:name=".service.FloatService" />
     </application>
 
 </manifest>

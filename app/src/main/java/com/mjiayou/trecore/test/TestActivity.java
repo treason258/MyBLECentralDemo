@@ -255,6 +255,12 @@ public class TestActivity extends TCActivity {
                 CustomToastUtils.showWindowToast("显示5秒 by WindowManager", 5000);
             }
         }));
+        tcMenus.add(new TCMenu("ServiceActivity", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(mContext, ServiceActivity.class));
+            }
+        }));
         tcMenus.add(new TCMenu("FloatTagActivity", new View.OnClickListener() {
             @Override
             public void onClick(View view) {

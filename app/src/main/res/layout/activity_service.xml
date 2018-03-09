@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="@dimen/tc_margin_small"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_common_bg" />
+
+    <TextView
+        android:id="@+id/tv_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Hello World!" />
+
+    <Button
+        android:id="@+id/btn_start_heart_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="start HeartService" />
+
+    <Button
+        android:id="@+id/btn_start_float_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="start FloatService" />
+
+</LinearLayout>
