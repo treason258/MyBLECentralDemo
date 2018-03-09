@@ -246,13 +246,13 @@ public class TestActivity extends TCActivity {
         tcMenus.add(new TCMenu("CustomToast 显示5秒 by Toast", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CustomToastUtils.showInDuration("显示5秒 by Toast", 5000);
+                CustomToastUtils.showToast("显示5秒 by Toast", 5000);
             }
         }));
         tcMenus.add(new TCMenu("CustomToast 显示5秒 by WindowManager", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CustomToastUtils.showInDurationByWindowManager("显示5秒 by WindowManager", 5000);
+                CustomToastUtils.showWindowToast("显示5秒 by WindowManager", 5000);
             }
         }));
         tcMenus.add(new TCMenu("FloatTagActivity", new View.OnClickListener() {

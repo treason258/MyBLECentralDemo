@@ -79,6 +79,7 @@ public class CustomToastUtils {
 
     private static View mView;
     private static TextView mTvText;
+    private static WindowManager mWindowManager;
     private static WindowManager.LayoutParams mLayoutParams;
     private static boolean mShow = false;
     private static Timer timer4Cancel4WindowManager;
@@ -114,18 +115,18 @@ public class CustomToastUtils {
             mLayoutParams.gravity = Gravity.CENTER;
         }
 
-        // windowManager
-        final WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        // mWindowManager
+        mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         if (mShow) {
             try {
-                windowManager.removeView(mView);
+                mWindowManager.removeView(mView);
                 mShow = false;
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         try {
-            windowManager.addView(mView, mLayoutParams);
+            mWindowManager.addView(mView, mLayoutParams);
             mShow = true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -141,7 +142,7 @@ public class CustomToastUtils {
             @Override
             public void run() {
                 try {
-                    windowManager.removeView(mView);
+                    mWindowManager.removeView(mView);
                     mShow = false;
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -161,7 +162,7 @@ public class CustomToastUtils {
             return;
         }
 
-        // view
+        // mView
         if (mView == null || mTvText == null) {
             mView = LayoutInflater.from(context).inflate(R.layout.tc_layout_custom_toast, null);
             mTvText = (TextView) mView.findViewById(R.id.tv_text);
@@ -181,18 +182,18 @@ public class CustomToastUtils {
             mLayoutParams.gravity = Gravity.CENTER;
         }
 
-        // windowManager
-        final WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        // mWindowManager
+        mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         if (mShow) {
             try {
-                windowManager.removeView(mView);
+                mWindowManager.removeView(mView);
                 mShow = false;
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         try {
-            windowManager.addView(mView, mLayoutParams);
+            mWindowManager.addView(mView, mLayoutParams);
             mShow = true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -211,11 +212,11 @@ public class CustomToastUtils {
             return;
         }
 
-        // windowManager
-        final WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        // mWindowManager
+        mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         if (mShow) {
             try {
-                windowManager.removeView(mView);
+                mWindowManager.removeView(mView);
                 mShow = false;
             } catch (Exception e) {
                 e.printStackTrace();
