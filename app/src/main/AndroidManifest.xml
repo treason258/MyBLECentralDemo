@@ -29,6 +29,8 @@
         <activity android:name=".test.ServiceActivity" />
         <!-- FloatTagActivity -->
         <activity android:name=".test.FloatTagActivity" />
+        <!-- MaterialDrawerActivity -->
+        <activity android:name=".test.MaterialDrawerActivity" />
     </application>
 
 </manifest>

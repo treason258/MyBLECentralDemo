@@ -36,8 +36,10 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
 
-    compile rootProject.ext.dependencies.appcompatV7
-    compile rootProject.ext.dependencies.constraint
-
     compile project(':TreCoreLib')
+
+    // materialdrawer
+    compile('com.mikepenz:materialdrawer:5.8.1@aar') {
+        transitive = true
+    }
 }
