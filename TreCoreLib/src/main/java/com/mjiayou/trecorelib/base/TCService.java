@@ -35,6 +35,12 @@ public class TCService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
+    @Override
+    public void onStart(Intent intent, int startId) {
+        LogUtils.printLifeRecycle(TAG, "onStart | intent.getAction() -> " + intent.getAction() + " | startId -> " + startId);
+        super.onStart(intent, startId);
+    }
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
