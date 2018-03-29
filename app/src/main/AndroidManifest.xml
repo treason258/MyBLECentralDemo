@@ -33,6 +33,8 @@
         <activity android:name=".test.MaterialDrawerActivity" />
         <!-- CustomViewActivity -->
         <activity android:name=".test.CustomViewActivity" />
+        <!-- DataBindingActivity -->
+        <activity android:name=".test.DataBindingActivity" />
     </application>
 
 </manifest>
