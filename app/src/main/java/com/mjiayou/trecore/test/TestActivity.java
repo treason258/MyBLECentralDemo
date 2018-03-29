@@ -260,6 +260,12 @@ public class TestActivity extends TCActivity {
                 startActivity(new Intent(mContext, MaterialDrawerActivity.class));
             }
         }));
+        tcMenus.add(new TCMenu("CustomViewActivity", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(mContext, CustomViewActivity.class));
+            }
+        }));
         return tcMenus;
     }
 

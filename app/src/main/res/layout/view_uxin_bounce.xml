@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlBounceContainer"
+    android:layout_width="match_parent"
+    android:layout_height="67.5dp"
+    android:layout_centerInParent="true"
+    android:background="#ffffff">
+
+    <View
+        android:id="@+id/viewBackground"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="15dp"
+        android:background="#f85d00"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvVehicleNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="查看全部123456车源"
+        android:textColor="#f85d00"
+        android:textSize="14dp" />
+
+    <View
+        android:id="@+id/viewMask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tvVehicleNum"
+        android:layout_alignLeft="@id/tvVehicleNum"
+        android:layout_alignRight="@id/tvVehicleNum"
+        android:layout_alignTop="@id/tvVehicleNum"
+        android:background="#ffffff" />
+
+    <ImageView
+        android:id="@+id/imgAnimation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_animated_car_animation_list" />
+</RelativeLayout>

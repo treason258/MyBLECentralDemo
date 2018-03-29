@@ -31,6 +31,8 @@
         <activity android:name=".test.FloatTagActivity" />
         <!-- MaterialDrawerActivity -->
         <activity android:name=".test.MaterialDrawerActivity" />
+        <!-- CustomViewActivity -->
+        <activity android:name=".test.CustomViewActivity" />
     </application>
 
 </manifest>
