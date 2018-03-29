@@ -1,6 +1,8 @@
 package com.mjiayou.trecore.test;
 
 import android.os.Bundle;
+import android.text.TextPaint;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,8 @@ import butterknife.OnClick;
  */
 public class FloatTagActivity extends TCActivity {
 
+    private final String LONG_TEXT = "测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字";
+
     @InjectView(R.id.rl_container)
     RelativeLayout mRlContainer;
     @InjectView(R.id.iv_bg)
@@ -36,6 +40,13 @@ public class FloatTagActivity extends TCActivity {
     Button mBtnRemoveLastTag;
     @InjectView(R.id.btn_remove_all_tag)
     Button mBtnRemoveAllTag;
+
+    @InjectView(R.id.tv_text)
+    TextView mTvText;
+    @InjectView(R.id.tv_line_count)
+    TextView mTvLineCount;
+    @InjectView(R.id.btn_reset_text)
+    TextView mBtnResetText;
 
     private int mImageWidth;
     private int mImageHeight;
@@ -53,6 +64,15 @@ public class FloatTagActivity extends TCActivity {
                 break;
             case R.id.btn_remove_all_tag:
                 removeAllTag();
+                break;
+        }
+    }
+
+    @OnClick({R.id.btn_reset_text})
+    void onClick2(View view) {
+        switch (view.getId()) {
+            case R.id.btn_reset_text:
+                resetText();
                 break;
         }
     }
@@ -89,6 +109,8 @@ public class FloatTagActivity extends TCActivity {
                 addNewTag();
             }
         });
+
+        resetText();
     }
 
     /**
@@ -184,5 +206,44 @@ public class FloatTagActivity extends TCActivity {
     private int getViewHeight(View view) {
         view.measure(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         return view.getMeasuredHeight();
+    }
+
+    private int mCount = 20;
+
+    /**
+     * 重置文本长度
+     */
+    private void resetText() {
+//        final String text = LONG_TEXT.substring(0, new Random().nextInt(100));
+        final String text = LONG_TEXT.substring(0, mCount++);
+        mTvText.setText(text);
+
+        if (!TextUtils.isEmpty(text)) {
+            mTvText.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    // 控件宽度
+                    int textViewWidth = mTvText.getWidth();
+                    mTvText.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+
+                    // 文本宽度
+                    TextPaint mTextPaint = mTvText.getPaint();
+                    mTextPaint.setTextSize(mTvText.getTextSize());
+                    int textContentWidth = (int) mTextPaint.measureText(text);
+
+                    float lineCount = textContentWidth * 1.0f / textViewWidth;
+
+                    StringBuilder builder = new StringBuilder();
+                    builder.append("text.length() -> ").append(text.length());
+                    builder.append("\n");
+                    builder.append("textViewWidth -> ").append(textViewWidth);
+                    builder.append("\n");
+                    builder.append("textContentWidth -> ").append(textContentWidth);
+                    builder.append("\n");
+                    builder.append("lineCount -> ").append(lineCount);
+                    mTvLineCount.setText(builder.toString());
+                }
+            });
+        }
     }
 }
