@@ -1,7 +1,10 @@
 package com.mjiayou.trecore.test;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
@@ -12,8 +15,13 @@ import android.widget.Button;
 
 import com.mjiayou.trecore.R;
 import com.mjiayou.trecorelib.base.TCActivity;
+import com.mjiayou.trecorelib.bean.entity.TCMenu;
+import com.mjiayou.trecorelib.dialog.DialogHelper;
 import com.mjiayou.trecorelib.util.LogUtils;
 import com.mjiayou.trecorelib.util.ToastUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * WebViewActivity
@@ -23,7 +31,9 @@ import com.mjiayou.trecorelib.util.ToastUtils;
 public class WebViewActivity extends TCActivity {
 
     private WebView mWebView;
-    private Button mBtnCallJS;
+    private Button mBtnMenu;
+
+    private String mUrl;
 
     @Override
     protected int getLayoutId() {
@@ -38,7 +48,7 @@ public class WebViewActivity extends TCActivity {
 
         // findViewById
         mWebView = (WebView) findViewById(R.id.webview);
-        mBtnCallJS = (Button) findViewById(R.id.btn_call_js);
+        mBtnMenu = (Button) findViewById(R.id.btn_menu);
 
         // mWebView
         mWebView.setWebViewClient(mWebViewClient);
@@ -46,17 +56,53 @@ public class WebViewActivity extends TCActivity {
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         mWebView.addJavascriptInterface(new MyJavascriptInterface(), "mjiayou");
-        mWebView.loadUrl("file:///android_asset/javascript.html");
+        // 同步cookie
+        addCookie();
+        // loadUrl
+        mWebView.loadUrl("https://m.cnblogs.com/");
 
-        // mBtnCallJS
-        mBtnCallJS.setOnClickListener(new View.OnClickListener() {
+        // mBtnMenu
+        mBtnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 约定Android调用JS的方法
-                String param = "From Android";
-                mWebView.loadUrl("javascript:callJS('" + param + "')");
+                final ArrayList<String> urls = new ArrayList<>();
+                urls.add("file:///android_asset/javascript.html");
+                urls.add("https://www.baidu.com/");
+                urls.add("https://m.cnbeta.com/");
+                urls.add("https://m.cnblogs.com/");
+                urls.add("https://m.cnblogs.com/blog/");
+
+                List<TCMenu> tcMenus = new ArrayList<>();
+                for (int i = 0; i < urls.size(); i++) {
+                    final int finalI = i;
+                    tcMenus.add(new TCMenu("load " + urls.get(i), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            addCookie();
+                            mWebView.loadUrl(urls.get(finalI));
+                        }
+                    }));
+                }
+                tcMenus.add(new TCMenu("javascript.html -> callJS", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // 约定Android调用JS的方法
+                        String param = "From Android";
+                        mWebView.loadUrl("javascript:callJS('" + param + "')");
+                    }
+                }));
+                DialogHelper.createTCAlertMenuDialog(mContext, "菜单", null, true, tcMenus).show();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mWebView != null && mWebView.canGoBack()) {
+            mWebView.goBack();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     /**
@@ -98,4 +144,25 @@ public class WebViewActivity extends TCActivity {
             return super.onJsAlert(view, url, message, result);
         }
     };
+
+    /**
+     * 同步Cookie
+     */
+    private void addCookie() {
+        List<String> cookies = new ArrayList<>();
+        cookies.add("platform=android");
+        cookies.add("version=1.0");
+
+        CookieSyncManager.createInstance(mContext);
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.setAcceptCookie(true);
+        cookieManager.removeSessionCookie();
+        for (String cookie : cookies) {
+            /*
+             *
+             */
+            cookieManager.setCookie("https://m.cnblogs.com/blog/", cookie);
+            CookieSyncManager.getInstance().sync();
+        }
+    }
 }
