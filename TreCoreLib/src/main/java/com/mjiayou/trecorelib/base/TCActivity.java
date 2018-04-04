@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.IdRes;
@@ -35,7 +37,7 @@ import butterknife.ButterKnife;
 /**
  * TCActivity
  */
-public abstract class TCActivity extends AppCompatActivity implements RequestAdapter.DataRequest, RequestAdapter.DataResponse {
+public abstract class TCActivity<VB extends ViewDataBinding> extends AppCompatActivity implements RequestAdapter.DataRequest, RequestAdapter.DataResponse {
 
     // TAG
     protected final String TAG = this.getClass().getSimpleName();
@@ -44,6 +46,7 @@ public abstract class TCActivity extends AppCompatActivity implements RequestAda
     protected Activity mActivity;
     protected Context mContext;
     protected Intent mIntent;
+    protected VB mBinding;
 
     // view
     private LinearLayout mLayoutRoot;
@@ -64,11 +67,26 @@ public abstract class TCActivity extends AppCompatActivity implements RequestAda
 
         LogUtils.printLifeRecycle(TAG, "onCreate | savedInstanceState -> " + ConvertUtils.parseString(savedInstanceState));
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tc_activity_base);
 
         // var
         mActivity = this;
         mContext = this;
+
+        if (checkUseDataBinding()) {
+            View rootView = getLayoutInflater().inflate(R.layout.tc_activity_base, null, false);
+            mLayoutRoot = (LinearLayout) rootView.findViewById(R.id.layout_root);
+            mTitleBar = (TitleBar) rootView.findViewById(R.id.titlebar);
+            mLayoutContainer = (FrameLayout) rootView.findViewById(R.id.layout_container);
+
+            View container = getLayoutInflater().inflate(getLayoutId(), null, false);
+            mLayoutContainer.addView(container);
+            mBinding = DataBindingUtil.bind(container);
+            super.setContentView(rootView);
+            afterOnCreate(savedInstanceState);
+            return;
+        }
+
+        setContentView(R.layout.tc_activity_base);
 
         // findViewById
         mLayoutRoot = (LinearLayout) findViewById(R.id.layout_root);
@@ -275,6 +293,14 @@ public abstract class TCActivity extends AppCompatActivity implements RequestAda
     }
 
     // ******************************** lifeCycle ********************************
+
+    /**
+     * 是否使用DataBinding功能
+     */
+    protected boolean checkUseDataBinding() {
+        LogUtils.printLifeRecycle(TAG, "checkUseDataBinding");
+        return false;
+    }
 
     /**
      * 在 onCreate 之前执行

@@ -1,20 +1,22 @@
 package com.mjiayou.trecore.test;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
 import com.mjiayou.trecore.R;
-import com.mjiayou.trecore.databinding.ActivityDataBinding;
+import com.mjiayou.trecore.databinding.DemoDataBinding;
 import com.mjiayou.trecorelib.base.TCActivity;
 import com.mjiayou.trecorelib.util.ToastUtils;
 
 /**
  * DataBindingActivity
  */
-public class DataBindingActivity extends TCActivity {
+public class DataBindingActivity extends TCActivity<DemoDataBinding> {
 
-    private ActivityDataBinding mBinding;
+    @Override
+    protected boolean checkUseDataBinding() {
+        return true;
+    }
 
     @Override
     protected int getLayoutId() {
@@ -23,7 +25,6 @@ public class DataBindingActivity extends TCActivity {
 
     @Override
     protected void afterOnCreate(Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_data_binding);
 
         // include
         mBinding.includeHeader.tvInfoInclude.setText("mTvInfoInclude");
