@@ -21,6 +21,11 @@ public class CustomViewActivity extends TCActivity {
 
     @Override
     protected void afterOnCreate(Bundle savedInstanceState) {
+
+        // mTitleBar
+        getTitleBar().setTitle(TAG);
+
+        // uxinBounceView
         uxinBounceView = (UxinBounceView) findViewById(R.id.uxinBounceView);
         uxinBounceView.setOnViewClickListener(new UxinBounceView.OnViewClickListener() {
             @Override
