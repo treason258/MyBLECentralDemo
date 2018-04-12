@@ -65,46 +65,37 @@ public abstract class TCActivity<VB extends ViewDataBinding> extends AppCompatAc
         // beforeOnCreate
         beforeOnCreate(savedInstanceState);
 
-        LogUtils.printLifeRecycle(TAG, "onCreate | savedInstanceState -> " + ConvertUtils.parseString(savedInstanceState));
+        // onCreate
         super.onCreate(savedInstanceState);
+        LogUtils.printLifeRecycle(TAG, "onCreate | savedInstanceState -> " + ConvertUtils.parseString(savedInstanceState));
 
         // var
         mActivity = this;
         mContext = this;
 
-        if (checkUseDataBinding()) {
-            View rootView = getLayoutInflater().inflate(R.layout.tc_activity_base, null, false);
-            mLayoutRoot = (LinearLayout) rootView.findViewById(R.id.layout_root);
-            mTitleBar = (TitleBar) rootView.findViewById(R.id.titlebar);
-            mLayoutContainer = (FrameLayout) rootView.findViewById(R.id.layout_container);
+        // setContentView
+        View rootView = getLayoutInflater().inflate(R.layout.tc_activity_base, null, false);
+        mLayoutRoot = (LinearLayout) rootView.findViewById(R.id.layout_root);
+        mTitleBar = (TitleBar) rootView.findViewById(R.id.titlebar);
+        mLayoutContainer = (FrameLayout) rootView.findViewById(R.id.layout_container);
+        super.setContentView(rootView);
 
-            View container = getLayoutInflater().inflate(getLayoutId(), null, false);
-            mLayoutContainer.addView(container);
-            mBinding = DataBindingUtil.bind(container);
-            super.setContentView(rootView);
-            afterOnCreate(savedInstanceState);
-            return;
-        }
-
-        setContentView(R.layout.tc_activity_base);
-
-        // findViewById
-        mLayoutRoot = (LinearLayout) findViewById(R.id.layout_root);
-        mTitleBar = (TitleBar) findViewById(R.id.titlebar);
-        mLayoutContainer = (FrameLayout) findViewById(R.id.layout_container);
-
-        // 初始化用户自定义布局
+        // getLayoutId
         if (getLayoutId() == 0) {
             LogUtils.i(TAG, "getLayoutId() == 0");
         } else {
-            mLayoutContainer.addView(getLayoutInflater().inflate(getLayoutId(), null));
+            View containerView = getLayoutInflater().inflate(getLayoutId(), null, false);
+            mLayoutContainer.addView(containerView);
+            // 控件注解
+            if (checkUseDataBinding()) {
+                mBinding = DataBindingUtil.bind(containerView);
+            } else {
+                ButterKnife.inject(this);
+            }
+            LogUtils.printLifeRecycle(TAG, "getLayoutId() -> " + getLayoutId());
         }
-        LogUtils.printLifeRecycle(TAG, "getLayoutId() -> " + getLayoutId());
 
-        // 控件注解
-        ButterKnife.inject(this);
-
-        // Activity管理，压栈操作
+        // Activity压栈操作
         ActivityManager.get().addActivity(mActivity);
 
         // 通过程序改变屏幕显示的方向
