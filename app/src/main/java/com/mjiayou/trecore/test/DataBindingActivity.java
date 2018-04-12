@@ -26,6 +26,9 @@ public class DataBindingActivity extends TCActivity<DemoDataBinding> {
     @Override
     protected void afterOnCreate(Bundle savedInstanceState) {
 
+        // mTitleBar
+        getTitleBar().setTitle(TAG);
+
         // include
         mBinding.includeHeader.tvInfoInclude.setText("mTvInfoInclude");
         mBinding.includeHeader.btnSubmitInclude.setOnClickListener(new View.OnClickListener() {
