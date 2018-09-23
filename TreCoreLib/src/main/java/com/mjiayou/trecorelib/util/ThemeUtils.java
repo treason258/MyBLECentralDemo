@@ -17,7 +17,7 @@ public class ThemeUtils {
      * getBackIcon
      */
     public static int getBackIcon() {
-        int themeId = SharedUtils.get(TCApp.get()).getConfigThemeId();
+        int themeId = SharedUtils.get().getConfigThemeId();
         switch (themeId) {
             case THEME_DEFAULT:
                 return R.drawable.tc_back;
@@ -32,7 +32,7 @@ public class ThemeUtils {
      * getTitleImage
      */
     public static int getTitleImage() {
-        int themeId = SharedUtils.get(TCApp.get()).getConfigThemeId();
+        int themeId = SharedUtils.get().getConfigThemeId();
         switch (themeId) {
             case THEME_DEFAULT:
                 return R.mipmap.tc_launcher;

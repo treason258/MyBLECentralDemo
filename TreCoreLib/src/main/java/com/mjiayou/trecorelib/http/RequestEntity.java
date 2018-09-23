@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * 网络请求参数实体类
+ * 网络请求参数实体类--OK
  */
 public class RequestEntity implements Serializable {
 
@@ -46,14 +46,10 @@ public class RequestEntity implements Serializable {
         this.methodVolley = Request.Method.POST; // 默认post请求
         this.url = url;
 
-        // 公共参数
-        //headers.put("key", "value");
-        //params.put(Key.ParamKey.TOKEN_CITY_ID, String.valueOf(User.getInstance().cityId));
-
         // 公共参数-header
-        headers.put("Accept-Encoding", "gzip");
-        headers.put("Accept", "application/json");
-        headers.put("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"); // application/json; charset=UTF-8 | text/html; charset=UTF-8
+        // headers.put("Accept-Encoding", "gzip");
+        // headers.put("Accept", "application/json");
+        // headers.put("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"); // application/json; charset=UTF-8 | text/html; charset=UTF-8
         headers.put(Params.KEY_PLATFORM, Params.VALUE_PLATFORM);
 
         // 公共参数-params

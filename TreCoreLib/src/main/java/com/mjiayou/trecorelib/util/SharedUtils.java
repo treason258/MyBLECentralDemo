@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.mjiayou.trecorelib.base.TCApp;
 import com.mjiayou.trecorelib.bean.entity.TCUser;
 import com.mjiayou.trecorelib.helper.GsonHelper;
 
@@ -15,63 +15,57 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by treason on 16/5/14.
+ * SharedPreferences操作封装--OK
  */
 public class SharedUtils {
 
-    private static final String TAG = "SharedUtil";
+    private static final String TAG = SharedUtils.class.getSimpleName();
+
+    // APP配置
+    private SharedPreferences mSharedConfig;
+    private final String PREFERENCES_CONFIG = "preferences_config";
+    private final String KEY_CONFIG_IS_FIRST = "key_config_is_first"; // 是否第一次使用APP
+    private final String KEY_CONFIG_VERSION_CODE = "key_config_version_code"; // 本地记录版本号
+    private final String KEY_CONFIG_THEME_ID = "key_config_theme_id"; // 当前主题ID
+    // 个人账户信息
+    private SharedPreferences mSharedAccount;
+    private final String PREFERENCES_ACCOUNT = "preferences_account";
+    private final String KEY_ACCOUNT_USERNAME = "key_account_username"; // 用户名
+    private final String KEY_ACCOUNT_PASSWORD = "key_account_password"; // 密码
+    private final String KEY_ACCOUNT_TOKEN = "key_account_token"; // Token
+    private final String KEY_ACCOUNT_USER_ID = "key_account_user_id"; // UserID
+    private final String KEY_ACCOUNT_USER_INFO = "key_account_user_info"; // 用户个人信息
+    // 本地缓存数据
+    private SharedPreferences mSharedCache;
+    private final String PREFERENCE_CACHE = "preference_cache";
+    private final String KEY_CACHE_SEARCH_HISTORY = "key_cache_search_history";
+    private final String KEY_CACHE_USER_LIST = "key_cache_user_list";
+    // 通用
+    private SharedPreferences mSharedCommon;
+    private final String PREFERENCE_COMMON = "preference_common";
+    private final String KEY_COMMON_TEST = "key_common_test";
 
     // var
     private static SharedUtils mInstance;
-    private Context mContext;
-    private Gson mGson;
-
-    // SharedPreferences
-    // APP配置
-    private SharedPreferences mSharedConfig;
-    private String PREFERENCES_CONFIG = "preferences_config";
-    private String KEY_CONFIG_IS_FIRST = "key_config_is_first"; // 是否第一次使用APP
-    private String KEY_CONFIG_VERSION_CODE = "key_config_version_code"; // 本地记录版本号
-    private String KEY_CONFIG_THEME_ID = "key_config_theme_id"; // 当前主题ID
-    // 个人账户信息
-    private SharedPreferences mSharedAccount;
-    private String PREFERENCES_ACCOUNT = "preferences_account";
-    private String KEY_ACCOUNT_USERNAME = "key_account_username"; // 用户名
-    private String KEY_ACCOUNT_PASSWORD = "key_account_password"; // 密码
-    private String KEY_ACCOUNT_TOKEN = "key_account_token"; // Token
-    private String KEY_ACCOUNT_USER_ID = "key_account_user_id"; // UserID
-    private String KEY_ACCOUNT_USER_INFO = "key_account_user_info"; // 用户个人信息
-    private String KEY_ACCOUNT_UUID = "key_account_uuid"; // UUID
-    // 本地缓存数据
-    private SharedPreferences mSharedCache;
-    private String PREFERENCE_CACHE = "preference_cache";
-    private String KEY_CACHE_SEARCH_HISTORY = "key_cache_search_history";
-    private String KEY_CACHE_USER_LIST = "key_cache_user_list";
-    // 通用
-    private SharedPreferences mSharedCommon;
-    private String PREFERENCE_COMMON = "preference_common";
-    private String KEY_COMMON_TEST = "key_common_test";
 
     /**
      * 构造函数
      */
-    private SharedUtils(Context context) {
-        this.mContext = context;
-        this.mGson = GsonHelper.get();
-        this.mSharedConfig = context.getSharedPreferences(PREFERENCES_CONFIG, Context.MODE_PRIVATE);
-        this.mSharedAccount = context.getSharedPreferences(PREFERENCES_ACCOUNT, Context.MODE_PRIVATE);
-        this.mSharedCache = context.getSharedPreferences(PREFERENCE_CACHE, Context.MODE_PRIVATE);
-        this.mSharedCommon = context.getSharedPreferences(PREFERENCE_COMMON, Context.MODE_PRIVATE);
+    private SharedUtils() {
+        this.mSharedConfig = TCApp.get().getSharedPreferences(PREFERENCES_CONFIG, Context.MODE_PRIVATE);
+        this.mSharedAccount = TCApp.get().getSharedPreferences(PREFERENCES_ACCOUNT, Context.MODE_PRIVATE);
+        this.mSharedCache = TCApp.get().getSharedPreferences(PREFERENCE_CACHE, Context.MODE_PRIVATE);
+        this.mSharedCommon = TCApp.get().getSharedPreferences(PREFERENCE_COMMON, Context.MODE_PRIVATE);
     }
 
     /**
      * 单例模式，获取实例
      */
-    public static SharedUtils get(Context context) {
+    public static SharedUtils get() {
         if (mInstance == null) {
             synchronized (SharedUtils.class) {
                 if (mInstance == null) {
-                    mInstance = new SharedUtils(context);
+                    mInstance = new SharedUtils();
                 }
             }
         }
@@ -114,80 +108,76 @@ public class SharedUtils {
     /**
      * 保存数据
      */
-    public void setShared(SharedPreferences sharedPreferences, String key, Object value) {
+    private void setShared(SharedPreferences sharedPreferences, String key, Object value) {
         if (sharedPreferences != null && !TextUtils.isEmpty(key) && value != null) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            if (value instanceof Boolean) {
-                editor.putBoolean(key, (Boolean) value);
-
-            } else if (value instanceof String) {
+            if (value instanceof String) {
                 editor.putString(key, (String) value);
-
+            } else if (value instanceof Boolean) {
+                editor.putBoolean(key, (Boolean) value);
             } else if (value instanceof Integer) {
                 editor.putInt(key, (Integer) value);
-
             } else if (value instanceof Float) {
                 editor.putFloat(key, (Float) value);
-
             } else if (value instanceof Long) {
                 editor.putLong(key, (Long) value);
             }
-            editor.commit();
+            editor.apply();
             logSet(key, value);
         } else {
             logSetFailed();
         }
     }
 
-    public void setShared(SharedPreferences sharedPreferences, String key, boolean value) {
-        if (sharedPreferences != null && !TextUtils.isEmpty(key)) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean(key, value);
-            editor.commit();
-            logSet(key, value);
-        } else {
-            logSetFailed();
-        }
-    }
-
-    public void setShared(SharedPreferences sharedPreferences, String key, String value) {
+    private void setShared(SharedPreferences sharedPreferences, String key, String value) {
         if (sharedPreferences != null && !TextUtils.isEmpty(key) && value != null) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(key, value);
-            editor.commit();
+            editor.apply();
             logSet(key, value);
         } else {
             logSetFailed();
         }
     }
 
-    public void setShared(SharedPreferences sharedPreferences, String key, int value) {
+    private void setShared(SharedPreferences sharedPreferences, String key, boolean value) {
+        if (sharedPreferences != null && !TextUtils.isEmpty(key)) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(key, value);
+            editor.apply();
+            logSet(key, value);
+        } else {
+            logSetFailed();
+        }
+    }
+
+    private void setShared(SharedPreferences sharedPreferences, String key, int value) {
         if (sharedPreferences != null && !TextUtils.isEmpty(key)) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt(key, value);
-            editor.commit();
+            editor.apply();
             logSet(key, value);
         } else {
             logSetFailed();
         }
     }
 
-    public void setShared(SharedPreferences sharedPreferences, String key, float value) {
+    private void setShared(SharedPreferences sharedPreferences, String key, float value) {
         if (sharedPreferences != null && !TextUtils.isEmpty(key)) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putFloat(key, value);
-            editor.commit();
+            editor.apply();
             logSet(key, value);
         } else {
             logSetFailed();
         }
     }
 
-    public void setShared(SharedPreferences sharedPreferences, String key, long value) {
+    private void setShared(SharedPreferences sharedPreferences, String key, long value) {
         if (sharedPreferences != null && !TextUtils.isEmpty(key)) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putLong(key, value);
-            editor.commit();
+            editor.apply();
             logSet(key, value);
         } else {
             logSetFailed();
@@ -197,21 +187,17 @@ public class SharedUtils {
     /**
      * 读取数据
      */
-    public Object getShared(SharedPreferences sharedPreferences, String key, Object defValue) {
+    private Object getShared(SharedPreferences sharedPreferences, String key, Object defValue) {
         try {
             Object value = new Object();
-            if (defValue instanceof Boolean) {
-                value = sharedPreferences.getBoolean(key, (Boolean) defValue);
-
-            } else if (defValue instanceof String) {
+            if (defValue instanceof String) {
                 value = sharedPreferences.getString(key, (String) defValue);
-
+            } else if (defValue instanceof Boolean) {
+                value = sharedPreferences.getBoolean(key, (Boolean) defValue);
             } else if (defValue instanceof Integer) {
                 value = sharedPreferences.getInt(key, (Integer) defValue);
-
             } else if (defValue instanceof Float) {
                 value = sharedPreferences.getFloat(key, (Float) defValue);
-
             } else if (defValue instanceof Long) {
                 value = sharedPreferences.getLong(key, (Long) defValue);
             }
@@ -224,19 +210,7 @@ public class SharedUtils {
         return defValue;
     }
 
-    public boolean getShared(SharedPreferences sharedPreferences, String key, boolean defValue) {
-        try {
-            boolean value = sharedPreferences.getBoolean(key, defValue);
-            logGet(key, value);
-            return value;
-        } catch (Exception e) {
-            LogUtils.printStackTrace(e);
-            logGetFailed();
-        }
-        return defValue;
-    }
-
-    public String getShared(SharedPreferences sharedPreferences, String key, String defValue) {
+    private String getShared(SharedPreferences sharedPreferences, String key, String defValue) {
         try {
             String value = sharedPreferences.getString(key, defValue);
             logGet(key, value);
@@ -248,7 +222,19 @@ public class SharedUtils {
         return defValue;
     }
 
-    public int getShared(SharedPreferences sharedPreferences, String key, int defValue) {
+    private boolean getShared(SharedPreferences sharedPreferences, String key, boolean defValue) {
+        try {
+            boolean value = sharedPreferences.getBoolean(key, defValue);
+            logGet(key, value);
+            return value;
+        } catch (Exception e) {
+            LogUtils.printStackTrace(e);
+            logGetFailed();
+        }
+        return defValue;
+    }
+
+    private int getShared(SharedPreferences sharedPreferences, String key, int defValue) {
         try {
             int value = sharedPreferences.getInt(key, defValue);
             logGet(key, value);
@@ -260,7 +246,7 @@ public class SharedUtils {
         return defValue;
     }
 
-    public float getShared(SharedPreferences sharedPreferences, String key, float defValue) {
+    private float getShared(SharedPreferences sharedPreferences, String key, float defValue) {
         try {
             float value = sharedPreferences.getFloat(key, defValue);
             logGet(key, value);
@@ -272,7 +258,7 @@ public class SharedUtils {
         return defValue;
     }
 
-    public long getShared(SharedPreferences sharedPreferences, String key, long defValue) {
+    private long getShared(SharedPreferences sharedPreferences, String key, long defValue) {
         try {
             long value = sharedPreferences.getLong(key, defValue);
             logGet(key, value);
@@ -295,7 +281,7 @@ public class SharedUtils {
                 editor.remove(key);
                 logRemovePrepare(key);
             }
-            editor.commit();
+            editor.apply();
             logRemoveSucceed();
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
@@ -407,28 +393,18 @@ public class SharedUtils {
      * 用户信息
      */
     public void setAccountUserInfo(TCUser user) {
-        String data = mGson.toJson(user);
+        String data = GsonHelper.get().toJson(user);
         setShared(mSharedAccount, KEY_ACCOUNT_USER_INFO, data);
     }
 
     public TCUser getAccountUserInfo() {
         String data = getShared(mSharedAccount, KEY_ACCOUNT_USER_INFO, "");
         if (!TextUtils.isEmpty(data)) {
-            return mGson.fromJson(data, TCUser.class);
+            return GsonHelper.get().fromJson(data, TCUser.class);
         }
         return null;
     }
 
-    /**
-     * UUID
-     */
-    public void setAccountUUID(String uuid) {
-        setShared(mSharedAccount, KEY_ACCOUNT_UUID, uuid);
-    }
-
-    public String getAccountUUID() {
-        return getShared(mSharedAccount, KEY_ACCOUNT_UUID, "");
-    }
 
     /**
      * 清除账户信息
@@ -443,7 +419,7 @@ public class SharedUtils {
      * 搜索关键字历史记录
      */
     public void setCacheSearchHistory(List<String> list) {
-        String data = mGson.toJson(list);
+        String data = GsonHelper.get().toJson(list);
         setShared(mSharedCache, KEY_CACHE_SEARCH_HISTORY, data);
     }
 
@@ -452,7 +428,7 @@ public class SharedUtils {
         if (!TextUtils.isEmpty(data)) {
             Type type = new TypeToken<ArrayList<String>>() {
             }.getType();
-            return mGson.fromJson(data, type);
+            return GsonHelper.get().fromJson(data, type);
         }
         return null;
     }
@@ -461,7 +437,7 @@ public class SharedUtils {
      * 缓存用户列表
      */
     public void setCacheUserList(List<TCUser> list) {
-        String data = mGson.toJson(list);
+        String data = GsonHelper.get().toJson(list);
         setShared(mSharedCache, KEY_CACHE_USER_LIST, data);
     }
 
@@ -470,7 +446,7 @@ public class SharedUtils {
         if (!TextUtils.isEmpty(data)) {
             Type type = new TypeToken<ArrayList<TCUser>>() {
             }.getType();
-            return mGson.fromJson(data, type);
+            return GsonHelper.get().fromJson(data, type);
         }
         return null;
     }

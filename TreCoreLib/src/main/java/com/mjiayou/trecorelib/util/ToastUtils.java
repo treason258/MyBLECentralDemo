@@ -7,7 +7,7 @@ import com.mjiayou.trecorelib.base.TCApp;
 import com.mjiayou.trecorelib.helper.TCHelper;
 
 /**
- * Toast显示封装
+ * Toast显示封装--OK
  * <p>
  * Created by treason on 16/5/14.
  */
@@ -18,21 +18,28 @@ public class ToastUtils {
     private static Toast mToast = null;
 
     /**
-     * 显示 Toast - 默认 context
+     * 显示Toast - 默认context
      */
     public static void show(String text, int duration) {
         showToast(text, duration);
     }
 
     /**
-     * 显示 Toast - 默认 LENGTH_SHORT - 默认 context
+     * 显示Toast - LENGTH_SHORT
      */
     public static void show(String text) {
         showToast(text, Toast.LENGTH_SHORT);
     }
 
     /**
-     * 显示 Toast - core
+     * 显示Toast - LENGTH_LONG
+     */
+    public static void showLong(String text) {
+        showToast(text, Toast.LENGTH_LONG);
+    }
+
+    /**
+     * 显示Toast - core
      */
     private static void showToast(String text, int duration) {
         Context context = TCApp.get();

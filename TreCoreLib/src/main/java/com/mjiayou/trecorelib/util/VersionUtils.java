@@ -18,19 +18,19 @@ public class VersionUtils {
 
         // 根本版本号判断如果是 全新安装APP 或者 覆盖安装APP，需要重置ConfigIsFirst
         int currentCode = Caches.get().getVersionCode(); // 当前APK版本号
-        int localCode = SharedUtils.get(TCApp.get()).getConfigVersionCode(); // 本地缓存，旧版APK版本号
+        int localCode = SharedUtils.get().getConfigVersionCode(); // 本地缓存，旧版APK版本号
         LogUtils.i(TAG, "当前APK版本号 -> " + currentCode);
         LogUtils.i(TAG, "旧版APK版本号 -> " + localCode);
         if (localCode == -1) { // 没有旧版APK版本号记录
             LogUtils.i(TAG, "全新安装");
-            SharedUtils.get(TCApp.get()).setConfigIsFirst(true);
-            SharedUtils.get(TCApp.get()).setConfigVersionCode(currentCode);
+            SharedUtils.get().setConfigIsFirst(true);
+            SharedUtils.get().setConfigVersionCode(currentCode);
         } else {
             LogUtils.i(TAG, "覆盖安装");
             if (currentCode != localCode) {
                 LogUtils.i(TAG, "版本号有更新 | " + localCode + " -> " + currentCode);
-                SharedUtils.get(TCApp.get()).setConfigIsFirst(true);
-                SharedUtils.get(TCApp.get()).setConfigVersionCode(currentCode);
+                SharedUtils.get().setConfigIsFirst(true);
+                SharedUtils.get().setConfigVersionCode(currentCode);
             } else {
                 LogUtils.i(TAG, "版本号没有更新");
             }

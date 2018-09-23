@@ -1,27 +1,24 @@
 package com.mjiayou.trecorelib.util;
 
-import android.content.Context;
 import android.text.TextUtils;
 
-import com.mjiayou.trecorelib.base.TCApp;
 import com.mjiayou.trecorelib.bean.entity.TCUser;
 import com.mjiayou.trecorelib.event.UserLoginStatusEvent;
 
 import de.greenrobot.event.EventBus;
 
 /**
- * Created by treason on 16/5/14.
+ * 用户操作封装--OK
  */
 public class UserUtils {
 
-    public static final String TAG = "UserUtil";
+    private static final String TAG = UserUtils.class.getSimpleName();
 
     /**
      * 用户登陆之后的操作
      */
     public static void doLogin(String token) {
         UserUtils.setToken(token);
-
         EventBus.getDefault().post(new UserLoginStatusEvent(true));
     }
 
@@ -38,7 +35,6 @@ public class UserUtils {
      */
     public static void doLogout() {
         UserUtils.setToken("");
-
         EventBus.getDefault().post(new UserLoginStatusEvent(false));
     }
 
@@ -51,11 +47,11 @@ public class UserUtils {
      * <br/>
      * false：未登录状态；
      */
-    public static boolean checkLoginStatus(Context context) {
+    public static boolean checkLoginStatus() {
         boolean isLogin = false;
 
         String token = UserUtils.getToken();
-        if (!TextUtils.isEmpty(token)) {
+        if (!TextUtils.isEmpty(token)) { // token非空，则表示现在登录状态
             isLogin = true;
         }
 
@@ -69,11 +65,11 @@ public class UserUtils {
      * <br/>
      * false：不需要登录，继续执行；
      */
-    public static boolean checkNeedLogin(Context context) {
+    public static boolean checkNeedLogin() {
         boolean isNeedLogin = false;
 
-        boolean isLogin = checkLoginStatus(context);
-        if (!isLogin) {
+        boolean isLogin = checkLoginStatus();
+        if (!isLogin) { // 当前非登录状态，则需要登录
             isNeedLogin = true;
             // Router.openTestUserLoginActivity(context);
         }
@@ -87,43 +83,32 @@ public class UserUtils {
      * Token
      */
     public static void setToken(String token) {
-        SharedUtils.get(TCApp.get()).setAccountToken(token);
+        SharedUtils.get().setAccountToken(token);
     }
 
     public static String getToken() {
-        return SharedUtils.get(TCApp.get()).getAccountToken();
+        return SharedUtils.get().getAccountToken();
     }
 
     /**
      * UserID
      */
     public static void setUserID(String userID) {
-        SharedUtils.get(TCApp.get()).setAccountUserID(userID);
+        SharedUtils.get().setAccountUserID(userID);
     }
 
     public static String getUserID() {
-        return SharedUtils.get(TCApp.get()).getAccountUserID();
+        return SharedUtils.get().getAccountUserID();
     }
 
     /**
      * 用户信息
      */
     public static void setUserInfo(TCUser user) {
-        SharedUtils.get(TCApp.get()).setAccountUserInfo(user);
+        SharedUtils.get().setAccountUserInfo(user);
     }
 
     public static TCUser getUserInfo() {
-        return SharedUtils.get(TCApp.get()).getAccountUserInfo();
-    }
-
-    /**
-     * UUID
-     */
-    public static void setUUID(String uuid) {
-        SharedUtils.get(TCApp.get()).setAccountUUID(uuid);
-    }
-
-    public static String getUUID() {
-        return SharedUtils.get(TCApp.get()).getAccountUUID();
+        return SharedUtils.get().getAccountUserInfo();
     }
 }
