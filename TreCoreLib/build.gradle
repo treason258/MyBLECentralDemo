@@ -48,6 +48,7 @@ dependencies {
     compile rootProject.ext.dependencies.dart
     compile rootProject.ext.dependencies.imageloader
     compile rootProject.ext.dependencies.umeng_analytics
+    compile 'com.zhy:okhttputils:2.6.2'
 
     // jar
     compile files('libs/org.apache.http.legacy.jar')
