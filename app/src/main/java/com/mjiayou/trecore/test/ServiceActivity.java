@@ -10,7 +10,7 @@ import com.mjiayou.trecore.R;
 import com.mjiayou.trecorelib.base.TCActivity;
 import com.mjiayou.trecorelib.service.FloatService;
 import com.mjiayou.trecorelib.service.HeartService;
-import com.mjiayou.trecorelib.util.ServiceUtil;
+import com.mjiayou.trecorelib.util.ServiceUtils;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -60,7 +60,7 @@ public class ServiceActivity extends TCActivity {
         // mTvInfo
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("HeartService 运行状态：");
-        if (ServiceUtil.isServiceRunning(mContext, HeartService.class)) {
+        if (ServiceUtils.isServiceRunning(mContext, HeartService.class)) {
             stringBuilder.append("正在运行");
             mBtnStartHeartService.setText("点击停止 HeartService");
         } else {
@@ -69,7 +69,7 @@ public class ServiceActivity extends TCActivity {
         }
         stringBuilder.append("\n");
         stringBuilder.append("FloatService 运行状态：");
-        if (ServiceUtil.isServiceRunning(mContext, FloatService.class)) {
+        if (ServiceUtils.isServiceRunning(mContext, FloatService.class)) {
             stringBuilder.append("正在运行");
             mBtnStartFloatService.setText("点击停止 FloatService");
         } else {
@@ -84,7 +84,7 @@ public class ServiceActivity extends TCActivity {
      */
     private void startHeartService() {
         Intent intent = new Intent(mContext, HeartService.class);
-        if (ServiceUtil.isServiceRunning(mContext, HeartService.class)) {
+        if (ServiceUtils.isServiceRunning(mContext, HeartService.class)) {
             stopService(intent);
         } else {
             startService(intent);
@@ -97,7 +97,7 @@ public class ServiceActivity extends TCActivity {
      */
     private void startFloatService() {
         Intent intent = new Intent(mContext, FloatService.class);
-        if (ServiceUtil.isServiceRunning(mContext, FloatService.class)) {
+        if (ServiceUtils.isServiceRunning(mContext, FloatService.class)) {
             stopService(intent);
         } else {
             startService(intent);

@@ -16,8 +16,8 @@ import com.mjiayou.trecorelib.bean.entity.TCMenu;
 import com.mjiayou.trecorelib.bean.entity.TCRect;
 import com.mjiayou.trecorelib.common.Caches;
 import com.mjiayou.trecorelib.util.LogUtils;
-import com.mjiayou.trecorelib.util.TextViewUtil;
-import com.mjiayou.trecorelib.util.ViewUtil;
+import com.mjiayou.trecorelib.util.TextViewUtils;
+import com.mjiayou.trecorelib.util.ViewUtils;
 
 import java.util.List;
 
@@ -76,18 +76,18 @@ public class TCAlertMenuDialog extends TCDialog {
         if (mViewRoot != null) {
             int width = Caches.get().getScreenWidth(WIDTH_RATIO_DEFAULT);
             int height = WindowManager.LayoutParams.WRAP_CONTENT;
-            ViewUtil.setWidthAndHeight(mViewRoot, width, height);
+            ViewUtils.setWidthAndHeight(mViewRoot, width, height);
         }
 
         try {
             // title
             boolean titleVisible = !TextUtils.isEmpty(mTitleStr);
-            ViewUtil.setVisibility(mLayoutTitle, titleVisible);
-            TextViewUtil.setText(mTvTitle, mTitleStr);
+            ViewUtils.setVisibility(mLayoutTitle, titleVisible);
+            TextViewUtils.setText(mTvTitle, mTitleStr);
             // message
             boolean messageVisible = !TextUtils.isEmpty(mMessageStr);
-            ViewUtil.setVisibility(mLayoutMessage, messageVisible);
-            TextViewUtil.setText(mTvMessage, mMessageStr);
+            ViewUtils.setVisibility(mLayoutMessage, messageVisible);
+            TextViewUtils.setText(mTvMessage, mMessageStr);
             // menu
             if (null != mTCMenus) {
                 // 移除
@@ -104,10 +104,10 @@ public class TCAlertMenuDialog extends TCDialog {
 
         // 设置窗口最大高度
         if (null != mViewRoot) {
-            TCRect rootRect = ViewUtil.getWidthAndHeight(mViewRoot);
+            TCRect rootRect = ViewUtils.getWidthAndHeight(mViewRoot);
             int maxHeight = Caches.get().getScreenHeight(WIDTH_RATIO_DEFAULT);
             if (rootRect.getHeight() > maxHeight) {
-                ViewUtil.setWidthAndHeight(mViewRoot, ViewUtil.NONE_SIZE, maxHeight);
+                ViewUtils.setWidthAndHeight(mViewRoot, ViewUtils.NONE_SIZE, maxHeight);
             }
         }
     }

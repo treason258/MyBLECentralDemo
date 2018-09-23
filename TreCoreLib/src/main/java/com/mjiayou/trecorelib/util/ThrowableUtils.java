@@ -7,7 +7,7 @@ import java.io.Writer;
 /**
  * Created by treason on 15-12-29.
  */
-public class ThrowableUtil {
+public class ThrowableUtils {
 
     /**
      * getThrowableInfo()

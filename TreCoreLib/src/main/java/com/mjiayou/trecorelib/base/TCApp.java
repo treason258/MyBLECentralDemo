@@ -31,8 +31,8 @@ import com.mjiayou.trecorelib.common.Caches;
 import com.mjiayou.trecorelib.helper.GsonHelper;
 import com.mjiayou.trecorelib.helper.VolleyHelper;
 import com.mjiayou.trecorelib.util.LogUtils;
-import com.mjiayou.trecorelib.util.ProcessUtil;
-import com.mjiayou.trecorelib.util.VersionUtil;
+import com.mjiayou.trecorelib.util.ProcessUtils;
+import com.mjiayou.trecorelib.util.VersionUtils;
 
 /**
  * TCApp
@@ -72,8 +72,8 @@ public class TCApp extends Application {
         mInstance = this;
         mContext = getApplicationContext();
 
-        LogUtils.printLifeRecycle(TAG, "process id -> " + ProcessUtil.getProcessId());
-        LogUtils.printLifeRecycle(TAG, "process name -> " + ProcessUtil.getProcessName(mContext));
+        LogUtils.printLifeRecycle(TAG, "process id -> " + ProcessUtils.getProcessId());
+        LogUtils.printLifeRecycle(TAG, "process name -> " + ProcessUtils.getProcessName(mContext));
 
         initApp();
     }
@@ -113,7 +113,7 @@ public class TCApp extends Application {
          * 初始化 配置信息
          */
         Caches.get().init();
-        VersionUtil.init();
+        VersionUtils.init();
 
         /**
          * 初始化 第三方库

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by treason on 16/8/14.
  */
-public class ProcessUtil {
+public class ProcessUtils {
 
     public static int getProcessId() {
         return Process.myPid();

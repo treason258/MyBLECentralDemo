@@ -10,7 +10,7 @@ import java.util.List;
  * Created by treason on 2017/2/7.
  */
 
-public class ServiceUtil {
+public class ServiceUtils {
 
     /**
      * 判断某个服务是否正在运行

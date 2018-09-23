@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.mjiayou.trecorelib.R;
 import com.mjiayou.trecorelib.bean.entity.TCMenu;
-import com.mjiayou.trecorelib.util.MenuUtil;
+import com.mjiayou.trecorelib.util.MenuUtils;
 
 import java.util.List;
 
@@ -57,7 +57,7 @@ public class TCMenuActivity extends TCActivity {
         if (mTCMenus == null) {
             mLayoutMenuContainer.setVisibility(View.GONE);
         } else {
-            MenuUtil.setMenus(mContext, mLayoutMenuContainer, mTCMenus);
+            MenuUtils.setMenus(mContext, mLayoutMenuContainer, mTCMenus);
         }
 
         // mTvInfo

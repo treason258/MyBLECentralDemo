@@ -14,8 +14,8 @@ import com.mjiayou.trecorelib.R;
 import com.mjiayou.trecorelib.base.TCDialog;
 import com.mjiayou.trecorelib.common.Caches;
 import com.mjiayou.trecorelib.util.LogUtils;
-import com.mjiayou.trecorelib.util.TextViewUtil;
-import com.mjiayou.trecorelib.util.ViewUtil;
+import com.mjiayou.trecorelib.util.TextViewUtils;
+import com.mjiayou.trecorelib.util.ViewUtils;
 
 /**
  * Created by treason on 16/5/27.
@@ -64,7 +64,7 @@ public class TCProgressDialog extends TCDialog {
         if (null != mViewRoot) {
             int width = Caches.get().getScreenWidth(WIDTH_RATIO_DEFAULT);
             int height = WindowManager.LayoutParams.WRAP_CONTENT;
-            ViewUtil.setWidthAndHeight(mViewRoot, width, height);
+            ViewUtils.setWidthAndHeight(mViewRoot, width, height);
         }
 
         try {
@@ -91,8 +91,8 @@ public class TCProgressDialog extends TCDialog {
     public void updateMessage(String message) {
         LogUtils.i(TAG, "updateMessage -> " + message);
         boolean messageVisible = !TextUtils.isEmpty(message);
-        ViewUtil.setVisibility(mTvMessage, messageVisible);
-        TextViewUtil.setText(mTvMessage, message);
+        ViewUtils.setVisibility(mTvMessage, messageVisible);
+        TextViewUtils.setText(mTvMessage, message);
     }
 
     // ******************************** TCProgressDialog ********************************

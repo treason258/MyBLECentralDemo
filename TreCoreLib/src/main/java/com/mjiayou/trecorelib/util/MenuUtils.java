@@ -1,6 +1,7 @@
 package com.mjiayou.trecorelib.util;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,9 @@ import java.util.List;
 /**
  * Created by treason on 16/7/24.
  */
-public class MenuUtil {
+public class MenuUtils {
 
-    private static final String TAG = MenuUtil.class.getSimpleName();
+    private static final String TAG = MenuUtils.class.getSimpleName();
 
     /**
      * setMenu

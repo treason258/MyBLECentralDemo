@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * Created by treason on 15/6/8.
  */
-public class DateUtil {
+public class DateUtils {
 
     public enum FormatType {
         /**

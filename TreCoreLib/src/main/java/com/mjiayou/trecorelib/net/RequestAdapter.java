@@ -18,8 +18,8 @@ import com.mjiayou.trecorelib.encode.SignatureUtil;
 import com.mjiayou.trecorelib.helper.GsonHelper;
 import com.mjiayou.trecorelib.helper.VolleyHelper;
 import com.mjiayou.trecorelib.util.DeviceUtils;
-import com.mjiayou.trecorelib.util.PageUtil;
-import com.mjiayou.trecorelib.util.UserUtil;
+import com.mjiayou.trecorelib.util.PageUtils;
+import com.mjiayou.trecorelib.util.UserUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -165,7 +165,7 @@ public class RequestAdapter {
      */
     private String getRequestString(TCRequest request) {
         String requestId = DeviceUtils.getUUID();
-        String tokenId = UserUtil.getToken();
+        String tokenId = UserUtils.getToken();
         String appVersion = String.valueOf(Caches.get().getVersionCode());
         String signature = SignatureUtil.getSignature(requestId);
 
@@ -249,7 +249,7 @@ public class RequestAdapter {
         RequestEntity requestEntity = new RequestEntity(url);
         requestEntity.setMethodCode(Method.GET);
         requestEntity.addParam(Params.KEY_PAGE_NUMBER, pageNumber);
-        requestEntity.addParam(Params.KEY_PAGE_COUNT, String.valueOf(PageUtil.defaultCount()));
+        requestEntity.addParam(Params.KEY_PAGE_COUNT, String.valueOf(PageUtils.defaultCount()));
         mRequestBuilder.buildAndAddRequest(requestEntity, TCSinaStatusesResponse.class, SINA_STATUSES);
     }
 

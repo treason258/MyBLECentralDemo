@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mjiayou.trecorelib.R;
-import com.mjiayou.trecorelib.util.ViewUtil;
+import com.mjiayou.trecorelib.util.ViewUtils;
 
 /**
  * Created by treason on 2016/12/7.
@@ -50,16 +50,16 @@ public class StatusViewManager {
         });
 
         // 默认隐藏
-        ViewUtil.setVisibility(mViewLoading, false);
-        ViewUtil.setVisibility(mViewNoNetwork, false);
+        ViewUtils.setVisibility(mViewLoading, false);
+        ViewUtils.setVisibility(mViewNoNetwork, false);
     }
 
     /**
      * 正在加载
      */
     public void onLoading() {
-        ViewUtil.setVisibility(mViewLoading, true);
-        ViewUtil.setVisibility(mViewNoNetwork, false);
+        ViewUtils.setVisibility(mViewLoading, true);
+        ViewUtils.setVisibility(mViewNoNetwork, false);
         mAnimLoading.start();
     }
 
@@ -67,8 +67,8 @@ public class StatusViewManager {
      * 加载成功
      */
     public void onSuccess() {
-        ViewUtil.setVisibility(mViewLoading, false);
-        ViewUtil.setVisibility(mViewNoNetwork, false);
+        ViewUtils.setVisibility(mViewLoading, false);
+        ViewUtils.setVisibility(mViewNoNetwork, false);
         mAnimLoading.stop();
     }
 
@@ -76,38 +76,38 @@ public class StatusViewManager {
      * 加载失败
      */
     public void onFailure() {
-        ViewUtil.setVisibility(mViewLoading, false);
-        ViewUtil.setVisibility(mViewNoNetwork, true);
+        ViewUtils.setVisibility(mViewLoading, false);
+        ViewUtils.setVisibility(mViewNoNetwork, true);
         mAnimLoading.stop();
 
-        ViewUtil.setVisibility(mTvButton, false);
+        ViewUtils.setVisibility(mTvButton, false);
     }
 
     public void onFailure(View.OnClickListener listener) {
-        ViewUtil.setVisibility(mViewLoading, false);
-        ViewUtil.setVisibility(mViewNoNetwork, true);
+        ViewUtils.setVisibility(mViewLoading, false);
+        ViewUtils.setVisibility(mViewNoNetwork, true);
         mAnimLoading.stop();
 
         if (listener == null) {
-            ViewUtil.setVisibility(mTvButton, false);
+            ViewUtils.setVisibility(mTvButton, false);
         } else {
-            ViewUtil.setVisibility(mTvButton, true);
-            ViewUtil.setOnClickListener(mTvButton, listener);
+            ViewUtils.setVisibility(mTvButton, true);
+            ViewUtils.setOnClickListener(mTvButton, listener);
         }
     }
 
     public void onFailure(String message, View.OnClickListener listener) {
-        ViewUtil.setVisibility(mViewLoading, false);
-        ViewUtil.setVisibility(mViewNoNetwork, true);
+        ViewUtils.setVisibility(mViewLoading, false);
+        ViewUtils.setVisibility(mViewNoNetwork, true);
         mAnimLoading.stop();
 
         mTvText.setText(message);
 
         if (listener == null) {
-            ViewUtil.setVisibility(mTvButton, false);
+            ViewUtils.setVisibility(mTvButton, false);
         } else {
-            ViewUtil.setVisibility(mTvButton, true);
-            ViewUtil.setOnClickListener(mTvButton, listener);
+            ViewUtils.setVisibility(mTvButton, true);
+            ViewUtils.setOnClickListener(mTvButton, listener);
         }
     }
 }

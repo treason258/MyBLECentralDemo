@@ -17,12 +17,12 @@ import java.util.Set;
 /**
  * Created by treason on 16/5/14.
  */
-public class SharedUtil {
+public class SharedUtils {
 
     private static final String TAG = "SharedUtil";
 
     // var
-    private static SharedUtil mInstance;
+    private static SharedUtils mInstance;
     private Context mContext;
     private Gson mGson;
 
@@ -55,7 +55,7 @@ public class SharedUtil {
     /**
      * 构造函数
      */
-    private SharedUtil(Context context) {
+    private SharedUtils(Context context) {
         this.mContext = context;
         this.mGson = GsonHelper.get();
         this.mSharedConfig = context.getSharedPreferences(PREFERENCES_CONFIG, Context.MODE_PRIVATE);
@@ -67,11 +67,11 @@ public class SharedUtil {
     /**
      * 单例模式，获取实例
      */
-    public static SharedUtil get(Context context) {
+    public static SharedUtils get(Context context) {
         if (mInstance == null) {
-            synchronized (SharedUtil.class) {
+            synchronized (SharedUtils.class) {
                 if (mInstance == null) {
-                    mInstance = new SharedUtil(context);
+                    mInstance = new SharedUtils(context);
                 }
             }
         }
@@ -347,7 +347,7 @@ public class SharedUtil {
     }
 
     public int getConfigThemeId() {
-        return getShared(mSharedConfig, KEY_CONFIG_THEME_ID, ThemeUtil.THEME_DEFAULT);
+        return getShared(mSharedConfig, KEY_CONFIG_THEME_ID, ThemeUtils.THEME_DEFAULT);
     }
 
     /**

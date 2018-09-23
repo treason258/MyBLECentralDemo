@@ -12,7 +12,7 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by treason on 16/5/14.
  */
-public class UserUtil {
+public class UserUtils {
 
     public static final String TAG = "UserUtil";
 
@@ -20,7 +20,7 @@ public class UserUtil {
      * 用户登陆之后的操作
      */
     public static void doLogin(String token) {
-        UserUtil.setToken(token);
+        UserUtils.setToken(token);
 
         EventBus.getDefault().post(new UserLoginStatusEvent(true));
     }
@@ -29,15 +29,15 @@ public class UserUtil {
      * 获取用户详细信息之后的操作
      */
     public static void doGetUserInfo(TCUser user) {
-        UserUtil.setUserID(user.getId());
-        UserUtil.setUserInfo(user);
+        UserUtils.setUserID(user.getId());
+        UserUtils.setUserInfo(user);
     }
 
     /**
      * 用户注销登陆之后的操作
      */
     public static void doLogout() {
-        UserUtil.setToken("");
+        UserUtils.setToken("");
 
         EventBus.getDefault().post(new UserLoginStatusEvent(false));
     }
@@ -54,7 +54,7 @@ public class UserUtil {
     public static boolean checkLoginStatus(Context context) {
         boolean isLogin = false;
 
-        String token = UserUtil.getToken();
+        String token = UserUtils.getToken();
         if (!TextUtils.isEmpty(token)) {
             isLogin = true;
         }
@@ -87,43 +87,43 @@ public class UserUtil {
      * Token
      */
     public static void setToken(String token) {
-        SharedUtil.get(TCApp.get()).setAccountToken(token);
+        SharedUtils.get(TCApp.get()).setAccountToken(token);
     }
 
     public static String getToken() {
-        return SharedUtil.get(TCApp.get()).getAccountToken();
+        return SharedUtils.get(TCApp.get()).getAccountToken();
     }
 
     /**
      * UserID
      */
     public static void setUserID(String userID) {
-        SharedUtil.get(TCApp.get()).setAccountUserID(userID);
+        SharedUtils.get(TCApp.get()).setAccountUserID(userID);
     }
 
     public static String getUserID() {
-        return SharedUtil.get(TCApp.get()).getAccountUserID();
+        return SharedUtils.get(TCApp.get()).getAccountUserID();
     }
 
     /**
      * 用户信息
      */
     public static void setUserInfo(TCUser user) {
-        SharedUtil.get(TCApp.get()).setAccountUserInfo(user);
+        SharedUtils.get(TCApp.get()).setAccountUserInfo(user);
     }
 
     public static TCUser getUserInfo() {
-        return SharedUtil.get(TCApp.get()).getAccountUserInfo();
+        return SharedUtils.get(TCApp.get()).getAccountUserInfo();
     }
 
     /**
      * UUID
      */
     public static void setUUID(String uuid) {
-        SharedUtil.get(TCApp.get()).setAccountUUID(uuid);
+        SharedUtils.get(TCApp.get()).setAccountUUID(uuid);
     }
 
     public static String getUUID() {
-        return SharedUtil.get(TCApp.get()).getAccountUUID();
+        return SharedUtils.get(TCApp.get()).getAccountUUID();
     }
 }

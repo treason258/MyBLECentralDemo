@@ -6,15 +6,15 @@ import android.os.Looper;
 /**
  * Created by treason on 15-11-10.
  */
-public class HandlerUtil {
+public class HandlerUtils {
 
-    private static HandlerUtil mHandlerUtil;
+    private static HandlerUtils mHandlerUtils;
     private static Handler mHandler;
 
     /**
      * 构造函数
      */
-    private HandlerUtil() {
+    private HandlerUtils() {
     }
 
     /**

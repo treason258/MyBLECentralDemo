@@ -9,7 +9,7 @@ import java.util.List;
  * @author treason
  * @date 2014年9月24日
  */
-public class PageUtil {
+public class PageUtils {
 
     private static final String TAG = "PageUtil";
 

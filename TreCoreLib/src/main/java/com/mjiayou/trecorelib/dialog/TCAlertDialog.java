@@ -13,8 +13,8 @@ import com.mjiayou.trecorelib.R;
 import com.mjiayou.trecorelib.base.TCDialog;
 import com.mjiayou.trecorelib.common.Caches;
 import com.mjiayou.trecorelib.util.LogUtils;
-import com.mjiayou.trecorelib.util.TextViewUtil;
-import com.mjiayou.trecorelib.util.ViewUtil;
+import com.mjiayou.trecorelib.util.TextViewUtils;
+import com.mjiayou.trecorelib.util.ViewUtils;
 
 /**
  * Created by treason on 16/5/27.
@@ -79,23 +79,23 @@ public class TCAlertDialog extends TCDialog {
         if (mViewRoot != null) {
             int width = Caches.get().getScreenWidth(WIDTH_RATIO_DEFAULT);
             int height = WindowManager.LayoutParams.WRAP_CONTENT;
-            ViewUtil.setWidthAndHeight(mViewRoot, width, height);
+            ViewUtils.setWidthAndHeight(mViewRoot, width, height);
         }
 
         try {
             // title
             boolean titleVisible = !TextUtils.isEmpty(mTitleStr);
-            ViewUtil.setVisibility(mLayoutTitle, titleVisible);
-            TextViewUtil.setText(mTvTitle, mTitleStr);
+            ViewUtils.setVisibility(mLayoutTitle, titleVisible);
+            TextViewUtils.setText(mTvTitle, mTitleStr);
             // message
             boolean messageVisible = !TextUtils.isEmpty(mMessageStr);
-            ViewUtil.setVisibility(mLayoutMessage, messageVisible);
-            TextViewUtil.setText(mTvMessage, mMessageStr);
+            ViewUtils.setVisibility(mLayoutMessage, messageVisible);
+            TextViewUtils.setText(mTvMessage, mMessageStr);
             // menu
             boolean okVisible = !TextUtils.isEmpty(mOkStr);
-            ViewUtil.setVisibility(mLayoutOk, okVisible);
-            TextViewUtil.setText(mTvOk, mOkStr);
-            ViewUtil.setOnClickListener(mTvOk, new View.OnClickListener() {
+            ViewUtils.setVisibility(mLayoutOk, okVisible);
+            TextViewUtils.setText(mTvOk, mOkStr);
+            ViewUtils.setOnClickListener(mTvOk, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dismiss();
@@ -105,9 +105,9 @@ public class TCAlertDialog extends TCDialog {
                 }
             });
             boolean cancelVisible = !TextUtils.isEmpty(mCancelStr);
-            ViewUtil.setVisibility(mLayoutCancel, cancelVisible);
-            TextViewUtil.setText(mTvCancel, mCancelStr);
-            ViewUtil.setOnClickListener(mTvCancel, new View.OnClickListener() {
+            ViewUtils.setVisibility(mLayoutCancel, cancelVisible);
+            TextViewUtils.setText(mTvCancel, mCancelStr);
+            ViewUtils.setOnClickListener(mTvCancel, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dismiss();

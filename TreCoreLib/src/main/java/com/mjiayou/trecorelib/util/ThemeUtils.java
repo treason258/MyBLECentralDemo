@@ -7,7 +7,7 @@ import com.mjiayou.trecorelib.base.TCApp;
 /**
  * Created by treason on 16/5/14.
  */
-public class ThemeUtil {
+public class ThemeUtils {
 
     public static final int THEME_ERROR = -1; // 错误主题
     public static final int THEME_DEFAULT = 0; // 默认
@@ -17,7 +17,7 @@ public class ThemeUtil {
      * getBackIcon
      */
     public static int getBackIcon() {
-        int themeId = SharedUtil.get(TCApp.get()).getConfigThemeId();
+        int themeId = SharedUtils.get(TCApp.get()).getConfigThemeId();
         switch (themeId) {
             case THEME_DEFAULT:
                 return R.drawable.tc_back;
@@ -32,7 +32,7 @@ public class ThemeUtil {
      * getTitleImage
      */
     public static int getTitleImage() {
-        int themeId = SharedUtil.get(TCApp.get()).getConfigThemeId();
+        int themeId = SharedUtils.get(TCApp.get()).getConfigThemeId();
         switch (themeId) {
             case THEME_DEFAULT:
                 return R.mipmap.tc_launcher;

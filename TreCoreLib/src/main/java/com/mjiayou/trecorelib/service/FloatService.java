@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.mjiayou.trecorelib.R;
 import com.mjiayou.trecorelib.base.TCService;
-import com.mjiayou.trecorelib.util.ServiceUtil;
+import com.mjiayou.trecorelib.util.ServiceUtils;
 import com.mjiayou.trecorelib.util.ToastUtils;
 
 /**
@@ -56,7 +56,7 @@ public class FloatService extends TCService {
         mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.show("onClick | isAppRunningBackground -> " + ServiceUtil.isAppRunningBackground(mContext));
+                ToastUtils.show("onClick | isAppRunningBackground -> " + ServiceUtils.isAppRunningBackground(mContext));
             }
         });
         mView.setOnTouchListener(new View.OnTouchListener() {

@@ -6,7 +6,7 @@ import android.widget.TextView;
 /**
  * Created by treason on 15-12-16.
  */
-public class TextViewUtil {
+public class TextViewUtils {
 
     public static final String TAG = "TextViewUtil";
 

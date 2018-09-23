@@ -14,7 +14,7 @@ import com.mjiayou.trecorelib.base.TCDialog;
 import com.mjiayou.trecorelib.common.Caches;
 import com.mjiayou.trecorelib.util.LogUtils;
 import com.mjiayou.trecorelib.util.ToastUtils;
-import com.mjiayou.trecorelib.util.ViewUtil;
+import com.mjiayou.trecorelib.util.ViewUtils;
 
 /**
  * Created by treason on 16/6/2.
@@ -64,7 +64,7 @@ public class TCUserInfoDialog extends TCDialog {
         if (null != mViewRoot) {
             int width = Caches.get().getScreenWidth(WIDTH_RATIO_DEFAULT);
             int height = WindowManager.LayoutParams.WRAP_CONTENT;
-            ViewUtil.setWidthAndHeight(mViewRoot, width, height);
+            ViewUtils.setWidthAndHeight(mViewRoot, width, height);
         }
 
         try {

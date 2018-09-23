@@ -10,12 +10,12 @@ import android.widget.Toast;
 import com.mjiayou.trecorelib.base.TCApp;
 import com.mjiayou.trecorelib.common.Configs;
 import com.mjiayou.trecorelib.util.AppUtils;
-import com.mjiayou.trecorelib.util.DateUtil;
+import com.mjiayou.trecorelib.util.DateUtils;
 import com.mjiayou.trecorelib.util.DeviceUtils;
 import com.mjiayou.trecorelib.util.DirectoryUtils;
 import com.mjiayou.trecorelib.util.FileUtils;
 import com.mjiayou.trecorelib.util.LogUtils;
-import com.mjiayou.trecorelib.util.ThrowableUtil;
+import com.mjiayou.trecorelib.util.ThrowableUtils;
 
 /**
  * Created by treason on 15/11/18.
@@ -143,7 +143,7 @@ public class CrashHandler {
      * 构建文件名
      */
     private String buildFileName() {
-        return "crash-" + DateUtil.parseString(System.currentTimeMillis(), DateUtil.FormatType.FORMAT_302) + ".log";
+        return "crash-" + DateUtils.parseString(System.currentTimeMillis(), DateUtils.FormatType.FORMAT_302) + ".log";
     }
 
     /**
@@ -153,13 +153,13 @@ public class CrashHandler {
         StringBuilder builder = new StringBuilder();
         // time
         builder.append("-------- DateTime --------").append("\n");
-        builder.append(DateUtil.parseString(System.currentTimeMillis(), DateUtil.FormatType.FORMAT_101)).append("\n");
+        builder.append(DateUtils.parseString(System.currentTimeMillis(), DateUtils.FormatType.FORMAT_101)).append("\n");
         // VersionInfo
         builder.append("-------- VersionInfo --------").append("\n");
         builder.append(AppUtils.getVersionInfoStr(TCApp.get()));
         // ThrowableInfo
         builder.append("-------- ThrowableInfo --------").append("\n");
-        builder.append(ThrowableUtil.getThrowableInfo(throwable));
+        builder.append(ThrowableUtils.getThrowableInfo(throwable));
         // BuildInfo
         builder.append("-------- BuildInfo --------").append("\n");
         builder.append(DeviceUtils.getBuildInfoStr());

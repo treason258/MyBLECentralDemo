@@ -9,9 +9,9 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.mjiayou.trecorelib.bean.entity.TCMenu;
-import com.mjiayou.trecorelib.util.MenuUtil;
+import com.mjiayou.trecorelib.util.MenuUtils;
 import com.mjiayou.trecorelib.util.ToastUtils;
-import com.mjiayou.trecorelib.util.UserUtil;
+import com.mjiayou.trecorelib.util.UserUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -276,14 +276,14 @@ public class DialogHelper {
             @Override
             public void onClick(View view) {
                 // createTCAlertMenuDialog
-                DialogHelper.createTCAlertMenuDialog(context, "title", "message", true, MenuUtil.getTCMenus(context)).show();
+                DialogHelper.createTCAlertMenuDialog(context, "title", "message", true, MenuUtils.getTCMenus(context)).show();
             }
         }));
         tcMenus.add(new TCMenu("2-3 - createTCBottomMenuDialog", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // createTCBottomMenuDialog
-                DialogHelper.createTCBottomMenuDialog(context, "title", "message", true, MenuUtil.getTCMenus(context)).show();
+                DialogHelper.createTCBottomMenuDialog(context, "title", "message", true, MenuUtils.getTCMenus(context)).show();
             }
         }));
         tcMenus.add(new TCMenu("2-4 - createTCBirthdayDialog", new View.OnClickListener() {
@@ -391,7 +391,7 @@ public class DialogHelper {
             @Override
             public void onClick(View view) {
                 // TCUserListDialog
-                TCUserListDialog.createDialog(context, UserUtil.getUUID()).show();
+                TCUserListDialog.createDialog(context, UserUtils.getUUID()).show();
             }
         }));
         DialogHelper.createTCAlertMenuDialog(context, "DialogDemo", "DialogHelper.showDialogDemo()", true, tcMenus).show();

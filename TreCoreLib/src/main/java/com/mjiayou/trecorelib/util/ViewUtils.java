@@ -17,7 +17,7 @@ import com.mjiayou.trecorelib.common.Caches;
 /**
  * Created by treason on 15/11/15.
  */
-public class ViewUtil {
+public class ViewUtils {
 
     public static final String TAG = "ViewUtil";
 

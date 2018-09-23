@@ -21,14 +21,14 @@ import com.mjiayou.trecorelib.helper.GsonHelper;
 import com.mjiayou.trecorelib.net.RequestAdapter;
 import com.mjiayou.trecorelib.util.AppUtils;
 import com.mjiayou.trecorelib.util.CustomToastUtils;
-import com.mjiayou.trecorelib.util.HandlerUtil;
+import com.mjiayou.trecorelib.util.HandlerUtils;
 import com.mjiayou.trecorelib.util.HelloUtils;
 import com.mjiayou.trecorelib.util.LogUtils;
-import com.mjiayou.trecorelib.util.MenuUtil;
-import com.mjiayou.trecorelib.util.PageUtil;
-import com.mjiayou.trecorelib.util.SharedUtil;
+import com.mjiayou.trecorelib.util.MenuUtils;
+import com.mjiayou.trecorelib.util.PageUtils;
+import com.mjiayou.trecorelib.util.SharedUtils;
 import com.mjiayou.trecorelib.util.ToastUtils;
-import com.mjiayou.trecorelib.util.UserUtil;
+import com.mjiayou.trecorelib.util.UserUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +78,7 @@ public class TestActivity extends TCActivity {
         });
 
         // mLayoutMenuContainer
-        MenuUtil.setMenus(mContext, mLayoutMenuContainer, getMenus());
+        MenuUtils.setMenus(mContext, mLayoutMenuContainer, getMenus());
 
         // mTvInfo
         StringBuilder builder = new StringBuilder();
@@ -87,7 +87,7 @@ public class TestActivity extends TCActivity {
         builder.append("\n");
         builder.append(AppUtils.getAppInfoDetail(mContext));
         builder.append("\n");
-        MenuUtil.setInfo(mTvInfo, builder.toString());
+        MenuUtils.setInfo(mTvInfo, builder.toString());
     }
 
     /**
@@ -111,7 +111,7 @@ public class TestActivity extends TCActivity {
                         new TCAlertDialog.OnTCActionListener() {
                             @Override
                             public void onOkAction() {
-                                SharedUtil.get(mContext).setConfigIsFirst(true);
+                                SharedUtils.get(mContext).setConfigIsFirst(true);
                                 ToastUtils.show("设置第一次启动成功");
                             }
 
@@ -130,13 +130,13 @@ public class TestActivity extends TCActivity {
                         new TCAlertDialog.OnTCActionListener() {
                             @Override
                             public void onOkAction() {
-                                UserUtil.doLogin("12345678901234567890123456789012");
+                                UserUtils.doLogin("12345678901234567890123456789012");
                                 ToastUtils.show("模拟登录成功");
                             }
 
                             @Override
                             public void onCancelAction() {
-                                UserUtil.doLogout();
+                                UserUtils.doLogout();
                                 ToastUtils.show("退出登录成功");
                             }
                         }).show();
@@ -176,7 +176,7 @@ public class TestActivity extends TCActivity {
         tcMenus.add(new TCMenu("TCMenuActivity", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TCMenuActivity.open(mContext, "TCMenuActivity", "TCMenuActivity Info Test", MenuUtil.getTCMenus(mContext));
+                TCMenuActivity.open(mContext, "TCMenuActivity", "TCMenuActivity Info Test", MenuUtils.getTCMenus(mContext));
             }
         }));
         tcMenus.add(new TCMenu("Dialog测试", new View.OnClickListener() {
@@ -189,7 +189,7 @@ public class TestActivity extends TCActivity {
             @Override
             public void onClick(View view) {
                 getStatusViewManager().onLoading();
-                HandlerUtil.postDelayed(new Runnable() {
+                HandlerUtils.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         getStatusViewManager().onFailure("数据异常", new View.OnClickListener() {
@@ -227,7 +227,7 @@ public class TestActivity extends TCActivity {
                     public void refreshView(TCResponse response) {
                     }
                 });
-                requestAdapter.sinaStatuses(String.valueOf(PageUtil.pageReset()));
+                requestAdapter.sinaStatuses(String.valueOf(PageUtils.pageReset()));
             }
         }));
         tcMenus.add(new TCMenu("CustomToast 显示5秒 by Toast", new View.OnClickListener() {

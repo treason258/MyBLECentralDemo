@@ -20,7 +20,7 @@ import com.mjiayou.trecorelib.common.Configs;
 import com.mjiayou.trecorelib.helper.GsonHelper;
 import com.mjiayou.trecorelib.util.ConvertUtils;
 import com.mjiayou.trecorelib.util.LogUtils;
-import com.mjiayou.trecorelib.util.StreamUtil;
+import com.mjiayou.trecorelib.util.StreamUtils;
 import com.mjiayou.trecorelib.util.ToastUtils;
 
 import org.apache.http.HttpEntity;
@@ -144,7 +144,7 @@ public class RequestBuilder {
                         } catch (Exception e) {
                             LogUtils.printStackTrace(e);
                         } finally {
-                            StreamUtil.closeQuietly(inputStream);
+                            StreamUtils.closeQuietly(inputStream);
                         }
                     }
                 } catch (Exception e) {
