@@ -27,7 +27,7 @@ import com.mjiayou.trecorelib.bean.TCResponse;
 import com.mjiayou.trecorelib.dialog.TCLoadingDialog;
 import com.mjiayou.trecorelib.manager.ActivityManager;
 import com.mjiayou.trecorelib.manager.StatusViewManager;
-import com.mjiayou.trecorelib.net.RequestAdapter;
+import com.mjiayou.trecorelib.http.volley.RequestAdapter;
 import com.mjiayou.trecorelib.util.ConvertUtils;
 import com.mjiayou.trecorelib.util.LogUtils;
 import com.mjiayou.trecorelib.widget.TitleBar;
