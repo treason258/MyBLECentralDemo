@@ -2,6 +2,7 @@ package com.mjiayou.trecorelib.http.okhttp;
 
 import com.google.gson.reflect.TypeToken;
 import com.mjiayou.trecorelib.helper.GsonHelper;
+import com.mjiayou.trecorelib.http.BaseCallback;
 import com.mjiayou.trecorelib.util.LogUtils;
 
 import java.lang.reflect.ParameterizedType;
@@ -52,9 +53,9 @@ public abstract class RequestCallback<T> implements BaseCallback {
      */
     @Override
     public void onResult(String response) {
-        BaseJsonBean<T> jsonBean = null;
+        JsonBean<T> jsonBean = null;
         try {
-            jsonBean = GsonHelper.get().fromJson(response, new TypeToken<BaseJsonBean<Object>>() {
+            jsonBean = GsonHelper.get().fromJson(response, new TypeToken<JsonBean<Object>>() {
             }.getType());
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
@@ -127,10 +128,10 @@ public abstract class RequestCallback<T> implements BaseCallback {
     /**
      * json转对象
      */
-    protected BaseJsonBean<T> jsonToBean(String result) {
-        BaseJsonBean<T> jsonBean = null;
+    private JsonBean<T> jsonToBean(String result) {
+        JsonBean<T> jsonBean = null;
         try {
-            Type objectType = getParameterizedType(BaseJsonBean.class, getResultType());
+            Type objectType = getParameterizedType(JsonBean.class, getResultType());
             jsonBean = GsonHelper.get().fromJson(result, objectType);
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
@@ -142,26 +143,67 @@ public abstract class RequestCallback<T> implements BaseCallback {
      * getResultType
      */
     private Type getResultType() {
-        return ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        ParameterizedType parameterizedType = ((ParameterizedType) this.getClass().getGenericSuperclass());
+        if (parameterizedType != null) {
+            return parameterizedType.getActualTypeArguments()[0];
+        }
+        return null;
     }
 
     /**
      * getParameterizedType
      */
-    protected ParameterizedType getParameterizedType(final Class raw, final Type... args) {
+    private ParameterizedType getParameterizedType(final Class raw, final Type... args) {
         return new ParameterizedType() {
-
-            public Type getRawType() {
-                return raw;
-            }
-
+            @Override
             public Type[] getActualTypeArguments() {
                 return args;
             }
 
+            @Override
+            public Type getRawType() {
+                return raw;
+            }
+
+            @Override
             public Type getOwnerType() {
                 return null;
             }
         };
     }
+
+    /**
+     * BaseJsonBean
+     */
+    public class JsonBean<K> {
+
+        private int statusCode;
+        private String msg;
+        private K data;
+
+        public int getStatusCode() {
+            return statusCode;
+        }
+
+        public void setStatusCode(int statusCode) {
+            this.statusCode = statusCode;
+        }
+
+        public String getMsg() {
+            return msg;
+        }
+
+        public void setMsg(String msg) {
+            this.msg = msg;
+        }
+
+        public K getData() {
+            return data;
+        }
+
+        public void setData(K data) {
+            this.data = data;
+        }
+    }
+
 }

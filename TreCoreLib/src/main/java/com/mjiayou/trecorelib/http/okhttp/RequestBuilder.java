@@ -1,5 +1,7 @@
 package com.mjiayou.trecorelib.http.okhttp;
 
+import com.mjiayou.trecorelib.http.BaseCallback;
+import com.mjiayou.trecorelib.http.RequestEntity;
 import com.mjiayou.trecorelib.util.LogUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;

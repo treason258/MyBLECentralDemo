@@ -17,6 +17,7 @@ import com.mjiayou.trecorelib.common.Params;
 import com.mjiayou.trecorelib.encode.SignatureUtil;
 import com.mjiayou.trecorelib.helper.GsonHelper;
 import com.mjiayou.trecorelib.helper.VolleyHelper;
+import com.mjiayou.trecorelib.http.RequestEntity;
 import com.mjiayou.trecorelib.util.DeviceUtils;
 import com.mjiayou.trecorelib.util.PageUtils;
 import com.mjiayou.trecorelib.util.UserUtils;
@@ -247,7 +248,7 @@ public class RequestAdapter {
     public void sinaStatuses(String pageNumber) {
         String url = "https://api.weibo.com/2/statuses/public_timeline.json?source=812913819&count=10";
         RequestEntity requestEntity = new RequestEntity(url);
-        requestEntity.setMethodCode(Method.GET);
+        requestEntity.setMethodVolley(Method.GET);
         requestEntity.addParam(Params.KEY_PAGE_NUMBER, pageNumber);
         requestEntity.addParam(Params.KEY_PAGE_COUNT, String.valueOf(PageUtils.defaultCount()));
         mRequestBuilder.buildAndAddRequest(requestEntity, TCSinaStatusesResponse.class, SINA_STATUSES);

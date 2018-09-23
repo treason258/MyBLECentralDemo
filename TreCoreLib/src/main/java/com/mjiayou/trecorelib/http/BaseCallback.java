@@ -1,4 +1,4 @@
-package com.mjiayou.trecorelib.http.okhttp;
+package com.mjiayou.trecorelib.http;
 
 /**
  * Created by xin on 17/4/28.

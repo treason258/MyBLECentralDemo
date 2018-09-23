@@ -1,4 +1,4 @@
-package com.mjiayou.trecorelib.http.okhttp;
+package com.mjiayou.trecorelib.http;
 
 /**
  * Created by treason on 2016/10/28.

@@ -1,7 +1,10 @@
-package com.mjiayou.trecorelib.http.okhttp;
+package com.mjiayou.trecorelib.http;
 
 import android.text.TextUtils;
 
+import com.android.volley.Request;
+import com.mjiayou.trecorelib.common.Caches;
+import com.mjiayou.trecorelib.common.Params;
 import com.mjiayou.trecorelib.helper.GsonHelper;
 import com.mjiayou.trecorelib.util.LogUtils;
 
@@ -25,13 +28,14 @@ public class RequestEntity implements Serializable {
 
     private boolean enableCookie = false;
     private RequestMethod method;
+    private int methodVolley = 0;
     private String url = "";
     private String requestBody = "";
+    private String filePath = "";
     private JSONObject jsonObject = new JSONObject();
     private Map<String, String> headers = new TreeMap<>();
     private Map<String, String> params = new TreeMap<>();
     private Map<String, File> files = new TreeMap<>();
-    private String filePath;
 
     /**
      * 构造函数
@@ -39,18 +43,29 @@ public class RequestEntity implements Serializable {
     public RequestEntity(String url) {
         this.enableCookie = false; // 默认不保存cookie
         this.method = RequestMethod.POST; // 默认post请求
+        this.methodVolley = Request.Method.POST; // 默认post请求
         this.url = url;
 
         // 公共参数
         //headers.put("key", "value");
         //params.put(Key.ParamKey.TOKEN_CITY_ID, String.valueOf(User.getInstance().cityId));
+
+        // 公共参数-header
+        headers.put("Accept-Encoding", "gzip");
+        headers.put("Accept", "application/json");
+        headers.put("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"); // application/json; charset=UTF-8 | text/html; charset=UTF-8
+        headers.put(Params.KEY_PLATFORM, Params.VALUE_PLATFORM);
+
+        // 公共参数-params
+        params.put(Params.KEY_TIME, String.valueOf(System.currentTimeMillis()));
+        params.put(Params.KEY_VERSION_CODE, String.valueOf(Caches.get().getVersionCode()));
     }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
 
-    // getter and setter
+    // ******************************** Getter and Setter ********************************
 
     public RequestMethod getMethod() {
         return method;
@@ -58,6 +73,14 @@ public class RequestEntity implements Serializable {
 
     public void setMethod(RequestMethod methodCode) {
         this.method = methodCode;
+    }
+
+    public int getMethodVolley() {
+        return methodVolley;
+    }
+
+    public void setMethodVolley(int methodVolley) {
+        this.methodVolley = methodVolley;
     }
 
     public String getUrl() {
@@ -74,12 +97,6 @@ public class RequestEntity implements Serializable {
 
     public void setRequestBody(String requestBody) {
         this.requestBody = requestBody;
-    }
-
-    public void setRequestBody(Object object) {
-        if (object != null) {
-            this.requestBody = GsonHelper.get().toJson(object);
-        }
     }
 
     public JSONObject getJsonObject() {
@@ -130,57 +147,67 @@ public class RequestEntity implements Serializable {
         this.filePath = filePath;
     }
 
-    // operation
+    // ******************************** 自定义操作 ********************************
+
+    public void setRequestBody(Object object) {
+        if (object != null) {
+            this.requestBody = GsonHelper.get().toJson(object);
+        }
+    }
 
     public void addHeader(String key, String value) {
-        if (TextUtils.isEmpty(value)) {
-            return;
+        if (!TextUtils.isEmpty(key) && value != null) {
+            headers.put(key, value);
         }
-        headers.put(key, value);
     }
 
     public void addParam(String key, String value) {
-        if (value == null) {
-            value = "";
+        if (!TextUtils.isEmpty(key) && value != null) {
+            params.put(key, value);
         }
-        params.put(key, value);
-    }
-
-    public void addFile(String name, File file) {
-        if (file == null) {
-            return;
-        }
-        files.put(name, file);
     }
 
     public void addParams(Map<String, String> params) {
-        this.params.putAll(params);
+        if (params != null) {
+            this.params.putAll(params);
+        }
     }
 
-    public void fillParams(Object obj) {
-        Class<? extends Object> clazz = obj.getClass();
-        ArrayList<Field> fieldList = new ArrayList<>();
-        do {
-            fieldList.addAll(Arrays.asList(clazz.getDeclaredFields()));
-            clazz = clazz.getSuperclass();
-        } while (clazz != Object.class);
-        try {
-            for (Field field : fieldList) {
-                field.setAccessible(true);
-                String name = field.getName();
-                Object value = field.get(obj);
-                if (!Modifier.isStatic(field.getModifiers()) && field.getType() != String[].class) {
-                    if (value == null) {
-                        params.put(name.toLowerCase(), "");
-                    } else {
-                        params.put(name.toLowerCase(), String.valueOf(value));
+    public void addParams(Object object) {
+        if (object != null) {
+            try {
+                Class<? extends Object> clazz = object.getClass();
+                ArrayList<Field> fieldList = new ArrayList<>();
+                do {
+                    fieldList.addAll(Arrays.asList(clazz.getDeclaredFields()));
+                    clazz = clazz.getSuperclass();
+                } while (clazz != Object.class);
+
+                for (Field field : fieldList) {
+                    field.setAccessible(true);
+                    String name = field.getName();
+                    Object value = field.get(object);
+                    if (!Modifier.isStatic(field.getModifiers()) && field.getType() != String[].class) {
+                        if (value == null) {
+                            params.put(name.toLowerCase(), "");
+                        } else {
+                            params.put(name.toLowerCase(), String.valueOf(value));
+                        }
                     }
                 }
+            } catch (IllegalAccessException e) {
+                LogUtils.printStackTrace(e);
+            } catch (IllegalArgumentException e) {
+                LogUtils.printStackTrace(e);
+            } catch (Exception e) {
+                LogUtils.printStackTrace(e);
             }
-        } catch (IllegalAccessException e) {
-            LogUtils.printStackTrace(e);
-        } catch (IllegalArgumentException e) {
-            LogUtils.printStackTrace(e);
+        }
+    }
+
+    public void addFile(String name, File file) {
+        if (!TextUtils.isEmpty(name) && file != null) {
+            files.put(name, file);
         }
     }
 }

@@ -15,13 +15,14 @@ import com.google.gson.JsonSyntaxException;
 import com.mjiayou.trecorelib.bean.TCResponse;
 import com.mjiayou.trecorelib.common.Configs;
 import com.mjiayou.trecorelib.helper.GsonHelper;
+import com.mjiayou.trecorelib.http.RequestEntity;
 import com.mjiayou.trecorelib.util.ConvertUtils;
 import com.mjiayou.trecorelib.util.LogUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
-public class GsonRequest<T extends TCResponse> extends Request<T> {
+public class RequestCallback<T extends TCResponse> extends Request<T> {
 
     private RequestEntity mRequestEntity;
     private final Class<T> mClazz;
@@ -31,8 +32,8 @@ public class GsonRequest<T extends TCResponse> extends Request<T> {
     /**
      * 构造函数
      */
-    public GsonRequest(RequestEntity requestEntity, ErrorListener errorListener, Class<T> clazz, Listener<T> responseListener) {
-        super(requestEntity.getMethodCode(), requestEntity.getUrl(), errorListener);
+    public RequestCallback(RequestEntity requestEntity, ErrorListener errorListener, Class<T> clazz, Listener<T> responseListener) {
+        super(requestEntity.getMethodVolley(), requestEntity.getUrl(), errorListener);
         this.mRequestEntity = requestEntity;
         this.mClazz = clazz;
         this.mResponseListener = responseListener;

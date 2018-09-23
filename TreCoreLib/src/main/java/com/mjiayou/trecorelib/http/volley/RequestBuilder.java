@@ -18,6 +18,7 @@ import com.mjiayou.trecorelib.base.TCApp;
 import com.mjiayou.trecorelib.bean.TCResponse;
 import com.mjiayou.trecorelib.common.Configs;
 import com.mjiayou.trecorelib.helper.GsonHelper;
+import com.mjiayou.trecorelib.http.RequestEntity;
 import com.mjiayou.trecorelib.util.ConvertUtils;
 import com.mjiayou.trecorelib.util.LogUtils;
 import com.mjiayou.trecorelib.util.StreamUtils;
@@ -60,7 +61,7 @@ public class RequestBuilder {
      */
     public <T extends TCResponse> void buildAndAddRequest(RequestEntity requestEntity, Class<T> clazz, final int category, Listener<T> responseListener) {
         String requestInfo = "request_info | " + "\n" +
-                "request_method -> " + requestEntity.getMethodCode() + "\n" +
+                "request_method -> " + requestEntity.getMethodVolley() + "\n" +
                 "request_url -> " + requestEntity.getUrl() + "\n" +
                 "request_body -> " + requestEntity.getRequestBody() + "\n" +
                 "request_headers -> " + requestEntity.getHeaders() + "\n" +
@@ -75,7 +76,7 @@ public class RequestBuilder {
                 }
             };
         }
-        GsonRequest<T> request = new GsonRequest<>(requestEntity, new TCErrorListener(category), clazz, responseListener);
+        RequestCallback<T> request = new RequestCallback<>(requestEntity, new TCErrorListener(category), clazz, responseListener);
         request.setTag(mTagObject);
         request.setShouldCache(true);
         request.setRetryPolicy(new DefaultRetryPolicy(Configs.DEFAULT_TIMEOUT_MS, Configs.DEFAULT_MAX_RETRIES, Configs.DEFAULT_BACKOFF_MULT)); // 设置超时时间、重连次数
@@ -91,7 +92,7 @@ public class RequestBuilder {
      */
     public <T> void buildAndAddRequestByHttpClient(final RequestEntity requestEntity, final Class<T> clazz, final int category, final Listener<T> responseListener) {
         String requestInfo = "request_info | " + "\n" +
-                "request_method -> " + requestEntity.getMethodCode() + "\n" +
+                "request_method -> " + requestEntity.getMethodVolley() + "\n" +
                 "request_url -> " + requestEntity.getUrl() + "\n" +
                 "request_body -> " + requestEntity.getRequestBody() + "\n" +
                 "request_headers -> " + requestEntity.getHeaders() + "\n" +
