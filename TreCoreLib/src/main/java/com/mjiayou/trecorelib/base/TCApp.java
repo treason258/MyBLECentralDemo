@@ -43,14 +43,24 @@ public class TCApp extends Application {
     protected static final String TAG = TCApp.class.getSimpleName();
 
     // var
-    private static TCApp mInstance;
+    private static Application mInstance;
     private Context mContext;
 
     /**
      * 获取Application对象
      */
-    public static TCApp get() {
+    public static Application get() {
         return mInstance;
+    }
+
+    /**
+     * onCreateManual
+     */
+    public static void onCreateManual(Application application) {
+        mInstance = application;
+        TCApp tcApp = new TCApp();
+        tcApp.mContext = application.getApplicationContext();
+        tcApp.initApp();
     }
 
     @Override
