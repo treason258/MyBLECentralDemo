@@ -27,9 +27,9 @@ public class KeyBoardUtils {
      */
     public static void hide(Context context, View view) {
         if (context != null && view != null) {
-            if (view.hasFocus()) {
-                view.clearFocus();
-            }
+//            if (view.hasFocus()) {
+//                view.clearFocus();
+//            }
             InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
             if (inputMethodManager != null) {
                 inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
