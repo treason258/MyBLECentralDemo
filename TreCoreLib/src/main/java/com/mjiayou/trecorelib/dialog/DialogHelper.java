@@ -391,7 +391,7 @@ public class DialogHelper {
             @Override
             public void onClick(View view) {
                 // TCUserListDialog
-                TCUserListDialog.createDialog(context, UserUtils.getUserID()).show();
+                TCUserListDialog.createDialog(context, "").show();
             }
         }));
         DialogHelper.createTCAlertMenuDialog(context, "DialogDemo", "DialogHelper.showDialogDemo()", true, tcMenus).show();

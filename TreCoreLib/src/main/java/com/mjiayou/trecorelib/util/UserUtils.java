@@ -23,20 +23,20 @@ public class UserUtils {
     }
 
     /**
-     * 获取用户详细信息之后的操作
-     */
-    public static void doGetUserInfo(TCUser user) {
-        UserUtils.setUserID(user.getId());
-        UserUtils.setUserInfo(user);
-    }
-
-    /**
      * 用户注销登陆之后的操作
      */
     public static void doLogout() {
         UserUtils.setToken("");
         EventBus.getDefault().post(new UserLoginStatusEvent(false));
     }
+
+//    /**
+//     * 获取用户详细信息之后的操作
+//     */
+//    public static void doGetUserInfo(TCUser user) {
+//        UserUtils.setUserID(user.getId());
+//        UserUtils.setUserInfo(user);
+//    }
 
     // ******************************** 判断用户登录状态 ********************************
 
@@ -90,25 +90,25 @@ public class UserUtils {
         return SharedUtils.get().getAccountToken();
     }
 
-    /**
-     * UserID
-     */
-    public static void setUserID(String userID) {
-        SharedUtils.get().setAccountUserID(userID);
-    }
-
-    public static String getUserID() {
-        return SharedUtils.get().getAccountUserID();
-    }
-
-    /**
-     * 用户信息
-     */
-    public static void setUserInfo(TCUser user) {
-        SharedUtils.get().setAccountUserInfo(user);
-    }
-
-    public static TCUser getUserInfo() {
-        return SharedUtils.get().getAccountUserInfo();
-    }
+//    /**
+//     * UserID
+//     */
+//    public static void setUserID(String userID) {
+//        SharedUtils.get().setAccountUserID(userID);
+//    }
+//
+//    public static String getUserID() {
+//        return SharedUtils.get().getAccountUserID();
+//    }
+//
+//    /**
+//     * 用户信息
+//     */
+//    public static void setUserInfo(TCUser user) {
+//        SharedUtils.get().setAccountUserInfo(user);
+//    }
+//
+//    public static TCUser getUserInfo() {
+//        return SharedUtils.get().getAccountUserInfo();
+//    }
 }

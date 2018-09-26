@@ -378,33 +378,32 @@ public class SharedUtils {
         return getShared(mSharedAccount, KEY_ACCOUNT_TOKEN, "");
     }
 
-    /**
-     * UserID
-     */
-    public void setAccountUserID(String userID) {
-        setShared(mSharedAccount, KEY_ACCOUNT_USER_ID, userID);
-    }
-
-    public String getAccountUserID() {
-        return getShared(mSharedAccount, KEY_ACCOUNT_USER_ID, "");
-    }
-
-    /**
-     * 用户信息
-     */
-    public void setAccountUserInfo(TCUser user) {
-        String data = GsonHelper.get().toJson(user);
-        setShared(mSharedAccount, KEY_ACCOUNT_USER_INFO, data);
-    }
-
-    public TCUser getAccountUserInfo() {
-        String data = getShared(mSharedAccount, KEY_ACCOUNT_USER_INFO, "");
-        if (!TextUtils.isEmpty(data)) {
-            return GsonHelper.get().fromJson(data, TCUser.class);
-        }
-        return null;
-    }
-
+//    /**
+//     * UserID
+//     */
+//    public void setAccountUserID(String userID) {
+//        setShared(mSharedAccount, KEY_ACCOUNT_USER_ID, userID);
+//    }
+//
+//    public String getAccountUserID() {
+//        return getShared(mSharedAccount, KEY_ACCOUNT_USER_ID, "");
+//    }
+//
+//    /**
+//     * 用户信息
+//     */
+//    public void setAccountUserInfo(TCUser user) {
+//        String data = GsonHelper.get().toJson(user);
+//        setShared(mSharedAccount, KEY_ACCOUNT_USER_INFO, data);
+//    }
+//
+//    public TCUser getAccountUserInfo() {
+//        String data = getShared(mSharedAccount, KEY_ACCOUNT_USER_INFO, "");
+//        if (!TextUtils.isEmpty(data)) {
+//            return GsonHelper.get().fromJson(data, TCUser.class);
+//        }
+//        return null;
+//    }
 
     /**
      * 清除账户信息
