@@ -53,30 +53,35 @@ public abstract class RequestCallback<T> implements BaseCallback {
      */
     @Override
     public void onResult(String response) {
-        ResponseBean<T> jsonBean = null;
+        ResponseBean<T> responseBean = null;
         try {
-            jsonBean = GsonHelper.get().fromJson(response, new TypeToken<ResponseBean<Object>>() {
+            responseBean = GsonHelper.get().fromJson(response, new TypeToken<ResponseBean<Object>>() {
             }.getType());
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
         }
 
-        boolean isString = false;
-        if (jsonBean == null) {
+        if (responseBean == null) {
             onFailure(CODE_FAILURE_JSON, MSG_FAILURE_JSON); // 解析失败
         } else {
-            switch (jsonBean.getStatusCode()) {
+            switch (responseBean.getStatusCode()) {
                 case CODE_SUCCESS:
-                    if (getResultType() == String.class) {
-                        isString = true;
+                    if (getObjectType() == String.class) {
+                        T object = null;
+                        try {
+                            object = (T) GsonHelper.get().toJson(responseBean.getData());
+                        } catch (Exception e) {
+                            LogUtils.printStackTrace(e);
+                        }
+                        onSuccess(CODE_SUCCESS, object);
                     } else {
-                        jsonBean = jsonToBean(response);
+                        responseBean = getResponseBean(response);
+                        if (responseBean == null) {
+                            onFailure(CODE_FAILURE_JSON, MSG_FAILURE_JSON);
+                        } else {
+                            onSuccess(CODE_SUCCESS, responseBean.getData());
+                        }
                     }
-                    if (jsonBean == null) {
-                        onFailure(CODE_FAILURE_JSON, MSG_FAILURE_JSON);
-                        return;
-                    }
-                    onSuccess(jsonBean.getStatusCode(), isString ? (T) response : jsonBean.getData());
                     break;
                 case CODE_FAILURE_SERVICE:
                 case CODE_FAILURE_PARAM:
@@ -84,10 +89,10 @@ public abstract class RequestCallback<T> implements BaseCallback {
                 case CODE_FAILURE_HTTP:
                 case CODE_FAILURE_TOKEN:
                 default:
-                    if (jsonBean.getMsg() == null) {
-                        jsonBean.setMsg("null");
+                    if (responseBean.getMsg() == null) {
+                        responseBean.setMsg("null");
                     }
-                    onFailure(jsonBean.getStatusCode(), jsonBean.getMsg());
+                    onFailure(responseBean.getStatusCode(), responseBean.getMsg());
                     break;
             }
         }
@@ -112,10 +117,10 @@ public abstract class RequestCallback<T> implements BaseCallback {
     /**
      * 请求返回 - 成功
      *
-     * @param code 状态码
-     * @param obj  返回对象
+     * @param code   状态码
+     * @param object 返回对象
      */
-    public abstract void onSuccess(int code, T obj);
+    public abstract void onSuccess(int code, T object);
 
     /**
      * 请求返回 - 失败
@@ -126,23 +131,25 @@ public abstract class RequestCallback<T> implements BaseCallback {
     public abstract void onFailure(int code, String msg);
 
     /**
-     * json转对象
+     * getResponseBean
      */
-    private ResponseBean<T> jsonToBean(String result) {
-        ResponseBean<T> jsonBean = null;
+    private ResponseBean<T> getResponseBean(String response) {
+        ResponseBean<T> responseBean = null;
         try {
-            Type objectType = getParameterizedType(ResponseBean.class, getResultType());
-            jsonBean = GsonHelper.get().fromJson(result, objectType);
+            if (getObjectType() != String.class) {
+                Type type = getParameterizedType(ResponseBean.class, getObjectType());
+                responseBean = GsonHelper.get().fromJson(response, type);
+            }
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
         }
-        return jsonBean;
+        return responseBean;
     }
 
     /**
-     * getResultType
+     * getObjectType
      */
-    private Type getResultType() {
+    private Type getObjectType() {
         ParameterizedType parameterizedType = ((ParameterizedType) this.getClass().getGenericSuperclass());
         if (parameterizedType != null) {
             return parameterizedType.getActualTypeArguments()[0];
