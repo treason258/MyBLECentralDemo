@@ -63,7 +63,7 @@ public class RequestBuilder {
         String requestInfo = "request_info | " + "\n" +
                 "request_method -> " + requestEntity.getMethodVolley() + "\n" +
                 "request_url -> " + requestEntity.getUrl() + "\n" +
-                "request_body -> " + requestEntity.getRequestBody() + "\n" +
+                "request_content -> " + requestEntity.getContent() + "\n" +
                 "request_headers -> " + requestEntity.getHeaders() + "\n" +
                 "request_params -> " + requestEntity.getParams() + "\n";
         LogUtils.i(Configs.TAG_VOLLEY, requestInfo);
@@ -94,7 +94,7 @@ public class RequestBuilder {
         String requestInfo = "request_info | " + "\n" +
                 "request_method -> " + requestEntity.getMethodVolley() + "\n" +
                 "request_url -> " + requestEntity.getUrl() + "\n" +
-                "request_body -> " + requestEntity.getRequestBody() + "\n" +
+                "request_content -> " + requestEntity.getContent() + "\n" +
                 "request_headers -> " + requestEntity.getHeaders() + "\n" +
                 "request_params -> " + requestEntity.getParams() + "\n";
         LogUtils.i(Configs.TAG_VOLLEY, requestInfo);

@@ -5,6 +5,7 @@ import com.mjiayou.trecorelib.http.RequestEntity;
 import com.mjiayou.trecorelib.util.LogUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
+import com.zhy.http.okhttp.request.RequestCall;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -44,94 +45,70 @@ public class RequestBuilder {
     public void send(RequestEntity requestEntity, final BaseCallback callback) {
         logRequest("send", requestEntity);
 
+        RequestCall requestCall = null;
         switch (requestEntity.getMethod()) {
-            case POST:
-                OkHttpUtils
+            case POST_STRING:
+                requestCall = OkHttpUtils
                         .postString()
                         .url(requestEntity.getUrl())
-                        .content(requestEntity.getRequestBody())
+                        .content(requestEntity.getContent())
                         .mediaType(MediaType.parse("application/json; charset=utf-8"))
-                        .build()
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onBefore(Request request, int id) {
-                                super.onBefore(request, id);
-                                if (callback != null) {
-                                    callback.onStart();
-                                }
-                            }
-
-                            @Override
-                            public void onAfter(int id) {
-                                super.onAfter(id);
-                            }
-
-                            @Override
-                            public void inProgress(float progress, long total, int id) {
-                                super.inProgress(progress, total, id);
-                            }
-
-                            @Override
-                            public void onError(Call call, Exception ex, int id) {
-                                if (callback != null) {
-                                    callback.onException(ex);
-                                }
-                            }
-
-                            @Override
-                            public void onResponse(String responseData, int id) {
-                                logResponse("send", responseData);
-
-                                if (callback != null) {
-                                    callback.onResult(responseData);
-                                }
-                            }
-                        });
+                        .build();
                 break;
-            //case GET:
-            //OkHttpUtils
-            //    .get()
-            //    .url(requestEntity.getUrl())
-            //    .params(paramWithApiKey(requestEntity).getParams())
-            //    .build()
-            //    .execute(new StringCallback() {
-            //      @Override
-            //      public void onBefore(Request request, int id) {
-            //        super.onBefore(request, id);
-            //        if (callback != null) {
-            //          callback.onStart();
-            //        }
-            //      }
-            //
-            //      @Override
-            //      public void onAfter(int id) {
-            //        super.onAfter(id);
-            //      }
-            //
-            //      @Override
-            //      public void inProgress(float progress, long total, int id) {
-            //        super.inProgress(progress, total, id);
-            //      }
-            //
-            //      @Override
-            //      public void onError(Call call, Exception e, int id) {
-            //        if (callback != null) {
-            //          callback.onException(e, RequestCallback.MSG_REQUEST_ERROR);
-            //        }
-            //      }
-            //
-            //      @Override
-            //      public void onResponse(String responseData, int id) {
-            //        logResponse("send", responseData);
-            //
-            //        if (callback != null) {
-            //          callback.onResult(responseData);
-            //        }
-            //      }
-            //    });
-            //break;
+            case POST:
+                requestCall = OkHttpUtils
+                        .post()
+                        .url(requestEntity.getUrl())
+                        .params(requestEntity.getParams())
+                        .build();
+                break;
+            case GET:
+                requestCall = OkHttpUtils
+                        .get()
+                        .url(requestEntity.getUrl())
+                        .params(requestEntity.getParams())
+                        .build();
+                break;
             default:
                 break;
+        }
+
+        if (requestCall != null) {
+            requestCall.execute(new StringCallback() {
+                @Override
+                public void onBefore(Request request, int id) {
+                    super.onBefore(request, id);
+                    if (callback != null) {
+                        callback.onStart();
+                    }
+                }
+
+                @Override
+                public void onAfter(int id) {
+                    super.onAfter(id);
+                }
+
+                @Override
+                public void inProgress(float progress, long total, int id) {
+                    super.inProgress(progress, total, id);
+                }
+
+                @Override
+                public void onError(Call call, Exception ex, int id) {
+                    if (callback != null) {
+                        callback.onException(ex);
+                    }
+                }
+
+                @Override
+                public void onResponse(String responseData, int id) {
+                    logResponse("send", responseData);
+
+                    if (callback != null) {
+                        callback.onResult(responseData);
+                    }
+                }
+            });
         }
     }
 
@@ -146,11 +123,11 @@ public class RequestBuilder {
      */
     private void logRequest(String method, RequestEntity requestEntity) {
         String requestInfo = method + " -> request_info | " + "\n" +
-                "request_url -> " + requestEntity.getUrl() + "\n" +
                 "request_method -> " + requestEntity.getMethod().toString() + "\n" +
-                "request_body -> " + requestEntity.getRequestBody() + "\n" +
+                "request_url -> " + requestEntity.getUrl() + "\n" +
                 "request_headers -> " + requestEntity.getHeaders() + "\n" +
-                "request_params -> " + requestEntity.getParams() + "\n";
+                "request_params -> " + requestEntity.getParams() + "\n" +
+                "request_content -> " + requestEntity.getContent() + "\n";
         LogUtils.d(TAG, requestInfo);
     }
 

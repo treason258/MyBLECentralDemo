@@ -47,8 +47,8 @@ public class RequestCallback<T extends TCResponse> extends Request<T> {
 
     @Override
     public byte[] getBody() throws AuthFailureError {
-        if (!TextUtils.isEmpty(mRequestEntity.getRequestBody())) {
-            return mRequestEntity.getRequestBody().getBytes();
+        if (!TextUtils.isEmpty(mRequestEntity.getContent())) {
+            return mRequestEntity.getContent().getBytes();
         }
         return super.getBody();
     }

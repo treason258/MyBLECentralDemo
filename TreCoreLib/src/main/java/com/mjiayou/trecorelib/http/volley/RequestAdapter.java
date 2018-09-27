@@ -237,7 +237,7 @@ public class RequestAdapter {
      */
     public void base5(TCRequest request) {
         RequestEntity requestEntity = new RequestEntity(getUrl("base"));
-        requestEntity.setRequestBody(getRequestString(request));
+        requestEntity.setContent(getRequestString(request));
         mRequestBuilder.buildAndAddRequest(requestEntity, TCResponse.class, BASE);
     }
 

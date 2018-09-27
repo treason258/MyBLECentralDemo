@@ -29,13 +29,14 @@ public class RequestEntity implements Serializable {
     private boolean enableCookie = false;
     private RequestMethod method;
     private int methodVolley = 0;
+
     private String url = "";
-    private String requestBody = "";
-    private String filePath = "";
-    private JSONObject jsonObject = new JSONObject();
     private Map<String, String> headers = new TreeMap<>();
     private Map<String, String> params = new TreeMap<>();
     private Map<String, File> files = new TreeMap<>();
+    private String content = "";
+    private String filePath = "";
+    private JSONObject jsonObject = new JSONObject();
 
     /**
      * 构造函数
@@ -46,7 +47,7 @@ public class RequestEntity implements Serializable {
         this.methodVolley = Request.Method.POST; // 默认post请求
         this.url = url;
 
-        // 公共参数-header
+        // 公共参数-headers
         // headers.put("Accept-Encoding", "gzip");
         // headers.put("Accept", "application/json");
         // headers.put("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"); // application/json; charset=UTF-8 | text/html; charset=UTF-8
@@ -87,13 +88,21 @@ public class RequestEntity implements Serializable {
         this.url = url;
     }
 
-    public String getRequestBody() {
-        return requestBody;
+    public String getContent() {
+        return content;
     }
 
-    public void setRequestBody(String requestBody) {
-        this.requestBody = requestBody;
+    public void setContent(String content) {
+        this.content = content;
     }
+
+    //    public String getRequestBody() {
+//        return requestBody;
+//    }
+
+//    public void setRequestBody(String requestBody) {
+//        this.requestBody = requestBody;
+//    }
 
     public JSONObject getJsonObject() {
         return jsonObject;
@@ -144,12 +153,6 @@ public class RequestEntity implements Serializable {
     }
 
     // ******************************** 自定义操作 ********************************
-
-    public void setRequestBody(Object object) {
-        if (object != null) {
-            this.requestBody = GsonHelper.get().toJson(object);
-        }
-    }
 
     public void addHeader(String key, String value) {
         if (!TextUtils.isEmpty(key) && value != null) {
@@ -204,6 +207,12 @@ public class RequestEntity implements Serializable {
     public void addFile(String name, File file) {
         if (!TextUtils.isEmpty(name) && file != null) {
             files.put(name, file);
+        }
+    }
+
+    public void setContent(Object object) {
+        if (object != null) {
+            this.content = GsonHelper.get().toJson(object);
         }
     }
 }
