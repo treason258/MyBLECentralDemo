@@ -28,7 +28,6 @@ public class RequestEntity implements Serializable {
 
     private boolean enableCookie = false;
     private RequestMethod method;
-    private int methodVolley = 0;
 
     private String url = "";
     private Map<String, String> headers = new TreeMap<>();
@@ -44,7 +43,6 @@ public class RequestEntity implements Serializable {
     public RequestEntity(String url) {
         this.enableCookie = false; // 默认不保存cookie
         this.method = RequestMethod.POST; // 默认post请求
-        this.methodVolley = Request.Method.POST; // 默认post请求
         this.url = url;
 
         // 公共参数-headers
@@ -72,14 +70,6 @@ public class RequestEntity implements Serializable {
         this.method = methodCode;
     }
 
-    public int getMethodVolley() {
-        return methodVolley;
-    }
-
-    public void setMethodVolley(int methodVolley) {
-        this.methodVolley = methodVolley;
-    }
-
     public String getUrl() {
         return url;
     }
@@ -95,14 +85,6 @@ public class RequestEntity implements Serializable {
     public void setContent(String content) {
         this.content = content;
     }
-
-    //    public String getRequestBody() {
-//        return requestBody;
-//    }
-
-//    public void setRequestBody(String requestBody) {
-//        this.requestBody = requestBody;
-//    }
 
     public JSONObject getJsonObject() {
         return jsonObject;

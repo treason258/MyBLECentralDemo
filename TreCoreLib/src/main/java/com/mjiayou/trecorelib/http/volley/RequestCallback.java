@@ -16,6 +16,7 @@ import com.mjiayou.trecorelib.bean.TCResponse;
 import com.mjiayou.trecorelib.common.Configs;
 import com.mjiayou.trecorelib.helper.GsonHelper;
 import com.mjiayou.trecorelib.http.RequestEntity;
+import com.mjiayou.trecorelib.http.RequestMethod;
 import com.mjiayou.trecorelib.util.ConvertUtils;
 import com.mjiayou.trecorelib.util.LogUtils;
 
@@ -33,7 +34,7 @@ public class RequestCallback<T extends TCResponse> extends Request<T> {
      * 构造函数
      */
     public RequestCallback(RequestEntity requestEntity, ErrorListener errorListener, Class<T> clazz, Listener<T> responseListener) {
-        super(requestEntity.getMethodVolley(), requestEntity.getUrl(), errorListener);
+        super(RequestMethod.getVolleyMethod(requestEntity.getMethod()), requestEntity.getUrl(), errorListener);
         this.mRequestEntity = requestEntity;
         this.mClazz = clazz;
         this.mResponseListener = responseListener;

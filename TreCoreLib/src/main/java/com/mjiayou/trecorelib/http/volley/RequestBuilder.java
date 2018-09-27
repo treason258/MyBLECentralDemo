@@ -61,7 +61,7 @@ public class RequestBuilder {
      */
     public <T extends TCResponse> void buildAndAddRequest(RequestEntity requestEntity, Class<T> clazz, final int category, Listener<T> responseListener) {
         String requestInfo = "request_info | " + "\n" +
-                "request_method -> " + requestEntity.getMethodVolley() + "\n" +
+                "request_method -> " + requestEntity.getMethod() + "\n" +
                 "request_url -> " + requestEntity.getUrl() + "\n" +
                 "request_content -> " + requestEntity.getContent() + "\n" +
                 "request_headers -> " + requestEntity.getHeaders() + "\n" +
@@ -92,7 +92,7 @@ public class RequestBuilder {
      */
     public <T> void buildAndAddRequestByHttpClient(final RequestEntity requestEntity, final Class<T> clazz, final int category, final Listener<T> responseListener) {
         String requestInfo = "request_info | " + "\n" +
-                "request_method -> " + requestEntity.getMethodVolley() + "\n" +
+                "request_method -> " + requestEntity.getMethod() + "\n" +
                 "request_url -> " + requestEntity.getUrl() + "\n" +
                 "request_content -> " + requestEntity.getContent() + "\n" +
                 "request_headers -> " + requestEntity.getHeaders() + "\n" +
