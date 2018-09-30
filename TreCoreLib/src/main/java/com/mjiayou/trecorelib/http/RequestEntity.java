@@ -2,8 +2,6 @@ package com.mjiayou.trecorelib.http;
 
 import android.text.TextUtils;
 
-import com.mjiayou.trecorelib.common.Caches;
-import com.mjiayou.trecorelib.common.Params;
 import com.mjiayou.trecorelib.json.JsonHelper;
 import com.mjiayou.trecorelib.util.LogUtils;
 
@@ -48,11 +46,11 @@ public class RequestEntity implements Serializable {
         // headers.put("Accept-Encoding", "gzip");
         // headers.put("Accept", "application/json");
         // headers.put("Content-Type", "application/x-www-form-urlencoded; charset=utf-8"); // application/json; charset=UTF-8 | text/html; charset=UTF-8
-        headers.put(Params.KEY_PLATFORM, Params.VALUE_PLATFORM);
+        // headers.put(Params.KEY_PLATFORM, Params.VALUE_PLATFORM);
 
         // 公共参数-params
-        params.put(Params.KEY_TIME, String.valueOf(System.currentTimeMillis()));
-        params.put(Params.KEY_VERSION_CODE, String.valueOf(Caches.get().getVersionCode()));
+        // params.put(Params.KEY_TIME, String.valueOf(System.currentTimeMillis()));
+        // params.put(Params.KEY_VERSION_CODE, String.valueOf(Caches.get().getVersionCode()));
     }
 
     public static long getSerialVersionUID() {

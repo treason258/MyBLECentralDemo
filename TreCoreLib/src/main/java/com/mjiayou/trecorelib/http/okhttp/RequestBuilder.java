@@ -42,8 +42,9 @@ public class RequestBuilder {
     /**
      * 异步请求
      */
-    public void send(RequestEntity requestEntity, final BaseCallback callback) {
-        logRequest("send", requestEntity);
+    public void send(final RequestEntity requestEntity, final BaseCallback callback) {
+        final String logTag = "send";
+        logRequest(logTag, requestEntity);
 
         RequestCall requestCall = null;
         switch (requestEntity.getMethod()) {
@@ -51,6 +52,7 @@ public class RequestBuilder {
                 requestCall = OkHttpUtils
                         .postString()
                         .url(requestEntity.getUrl())
+                        .headers(requestEntity.getHeaders())
                         .content(requestEntity.getContent())
                         .mediaType(MediaType.parse("application/json; charset=utf-8"))
                         .build();
@@ -59,6 +61,7 @@ public class RequestBuilder {
                 requestCall = OkHttpUtils
                         .post()
                         .url(requestEntity.getUrl())
+                        .headers(requestEntity.getHeaders())
                         .params(requestEntity.getParams())
                         .build();
                 break;
@@ -66,6 +69,7 @@ public class RequestBuilder {
                 requestCall = OkHttpUtils
                         .get()
                         .url(requestEntity.getUrl())
+                        .headers(requestEntity.getHeaders())
                         .params(requestEntity.getParams())
                         .build();
                 break;
@@ -102,7 +106,7 @@ public class RequestBuilder {
 
                 @Override
                 public void onResponse(String responseData, int id) {
-                    logResponse("send", responseData);
+                    logResponse(logTag, requestEntity, responseData);
 
                     if (callback != null) {
                         callback.onResult(responseData);
@@ -121,10 +125,10 @@ public class RequestBuilder {
     /**
      * 网络请求打印LOG
      */
-    private void logRequest(String method, RequestEntity requestEntity) {
-        String requestInfo = method + " -> request_info | " + "\n" +
-                "request_method -> " + requestEntity.getMethod().toString() + "\n" +
+    private void logRequest(String tag, RequestEntity requestEntity) {
+        String requestInfo = tag + " -> request_info | " + "\n" +
                 "request_url -> " + requestEntity.getUrl() + "\n" +
+                "request_method -> " + requestEntity.getMethod().toString() + "\n" +
                 "request_headers -> " + requestEntity.getHeaders() + "\n" +
                 "request_params -> " + requestEntity.getParams() + "\n" +
                 "request_content -> " + requestEntity.getContent() + "\n";
@@ -134,8 +138,9 @@ public class RequestBuilder {
     /**
      * 网络返回打印LOG
      */
-    private void logResponse(String method, String responseData) {
-        String responseInfo = method + " -> response_info | " + "\n" +
+    private void logResponse(String tag, RequestEntity requestEntity, String responseData) {
+        String responseInfo = tag + " -> response_info | " + "\n" +
+                "request_url -> " + requestEntity.getUrl() + "\n" +
                 "response_data -> " + responseData + "\n";
         LogUtils.d(TAG, responseInfo);
     }
