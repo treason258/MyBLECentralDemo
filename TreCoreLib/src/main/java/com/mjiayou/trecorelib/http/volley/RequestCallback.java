@@ -10,13 +10,12 @@ import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.mjiayou.trecorelib.bean.TCResponse;
 import com.mjiayou.trecorelib.common.Configs;
-import com.mjiayou.trecorelib.helper.GsonHelper;
 import com.mjiayou.trecorelib.http.RequestEntity;
 import com.mjiayou.trecorelib.http.RequestMethod;
+import com.mjiayou.trecorelib.json.JsonHelper;
 import com.mjiayou.trecorelib.util.ConvertUtils;
 import com.mjiayou.trecorelib.util.LogUtils;
 
@@ -28,7 +27,7 @@ public class RequestCallback<T extends TCResponse> extends Request<T> {
     private RequestEntity mRequestEntity;
     private final Class<T> mClazz;
     private final Listener<T> mResponseListener;
-    private final Gson mGson;
+    private final JsonHelper mJsonHelper;
 
     /**
      * 构造函数
@@ -38,7 +37,7 @@ public class RequestCallback<T extends TCResponse> extends Request<T> {
         this.mRequestEntity = requestEntity;
         this.mClazz = clazz;
         this.mResponseListener = responseListener;
-        this.mGson = GsonHelper.get();
+        this.mJsonHelper = JsonHelper.get();
     }
 
     @Override
@@ -69,10 +68,10 @@ public class RequestCallback<T extends TCResponse> extends Request<T> {
             } else {
                 responseString = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
             }
-            T result = mGson.fromJson(responseString, mClazz);
+            T result = mJsonHelper.fromJson(responseString, mClazz);
             String responseInfo = "request_info | " + "\n" +
                     "response_data_string -> " + responseString + "\n" +
-                    "response_data_object -> " + mGson.toJson(result) + "\n";
+                    "response_data_object -> " + mJsonHelper.toJson(result) + "\n";
             LogUtils.i(Configs.TAG_VOLLEY, responseInfo);
             return Response.success(result, HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {

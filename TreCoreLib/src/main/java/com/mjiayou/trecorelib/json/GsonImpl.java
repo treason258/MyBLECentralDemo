@@ -19,17 +19,17 @@ public class GsonImpl extends JsonHelper {
     }
 
     @Override
-    public <T> T toObject(String json, Class<T> clazz) {
+    public <T> T fromJson(String json, Class<T> clazz) {
         return mGson.fromJson(json, clazz);
     }
 
     @Override
-    public <T> T toObject(String json, Type type) {
+    public <T> T fromJson(String json, Type type) {
         return mGson.fromJson(json, type);
     }
 
     @Override
-    public <T> T toObject(byte[] bytes, Class<T> clazz) {
+    public <T> T fromJson(byte[] bytes, Class<T> clazz) {
         return mGson.fromJson(new String(bytes), clazz);
     }
 }

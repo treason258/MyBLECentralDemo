@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import com.google.gson.reflect.TypeToken;
 import com.mjiayou.trecorelib.base.TCApp;
 import com.mjiayou.trecorelib.bean.entity.TCUser;
-import com.mjiayou.trecorelib.helper.GsonHelper;
+import com.mjiayou.trecorelib.json.JsonHelper;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -418,7 +418,7 @@ public class SharedUtils {
      * 搜索关键字历史记录
      */
     public void setCacheSearchHistory(List<String> list) {
-        String data = GsonHelper.get().toJson(list);
+        String data = JsonHelper.get().toJson(list);
         setShared(mSharedCache, KEY_CACHE_SEARCH_HISTORY, data);
     }
 
@@ -427,7 +427,7 @@ public class SharedUtils {
         if (!TextUtils.isEmpty(data)) {
             Type type = new TypeToken<ArrayList<String>>() {
             }.getType();
-            return GsonHelper.get().fromJson(data, type);
+            return JsonHelper.get().fromJson(data, type);
         }
         return null;
     }
@@ -436,7 +436,7 @@ public class SharedUtils {
      * 缓存用户列表
      */
     public void setCacheUserList(List<TCUser> list) {
-        String data = GsonHelper.get().toJson(list);
+        String data = JsonHelper.get().toJson(list);
         setShared(mSharedCache, KEY_CACHE_USER_LIST, data);
     }
 
@@ -445,7 +445,7 @@ public class SharedUtils {
         if (!TextUtils.isEmpty(data)) {
             Type type = new TypeToken<ArrayList<TCUser>>() {
             }.getType();
-            return GsonHelper.get().fromJson(data, type);
+            return JsonHelper.get().fromJson(data, type);
         }
         return null;
     }

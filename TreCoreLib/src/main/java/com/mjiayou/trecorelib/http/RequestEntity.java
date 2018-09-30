@@ -2,10 +2,9 @@ package com.mjiayou.trecorelib.http;
 
 import android.text.TextUtils;
 
-import com.android.volley.Request;
 import com.mjiayou.trecorelib.common.Caches;
 import com.mjiayou.trecorelib.common.Params;
-import com.mjiayou.trecorelib.helper.GsonHelper;
+import com.mjiayou.trecorelib.json.JsonHelper;
 import com.mjiayou.trecorelib.util.LogUtils;
 
 import org.json.JSONObject;
@@ -194,7 +193,7 @@ public class RequestEntity implements Serializable {
 
     public void setContent(Object object) {
         if (object != null) {
-            this.content = GsonHelper.get().toJson(object);
+            this.content = JsonHelper.get().toJson(object);
         }
     }
 }

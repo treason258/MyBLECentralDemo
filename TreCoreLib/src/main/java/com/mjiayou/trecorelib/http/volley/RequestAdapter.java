@@ -6,8 +6,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
 
-import com.android.volley.Request.Method;
-import com.google.gson.Gson;
 import com.mjiayou.trecorelib.bean.TCRequest;
 import com.mjiayou.trecorelib.bean.TCResponse;
 import com.mjiayou.trecorelib.bean.TCSinaStatusesResponse;
@@ -15,10 +13,10 @@ import com.mjiayou.trecorelib.common.Caches;
 import com.mjiayou.trecorelib.common.Configs;
 import com.mjiayou.trecorelib.common.Params;
 import com.mjiayou.trecorelib.encode.SignatureUtil;
-import com.mjiayou.trecorelib.helper.GsonHelper;
 import com.mjiayou.trecorelib.helper.VolleyHelper;
 import com.mjiayou.trecorelib.http.RequestEntity;
 import com.mjiayou.trecorelib.http.RequestMethod;
+import com.mjiayou.trecorelib.json.JsonHelper;
 import com.mjiayou.trecorelib.util.DeviceUtils;
 import com.mjiayou.trecorelib.util.PageUtils;
 import com.mjiayou.trecorelib.util.UserUtils;
@@ -49,7 +47,7 @@ public class RequestAdapter {
     private final Context mContext;
     private ResponseHandler mResponseHandler;
     private RequestBuilder mRequestBuilder;
-    private Gson mGson;
+    private JsonHelper mJsonHelper;
 
     /**
      * 构造函数
@@ -61,7 +59,7 @@ public class RequestAdapter {
             this.mResponseHandler = new ResponseHandler(dataResponse);
         }
         this.mRequestBuilder = new RequestBuilder(context, VolleyHelper.getRequestQueue(), mResponseHandler);
-        this.mGson = GsonHelper.get();
+        this.mJsonHelper = JsonHelper.get();
     }
 
     /**
@@ -176,7 +174,7 @@ public class RequestAdapter {
         request.setAppVersion(appVersion);
         request.setSignature(signature);
 
-        return mGson.toJson(request);
+        return mJsonHelper.toJson(request);
     }
 
 //    /**

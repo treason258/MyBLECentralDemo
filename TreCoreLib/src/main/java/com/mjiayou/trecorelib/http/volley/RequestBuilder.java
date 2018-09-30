@@ -12,13 +12,12 @@ import com.android.volley.Response.Listener;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
 import com.mjiayou.trecorelib.R;
 import com.mjiayou.trecorelib.base.TCApp;
 import com.mjiayou.trecorelib.bean.TCResponse;
 import com.mjiayou.trecorelib.common.Configs;
-import com.mjiayou.trecorelib.helper.GsonHelper;
 import com.mjiayou.trecorelib.http.RequestEntity;
+import com.mjiayou.trecorelib.json.JsonHelper;
 import com.mjiayou.trecorelib.util.ConvertUtils;
 import com.mjiayou.trecorelib.util.LogUtils;
 import com.mjiayou.trecorelib.util.StreamUtils;
@@ -44,7 +43,7 @@ public class RequestBuilder {
     private Object mTagObject;
     private RequestQueue mRequestQueue;
     private Handler mResponseHandler;
-    private Gson mGson;
+    private JsonHelper mJsonHelper;
 
     /**
      * 构造函数
@@ -53,7 +52,7 @@ public class RequestBuilder {
         this.mTagObject = tagObject;
         this.mRequestQueue = requestQueue;
         this.mResponseHandler = responseHandler;
-        this.mGson = GsonHelper.get();
+        this.mJsonHelper = JsonHelper.get();
     }
 
     /**
@@ -136,10 +135,10 @@ public class RequestBuilder {
                             inputStream = httpEntity.getContent();
                             responseString = ConvertUtils.parseString(inputStream);
 
-                            T result = mGson.fromJson(responseString, clazz);
+                            T result = mJsonHelper.fromJson(responseString, clazz);
                             String responseInfo = "request_info | " + "\n" +
                                     "response_data_string -> " + responseString + "\n" +
-                                    "response_data_object -> " + mGson.toJson(result) + "\n";
+                                    "response_data_object -> " + mJsonHelper.toJson(result) + "\n";
                             LogUtils.i(Configs.TAG_VOLLEY, responseInfo);
                             responseListener.onResponse(result);
                         } catch (Exception e) {

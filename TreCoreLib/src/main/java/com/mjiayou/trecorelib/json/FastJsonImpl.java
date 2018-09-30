@@ -16,17 +16,17 @@ public class FastJsonImpl extends JsonHelper {
     }
 
     @Override
-    public <T> T toObject(String json, Class<T> clazz) {
+    public <T> T fromJson(String json, Class<T> clazz) {
         return null;
     }
 
     @Override
-    public <T> T toObject(String json, Type clazz) {
+    public <T> T fromJson(String json, Type clazz) {
         return null;
     }
 
     @Override
-    public <T> T toObject(byte[] bytes, Class<T> clazz) {
+    public <T> T fromJson(byte[] bytes, Class<T> clazz) {
         return null;
     }
 }

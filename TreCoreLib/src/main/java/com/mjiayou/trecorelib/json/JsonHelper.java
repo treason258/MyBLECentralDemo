@@ -16,9 +16,8 @@ public abstract class JsonHelper {
      * @param json new instance
      * @return new instance
      */
-    public static JsonHelper set(JsonHelper json) {
+    public static void set(JsonHelper json) {
         mJsonHelper = json;
-        return mJsonHelper;
     }
 
     /**
@@ -26,7 +25,7 @@ public abstract class JsonHelper {
      *
      * @return Json
      */
-    public static JsonHelper getDefault() {
+    public static JsonHelper get() {
         if (mJsonHelper == null) {
             mJsonHelper = new GsonImpl();
         }
@@ -35,9 +34,9 @@ public abstract class JsonHelper {
 
     public abstract String toJson(Object src);
 
-    public abstract <T> T toObject(String json, Class<T> clazz);
+    public abstract <T> T fromJson(String json, Class<T> clazz);
 
-    public abstract <T> T toObject(String json, Type clazz);
+    public abstract <T> T fromJson(String json, Type type);
 
-    public abstract <T> T toObject(byte[] bytes, Class<T> clazz);
+    public abstract <T> T fromJson(byte[] bytes, Class<T> clazz);
 }

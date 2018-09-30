@@ -1,8 +1,8 @@
 package com.mjiayou.trecorelib.http.okhttp;
 
 import com.google.gson.reflect.TypeToken;
-import com.mjiayou.trecorelib.helper.GsonHelper;
 import com.mjiayou.trecorelib.http.BaseCallback;
+import com.mjiayou.trecorelib.json.JsonHelper;
 import com.mjiayou.trecorelib.util.LogUtils;
 
 import java.lang.reflect.ParameterizedType;
@@ -55,7 +55,7 @@ public abstract class RequestCallback<T> implements BaseCallback {
     public void onResult(String response) {
         ResponseBean<T> responseBean = null;
         try {
-            responseBean = GsonHelper.get().fromJson(response, new TypeToken<ResponseBean<Object>>() {
+            responseBean = JsonHelper.get().fromJson(response, new TypeToken<ResponseBean<Object>>() {
             }.getType());
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
@@ -69,7 +69,7 @@ public abstract class RequestCallback<T> implements BaseCallback {
                     if (getObjectType() == String.class) {
                         T object = null;
                         try {
-                            object = (T) GsonHelper.get().toJson(responseBean.getData());
+                            object = (T) JsonHelper.get().toJson(responseBean.getData());
                         } catch (Exception e) {
                             LogUtils.printStackTrace(e);
                         }
@@ -138,7 +138,7 @@ public abstract class RequestCallback<T> implements BaseCallback {
         try {
             if (getObjectType() != String.class) {
                 Type type = getParameterizedType(ResponseBean.class, getObjectType());
-                responseBean = GsonHelper.get().fromJson(response, type);
+                responseBean = JsonHelper.get().fromJson(response, type);
             }
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
