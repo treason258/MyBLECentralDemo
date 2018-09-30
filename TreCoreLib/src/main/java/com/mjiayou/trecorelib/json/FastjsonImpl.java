@@ -1,32 +1,32 @@
 package com.mjiayou.trecorelib.json;
 
+import com.alibaba.fastjson.JSON;
+
 import java.lang.reflect.Type;
 
 /**
  * Created by treason on 2018/9/29.
  */
 
-public class FastJsonImpl extends JsonHelper {
-
-//    FastJson fastJson = Fa
+public class FastjsonImpl extends JsonHelper {
 
     @Override
     public String toJson(Object src) {
-        return null;
+        return JSON.toJSONString(src);
     }
 
     @Override
     public <T> T fromJson(String json, Class<T> clazz) {
-        return null;
+        return JSON.parseObject(json, clazz);
     }
 
     @Override
     public <T> T fromJson(String json, Type clazz) {
-        return null;
+        return JSON.parseObject(json, clazz);
     }
 
     @Override
     public <T> T fromJson(byte[] bytes, Class<T> clazz) {
-        return null;
+        return JSON.parseObject(bytes, clazz);
     }
 }
