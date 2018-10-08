@@ -69,7 +69,7 @@ public abstract class RequestCallback<T> implements BaseCallback {
                     if (getObjectType() == String.class) {
                         T object = null;
                         try {
-                            object = (T) JsonHelper.get().toJson(responseBean.getData());
+                            object = responseBean.getData();
                         } catch (Exception e) {
                             LogUtils.printStackTrace(e);
                         }
