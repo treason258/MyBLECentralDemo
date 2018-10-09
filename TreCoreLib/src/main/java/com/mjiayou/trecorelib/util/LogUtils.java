@@ -14,13 +14,13 @@ import java.util.Stack;
 public class LogUtils {
 
     private static final String TAG = LogUtils.class.getSimpleName();
-    private static final String TAG_TRACE_TIME = "TraceTime";
+    private static final String TAG_TRACE_TIME = "trace_time";
     private static final String TAG_LIFE_CYCLE = "life_cycle";
 
     private static boolean mShow = true; // 配置是否显示LOG，默认显示
     private static boolean mShowPath = false; // 配置是否显示路径，默认隐藏
-    private static int mPathLine = 5; // 配置显示路径的行数，默认3行
-    private static boolean mShowLifeRecycle = true; // 配置是否显示生命周期，默认显示
+    private static int mPathLine = 5; // 配置显示路径的行数，默认5行
+    private static boolean mShowLifeRecycle = false; // 配置是否显示生命周期，默认隐藏
 
     // ******************************** 开关 ********************************
 
