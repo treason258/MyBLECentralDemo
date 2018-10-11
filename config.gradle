@@ -11,11 +11,6 @@ ext {
 
     testInstrumentationRunner = 'android.support.test.runner.AndroidJUnitRunner'
 
-    trecore = [
-            versionCode: 11,
-            versionName: '2.0.1',
-    ]
-
     dependencies = [
             'appcompatV7'    : 'com.android.support:appcompat-v7:24.2.1',
             'constraint'     : 'com.android.support.constraint:constraint-layout:1.0.0-alpha8',
