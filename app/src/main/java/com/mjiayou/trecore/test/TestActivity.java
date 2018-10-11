@@ -18,7 +18,7 @@ import com.mjiayou.trecorelib.bean.entity.TCMenu;
 import com.mjiayou.trecorelib.dialog.DialogHelper;
 import com.mjiayou.trecorelib.dialog.TCAlertDialog;
 import com.mjiayou.trecorelib.helper.GsonHelper;
-import com.mjiayou.trecorelib.net.RequestAdapter;
+import com.mjiayou.trecorelib.http.volley.RequestAdapter;
 import com.mjiayou.trecorelib.util.AppUtils;
 import com.mjiayou.trecorelib.util.CustomToastUtils;
 import com.mjiayou.trecorelib.util.HandlerUtils;
@@ -111,7 +111,7 @@ public class TestActivity extends TCActivity {
                         new TCAlertDialog.OnTCActionListener() {
                             @Override
                             public void onOkAction() {
-                                SharedUtils.get(mContext).setConfigIsFirst(true);
+                                SharedUtils.get().setConfigIsFirst(true);
                                 ToastUtils.show("设置第一次启动成功");
                             }
 

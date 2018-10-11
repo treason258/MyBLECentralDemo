@@ -8,13 +8,13 @@ android {
     buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.android.minSdkVersion
-        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
 
-        versionCode rootProject.ext.android.versionCode_lib
-        versionName rootProject.ext.android.versionName_lib
+        versionCode rootProject.ext.trecore.versionCode
+        versionName rootProject.ext.trecore.versionName
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner rootProject.testInstrumentationRunner
     }
 
     buildTypes {
@@ -48,8 +48,8 @@ dependencies {
     compile rootProject.ext.dependencies.dart
     compile rootProject.ext.dependencies.imageloader
     compile rootProject.ext.dependencies.umeng_analytics
-    compile 'com.zhy:okhttputils:2.6.2'
-    compile 'com.alibaba:fastjson:1.2.49'
+    compile rootProject.ext.dependencies.okhttputils
+    compile rootProject.ext.dependencies.fastjson
 
     // jar
     compile files('libs/org.apache.http.legacy.jar')

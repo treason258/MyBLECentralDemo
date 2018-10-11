@@ -5,14 +5,30 @@ android {
     buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.android.minSdkVersion
-        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
 
-        applicationId rootProject.ext.android.applicationId
-        versionCode rootProject.ext.android.versionCode
-        versionName rootProject.ext.android.versionName
+        applicationId rootProject.applicationId
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner rootProject.testInstrumentationRunner
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('../keystore/trecore-debug-140608.jks') // 799b01452f716947c2d3623e21e98de5
+            storePassword 'android'
+            keyAlias 'androiddebugkey' // 0d5bd6d898273e2edd70a889517a5087
+            keyPassword "android"
+//            signingConfigs.release
+        }
+        release {
+            storeFile file('../keystore/trecore-release-161214.jks') // c0597286cdcfce1b2881e4135e381559
+            storePassword 'xiaoya'
+            keyAlias 'trecore' // 2414b9cd69131a2b122024904fa3e0da
+            keyPassword "xiaoya"
+        }
     }
 
     buildTypes {
@@ -34,7 +50,7 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
