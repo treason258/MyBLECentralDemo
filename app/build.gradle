@@ -41,18 +41,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro' // 混淆文件位置
             zipAlignEnabled false // 是否开启ZipAlign优化
             shrinkResources false // 是否移除无用的resource文件
+            debuggable false
             signingConfig signingConfigs.debug // 使用release的签名
             applicationIdSuffix ".debug" // 包名后缀
             versionNameSuffix "_d${buildTime("yyMMddHHmm")}" // 版本号后缀
 
-            resValue "string", "gradle_app_name", "TreCoreDebug"
-            resValue "string", "gradle_build_types_name", name
-            resValue "string", "gradle_build_types_value", "开发模式"
-
-            buildConfigField "boolean", "GRADLE_APP_DEBUG", "true"
+            buildConfigField "boolean", "GRADLE_DEBUG", "true"
             buildConfigField "String", "GRADLE_BUILD_TYPES_NAME", '"debug"'
             buildConfigField "String", "GRADLE_BUILD_TYPES_VALUE", '"开发模式"'
 
+            resValue "string", "gradle_build_types_name", name
+            resValue "string", "gradle_build_types_value", "开发模式"
+
+            resValue "string", "gradle_app_name", "TreCoreDebug"
             manifestPlaceholders = [gradle_tc_id: "debug-0000000000000000", gradle_tc_key: "debug-xxxxxxxxxxxxxxxx"]
         }
         release {
@@ -60,18 +61,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro' // 混淆文件位置
             zipAlignEnabled false // 是否开启ZipAlign优化
             shrinkResources false // 是否移除无用的resource文件
+            debuggable false
             signingConfig signingConfigs.release // 使用release的签名
             applicationIdSuffix "" // 包名后缀
             versionNameSuffix "" // 版本号后缀
 
-            resValue "string", "gradle_app_name", "TreCore"
-            resValue "string", "gradle_build_types_name", name
-            resValue "string", "gradle_build_types_value", "发布模式"
-
-            buildConfigField "boolean", "GRADLE_APP_DEBUG", "false"
+            buildConfigField "boolean", "GRADLE_DEBUG", "false"
             buildConfigField "String", "GRADLE_BUILD_TYPES_NAME", '"release"'
             buildConfigField "String", "GRADLE_BUILD_TYPES_VALUE", '"发布模式"'
 
+            resValue "string", "gradle_build_types_name", name
+            resValue "string", "gradle_build_types_value", "发布模式"
+
+            resValue "string", "gradle_app_name", "TreCore"
             manifestPlaceholders = [gradle_tc_id: "release-0000000000000000", gradle_tc_key: "release-xxxxxxxxxxxxxxxx"]
         }
     }
@@ -80,11 +82,19 @@ android {
     productFlavors {
         // 默认渠道 - official
         official {
+            buildConfigField "boolean", "GRADLE_OFFICIAL", "true"
+            buildConfigField "String", "GRADLE_PRODUCT_FLAVORS_NAME", '"official"'
+            buildConfigField "String", "GRADLE_PRODUCT_FLAVORS_VALUE", '"官网"'
+
             resValue "string", "gradle_product_flavors_name", name
             resValue "string", "gradle_product_flavors_value", "官网"
         }
         // 应用宝 - yingyongbao
         yingyongbao {
+            buildConfigField "boolean", "GRADLE_OFFICIAL", "false"
+            buildConfigField "String", "GRADLE_PRODUCT_FLAVORS_NAME", '"yingyongbao"'
+            buildConfigField "String", "GRADLE_PRODUCT_FLAVORS_VALUE", '"应用宝"'
+
             resValue "string", "gradle_product_flavors_name", name
             resValue "string", "gradle_product_flavors_value", "应用宝"
         }

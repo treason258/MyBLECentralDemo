@@ -445,7 +445,6 @@ public class AppUtils {
     public static String getMetaValue(Context context, String packageName, String metaName) {
         try {
             ApplicationInfo applicationInfo = getApplicationInfo(context, packageName);
-
             Bundle bundle = applicationInfo.metaData;
             return bundle.get(metaName).toString();
         } catch (Exception e) {

@@ -30,18 +30,25 @@ public class DebugUtils {
         builder.append("BuildConfig.VERSION_NAME = ").append(BuildConfig.VERSION_NAME).append("\n");
 
         builder.append("\n");
-        builder.append("gradle_app_name = ").append(context.getString(R.string.gradle_app_name)).append("\n");
-        builder.append("gradle_build_types_name = ").append(context.getString(R.string.gradle_build_types_name)).append("\n");
-        builder.append("gradle_build_types_value = ").append(context.getString(R.string.gradle_build_types_value)).append("\n");
-        builder.append("BuildConfig.GRADLE_APP_DEBUG = ").append(BuildConfig.GRADLE_APP_DEBUG).append("\n");
+        builder.append("BuildConfig.GRADLE_DEBUG = ").append(BuildConfig.GRADLE_DEBUG).append("\n");
         builder.append("BuildConfig.GRADLE_BUILD_TYPES_NAME = ").append(BuildConfig.GRADLE_BUILD_TYPES_NAME).append("\n");
         builder.append("BuildConfig.GRADLE_BUILD_TYPES_VALUE = ").append(BuildConfig.GRADLE_BUILD_TYPES_VALUE).append("\n");
+
+        builder.append("\n");
+        builder.append("BuildConfig.GRADLE_OFFICIAL = ").append(BuildConfig.GRADLE_OFFICIAL).append("\n");
+        builder.append("BuildConfig.GRADLE_PRODUCT_FLAVORS_NAME = ").append(BuildConfig.GRADLE_PRODUCT_FLAVORS_NAME).append("\n");
+        builder.append("BuildConfig.GRADLE_PRODUCT_FLAVORS_VALUE = ").append(BuildConfig.GRADLE_PRODUCT_FLAVORS_VALUE).append("\n");
+
+        builder.append("\n");
+        builder.append("gradle_build_types_name = ").append(context.getString(R.string.gradle_build_types_name)).append("\n");
+        builder.append("gradle_build_types_value = ").append(context.getString(R.string.gradle_build_types_value)).append("\n");
 
         builder.append("\n");
         builder.append("gradle_product_flavors_name = ").append(context.getString(R.string.gradle_product_flavors_name)).append("\n");
         builder.append("gradle_product_flavors_value = ").append(context.getString(R.string.gradle_product_flavors_value)).append("\n");
 
         builder.append("\n");
+        builder.append("gradle_app_name = ").append(context.getString(R.string.gradle_app_name)).append("\n");
         builder.append("gradle_tc_id = ").append(AppUtils.getMetaValue(context, Configs.META_TC_ID)).append("\n");
         builder.append("gradle_tc_key = ").append(AppUtils.getMetaValue(context, Configs.META_TC_KEY)).append("\n");
         builder.append("gradle_tc_channel = ").append(AppUtils.getMetaValue(context, Configs.META_TC_CHANNEL)).append("\n");
