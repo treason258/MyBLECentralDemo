@@ -1,20 +1,24 @@
+import java.text.SimpleDateFormat
+
 apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
 
+    // 默认配置：包名、版本号
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
 
         applicationId rootProject.applicationId
         versionCode rootProject.versionCode
-        versionName rootProject.versionName
+        versionName rootProject.versionName + ".${defaultConfig.versionCode}"
 
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
 
+    // 签名配置
     signingConfigs {
         debug {
             storeFile file('../keystore/trecore-debug-140608.jks') // 799b01452f716947c2d3623e21e98de5
@@ -30,15 +34,122 @@ android {
         }
     }
 
+    // 编译配置
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        debug {
+            minifyEnabled false // 是否开启混淆
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro' // 混淆文件位置
+            zipAlignEnabled false // 是否开启ZipAlign优化
+            shrinkResources false // 是否移除无用的resource文件
+            signingConfig signingConfigs.debug // 使用release的签名
+            applicationIdSuffix ".debug" // 包名后缀
+            versionNameSuffix "_d${buildTime("yyMMddHHmm")}" // 版本号后缀
+
+            resValue "string", "gradle_app_name", "TreCoreDebug"
+            resValue "string", "gradle_build_types_name", name
+            resValue "string", "gradle_build_types_value", "开发模式"
+
+            buildConfigField "boolean", "GRADLE_APP_DEBUG", "true"
+            buildConfigField "String", "GRADLE_BUILD_TYPES_NAME", '"debug"'
+            buildConfigField "String", "GRADLE_BUILD_TYPES_VALUE", '"开发模式"'
+
+            manifestPlaceholders = [gradle_tc_id: "debug-0000000000000000", gradle_tc_key: "debug-xxxxxxxxxxxxxxxx"]
         }
+        release {
+            minifyEnabled false // 是否开启混淆
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro' // 混淆文件位置
+            zipAlignEnabled false // 是否开启ZipAlign优化
+            shrinkResources false // 是否移除无用的resource文件
+            signingConfig signingConfigs.release // 使用release的签名
+            applicationIdSuffix "" // 包名后缀
+            versionNameSuffix "" // 版本号后缀
+
+            resValue "string", "gradle_app_name", "TreCore"
+            resValue "string", "gradle_build_types_name", name
+            resValue "string", "gradle_build_types_value", "发布模式"
+
+            buildConfigField "boolean", "GRADLE_APP_DEBUG", "false"
+            buildConfigField "String", "GRADLE_BUILD_TYPES_NAME", '"release"'
+            buildConfigField "String", "GRADLE_BUILD_TYPES_VALUE", '"发布模式"'
+
+            manifestPlaceholders = [gradle_tc_id: "release-0000000000000000", gradle_tc_key: "release-xxxxxxxxxxxxxxxx"]
+        }
+    }
+
+    // 发布配置
+    productFlavors {
+        // 默认渠道 - official
+        official {
+            resValue "string", "gradle_product_flavors_name", name
+            resValue "string", "gradle_product_flavors_value", "官网"
+        }
+        // 应用宝 - yingyongbao
+        yingyongbao {
+            resValue "string", "gradle_product_flavors_name", name
+            resValue "string", "gradle_product_flavors_value", "应用宝"
+        }
+    }
+
+    productFlavors.all {
+        flavor ->
+            flavor.manifestPlaceholders = [gradle_tc_channel: name]
+    }
+
+    // 定义输出文件名
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.each {
+                output ->
+                    // 输出APK文件名为：TreCore-1.0.0.1-release-official.apk
+                    def fileName = "TreCore-${defaultConfig.versionName}-${buildType.name}-${variant.productFlavors[0].name}.apk";
+                    output.outputFile = new File(output.outputFile.parent, fileName);
+                    println("gradle | output | fileName -> " + fileName)
+            }
+    }
+
+    // 打包时的相关配置
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+
+    // 移除lint检测的error：编译的lint开关，程序在buid的时候，会执行lint检查，有任何的错误或者警告提示，都会终止构建，我们可以将其关掉。
+    lintOptions {
+        abortOnError false
+    }
+
+    // Java的版本配置
+    compileOptions {
+    }
+
+    // 源码设置：项目目录结构的设置
+    sourceSets {
+        // main.res.srcDirs += 'src/main/res-trecore'
+    }
+
+    // 开源套件中心
+    repositories {
+        maven { url "https://jitpack.io" }
     }
 
     dataBinding {
         enabled = true
+    }
+
+    // 拷贝文件到local目录下
+    task copyTask(type: Copy) {
+        from 'build/outputs/apk/'
+        into 'local/'
+        exclude '*-unaligned.apk'
+
+        // 重命名
+        rename {
+            String name -> name.replace(".apk", "-${buildTime("yyMMddHHmm")}.apk")
+        }
+    }
+
+    // build release
+    task bdr(dependsOn: ['assembleRelease', 'copyTask']) {
+        copyTask.mustRunAfter 'assembleRelease'
     }
 }
 
@@ -61,4 +172,26 @@ dependencies {
     compile('com.mikepenz:materialdrawer:5.8.1@aar') {
         transitive = true
     }
+}
+
+/**
+ * 构建时间
+ * @param yyMMddHHmm -> yyMMddHHmm | yyMMdd | yyMM
+ * @return
+ */
+def buildTime(String yyMMddHHmm) {
+    def simpleDateFormat = new SimpleDateFormat(yyMMddHHmm)
+    simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8")) // TimeZone.getTimeZone("UTC")
+    return simpleDateFormat.format(new Date()) // return new Date().format(yyMMddHHmm, TimeZone.getTimeZone("GMT+8"))
+}
+
+/**
+ * 打开 filePath 对应的Properties文件
+ * @param properties 文件地址，相对根目录为app目录
+ * @return
+ */
+Properties getProperties(String filePath) {
+    Properties properties = new Properties()
+    properties.load(project.file(filePath).newDataInputStream()) // properties.load(project.rootProject.file("local.properties").newDataInputStream())
+    return properties
 }

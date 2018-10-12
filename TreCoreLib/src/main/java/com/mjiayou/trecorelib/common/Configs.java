@@ -84,9 +84,9 @@ public class Configs {
     public static final String WEIXIN_APP_SECRET = TCApp.get().getString(R.string.weixin_app_secret);
 
     // meta-data
+    public static final String META_TC_ID = "TC_ID";
     public static final String META_TC_KEY = "TC_KEY";
-    public static final String META_UMENG_APPKEY = "UMENG_APPKEY";
-    public static final String META_UMENG_CHANNEL = "UMENG_CHANNEL";
+    public static final String META_TC_CHANNEL = "TC_CHANNEL";
 
     // DEFAULT
     public static final String DEFAULT_SHARE_IMAGE_URL = "http://img.soccerapp.cn/userfiles/f13d9da1f5e54ac7a7be3e7d074b6d03/images/cms/imageinfo/2015/10/33.jpg";

@@ -7,11 +7,22 @@
         android:name=".MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/tc_launcher"
-        android:label="@string/app_name"
+        android:label="@string/gradle_app_name"
         android:roundIcon="@mipmap/tc_launcher"
         android:supportsRtl="true"
         android:theme="@style/TCAppTheme"
         tools:replace="icon,label,theme">
+
+        <meta-data
+            android:name="TC_ID"
+            android:value="${gradle_tc_id}" />
+        <meta-data
+            android:name="TC_KEY"
+            android:value="${gradle_tc_key}" />
+        <meta-data
+            android:name="TC_CHANNEL"
+            android:value="${gradle_tc_channel}" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mjiayou.trecore.R;
+import com.mjiayou.trecore.util.DebugUtils;
 import com.mjiayou.trecorelib.base.TCActivity;
 import com.mjiayou.trecorelib.base.TCApp;
 import com.mjiayou.trecorelib.base.TCMenuActivity;
@@ -82,6 +83,8 @@ public class TestActivity extends TCActivity {
 
         // mTvInfo
         StringBuilder builder = new StringBuilder();
+        builder.append("\n");
+        builder.append(DebugUtils.getBuildConfigInfo(mContext));
         builder.append("\n");
         builder.append(HelloUtils.getHI());
         builder.append("\n");
