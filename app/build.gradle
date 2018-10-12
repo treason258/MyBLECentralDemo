@@ -12,7 +12,7 @@ android {
         versionCode rootProject.versionCode
         versionName rootProject.versionName
 
-        testInstrumentationRunner rootProject.testInstrumentationRunner
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
 
     signingConfigs {
@@ -21,7 +21,6 @@ android {
             storePassword 'android'
             keyAlias 'androiddebugkey' // 0d5bd6d898273e2edd70a889517a5087
             keyPassword "android"
-//            signingConfigs.release
         }
         release {
             storeFile file('../keystore/trecore-release-161214.jks') // c0597286cdcfce1b2881e4135e381559
