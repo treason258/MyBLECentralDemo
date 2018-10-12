@@ -3,6 +3,9 @@ apply plugin: 'com.github.dcendents.android-maven'
 
 group = 'com.github.treason258'
 
+def versionCodeForLib = 13
+def versionNameForLib = '2.0.3'
+
 android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
@@ -11,8 +14,8 @@ android {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
 
-        versionCode 11
-        versionName '2.0.1'
+        versionCode versionCodeForLib
+        versionName versionNameForLib
 
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
