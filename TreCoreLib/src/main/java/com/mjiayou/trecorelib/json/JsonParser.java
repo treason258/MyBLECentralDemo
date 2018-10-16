@@ -36,4 +36,5 @@ public abstract class JsonParser {
     public abstract <T> T toObject(String json, Type type);
 
     public abstract <T> T toObject(byte[] bytes, Class<T> clazz);
+    
 }
