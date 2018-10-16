@@ -11,26 +11,32 @@ import com.mjiayou.trecorelib.image.impl.GlideImpl;
 
 public abstract class ImageLoader {
 
-    private static ImageLoader mImageLoader;
+    private static LoaderImpl mLoaderImpl;
 
     /**
      * set mImageLoader
      */
-    public static void set(ImageLoader imageLoader) {
-        mImageLoader = imageLoader;
+    public static void set(LoaderImpl loaderImpl) {
+        mLoaderImpl = loaderImpl;
     }
 
     /**
      * get mImageLoader
      */
-    public static ImageLoader get() {
-        if (mImageLoader == null) {
-            mImageLoader = new GlideImpl();
+    public static LoaderImpl get() {
+        if (mLoaderImpl == null) {
+            mLoaderImpl = new GlideImpl();
         }
-        return mImageLoader;
+        return mLoaderImpl;
     }
 
-    public abstract void load(ImageView imageView, String url);
+    /**
+     * LoaderImpl
+     */
+    public interface LoaderImpl {
 
-    public abstract void load(ImageView imageView, String url, Drawable drawable);
+        void load(ImageView imageView, String url);
+
+        void load(ImageView imageView, String url, Drawable drawable);
+    }
 }

@@ -5,11 +5,12 @@ import android.widget.ImageView;
 
 import com.mjiayou.trecorelib.image.ImageLoader;
 
+
 /**
  * Created by xin on 18/10/16.
  */
 
-public class ImageLoaderImpl extends ImageLoader {
+public class UniversalImpl implements ImageLoader.LoaderImpl {
 
     @Override
     public void load(ImageView imageView, String url) {
@@ -17,6 +18,5 @@ public class ImageLoaderImpl extends ImageLoader {
 
     @Override
     public void load(ImageView imageView, String url, Drawable drawable) {
-
     }
 }

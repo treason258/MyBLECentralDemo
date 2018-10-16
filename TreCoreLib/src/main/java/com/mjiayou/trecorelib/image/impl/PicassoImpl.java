@@ -9,15 +9,13 @@ import com.mjiayou.trecorelib.image.ImageLoader;
  * Created by xin on 18/10/16.
  */
 
-public class PicassoImpl extends ImageLoader {
+public class PicassoImpl implements ImageLoader.LoaderImpl {
 
     @Override
     public void load(ImageView imageView, String url) {
-
     }
 
     @Override
     public void load(ImageView imageView, String url, Drawable drawable) {
-
     }
 }
