@@ -1,5 +1,7 @@
 package com.mjiayou.trecorelib.json;
 
+import com.mjiayou.trecorelib.json.impl.GsonImpl;
+
 import java.lang.reflect.Type;
 
 /**
@@ -11,19 +13,14 @@ public abstract class JsonParser {
     private static JsonParser mJsonParser;
 
     /**
-     * set new mJsonParser instance
-     *
-     * @param json new instance
-     * @return new instance
+     * set mJsonParser
      */
-    public static void set(JsonParser json) {
-        mJsonParser = json;
+    public static void set(JsonParser jsonParser) {
+        mJsonParser = jsonParser;
     }
 
     /**
-     * get default mJsonParser handler
-     *
-     * @return Json
+     * get mJsonParser
      */
     public static JsonParser get() {
         if (mJsonParser == null) {
