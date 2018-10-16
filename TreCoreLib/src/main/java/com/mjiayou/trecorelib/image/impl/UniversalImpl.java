@@ -17,6 +17,10 @@ public class UniversalImpl implements ImageLoader.LoaderImpl {
     }
 
     @Override
+    public void load(ImageView imageView, String url, int resourceId) {
+    }
+
+    @Override
     public void load(ImageView imageView, String url, Drawable drawable) {
     }
 }

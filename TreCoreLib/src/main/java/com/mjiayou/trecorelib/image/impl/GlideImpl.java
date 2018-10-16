@@ -21,6 +21,18 @@ public class GlideImpl implements ImageLoader.LoaderImpl {
     }
 
     @Override
+    public void load(ImageView imageView, String url, int resourceId) {
+        Glide.with(TCApp.get())
+                .load(url)
+                .placeholder(resourceId)
+                .into(imageView);
+    }
+
+    @Override
     public void load(ImageView imageView, String url, Drawable drawable) {
+        Glide.with(TCApp.get())
+                .load(url)
+                .placeholder(drawable)
+                .into(imageView);
     }
 }

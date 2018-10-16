@@ -37,6 +37,8 @@ public abstract class ImageLoader {
 
         void load(ImageView imageView, String url);
 
+        void load(ImageView imageView, String url, int resourceId);
+
         void load(ImageView imageView, String url, Drawable drawable);
     }
 }
