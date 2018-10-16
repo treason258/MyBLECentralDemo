@@ -252,7 +252,7 @@ public class ConvertUtils<T> {
 //    public static List<String> parseStringListByJA(String jsonArray) {
 //        Type type = new TypeToken<ArrayList<String>>() {
 //        }.getType();
-//        return GsonHelper.get().fromJson(jsonArray, type);
+//        return GsonHelper.get().toObject(jsonArray, type);
 //    }
 //
 //    /**

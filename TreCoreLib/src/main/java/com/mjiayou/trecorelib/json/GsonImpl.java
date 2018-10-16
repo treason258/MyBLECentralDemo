@@ -9,7 +9,7 @@ import java.lang.reflect.Type;
  * Created by treason on 2018/9/29.
  */
 
-public class GsonImpl extends JsonHelper {
+public class GsonImpl extends JsonParser {
 
     private Gson mGson = GsonHelper.get();
 
@@ -19,17 +19,17 @@ public class GsonImpl extends JsonHelper {
     }
 
     @Override
-    public <T> T fromJson(String json, Class<T> clazz) {
+    public <T> T toObject(String json, Class<T> clazz) {
         return mGson.fromJson(json, clazz);
     }
 
     @Override
-    public <T> T fromJson(String json, Type type) {
+    public <T> T toObject(String json, Type type) {
         return mGson.fromJson(json, type);
     }
 
     @Override
-    public <T> T fromJson(byte[] bytes, Class<T> clazz) {
+    public <T> T toObject(byte[] bytes, Class<T> clazz) {
         return mGson.fromJson(new String(bytes), clazz);
     }
 }

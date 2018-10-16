@@ -16,7 +16,7 @@ import com.mjiayou.trecorelib.encode.SignatureUtil;
 import com.mjiayou.trecorelib.helper.VolleyHelper;
 import com.mjiayou.trecorelib.http.RequestEntity;
 import com.mjiayou.trecorelib.http.RequestMethod;
-import com.mjiayou.trecorelib.json.JsonHelper;
+import com.mjiayou.trecorelib.json.JsonParser;
 import com.mjiayou.trecorelib.util.DeviceUtils;
 import com.mjiayou.trecorelib.util.PageUtils;
 import com.mjiayou.trecorelib.util.UserUtils;
@@ -47,7 +47,7 @@ public class RequestAdapter {
     private final Context mContext;
     private ResponseHandler mResponseHandler;
     private RequestBuilder mRequestBuilder;
-    private JsonHelper mJsonHelper;
+    private JsonParser mJsonParser;
 
     /**
      * 构造函数
@@ -59,7 +59,7 @@ public class RequestAdapter {
             this.mResponseHandler = new ResponseHandler(dataResponse);
         }
         this.mRequestBuilder = new RequestBuilder(context, VolleyHelper.getRequestQueue(), mResponseHandler);
-        this.mJsonHelper = JsonHelper.get();
+        this.mJsonParser = JsonParser.get();
     }
 
     /**
@@ -174,7 +174,7 @@ public class RequestAdapter {
         request.setAppVersion(appVersion);
         request.setSignature(signature);
 
-        return mJsonHelper.toJson(request);
+        return mJsonParser.toJson(request);
     }
 
 //    /**

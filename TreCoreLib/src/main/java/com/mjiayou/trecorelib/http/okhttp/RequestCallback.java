@@ -2,7 +2,7 @@ package com.mjiayou.trecorelib.http.okhttp;
 
 import com.google.gson.reflect.TypeToken;
 import com.mjiayou.trecorelib.http.BaseCallback;
-import com.mjiayou.trecorelib.json.JsonHelper;
+import com.mjiayou.trecorelib.json.JsonParser;
 import com.mjiayou.trecorelib.util.LogUtils;
 
 import java.lang.reflect.ParameterizedType;
@@ -55,7 +55,7 @@ public abstract class RequestCallback<T> implements BaseCallback {
     public void onResult(String response) {
         ResponseBean<T> responseBean = null;
         try {
-            responseBean = JsonHelper.get().fromJson(response, new TypeToken<ResponseBean<Object>>() {
+            responseBean = JsonParser.get().toObject(response, new TypeToken<ResponseBean<Object>>() {
             }.getType());
         } catch (Exception e) {
             LogUtils.printStackTrace(e);
@@ -138,7 +138,7 @@ public abstract class RequestCallback<T> implements BaseCallback {
         try {
             if (getObjectType() != String.class) {
                 Type type = getParameterizedType(ResponseBean.class, getObjectType());
-                responseBean = JsonHelper.get().fromJson(response, type);
+                responseBean = JsonParser.get().toObject(response, type);
             }
         } catch (Exception e) {
             LogUtils.printStackTrace(e);

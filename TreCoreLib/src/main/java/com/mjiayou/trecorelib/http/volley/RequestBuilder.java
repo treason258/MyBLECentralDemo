@@ -17,7 +17,7 @@ import com.mjiayou.trecorelib.base.TCApp;
 import com.mjiayou.trecorelib.bean.TCResponse;
 import com.mjiayou.trecorelib.common.Configs;
 import com.mjiayou.trecorelib.http.RequestEntity;
-import com.mjiayou.trecorelib.json.JsonHelper;
+import com.mjiayou.trecorelib.json.JsonParser;
 import com.mjiayou.trecorelib.util.ConvertUtils;
 import com.mjiayou.trecorelib.util.LogUtils;
 import com.mjiayou.trecorelib.util.StreamUtils;
@@ -43,7 +43,7 @@ public class RequestBuilder {
     private Object mTagObject;
     private RequestQueue mRequestQueue;
     private Handler mResponseHandler;
-    private JsonHelper mJsonHelper;
+    private JsonParser mJsonParser;
 
     /**
      * 构造函数
@@ -52,7 +52,7 @@ public class RequestBuilder {
         this.mTagObject = tagObject;
         this.mRequestQueue = requestQueue;
         this.mResponseHandler = responseHandler;
-        this.mJsonHelper = JsonHelper.get();
+        this.mJsonParser = JsonParser.get();
     }
 
     /**
@@ -135,10 +135,10 @@ public class RequestBuilder {
                             inputStream = httpEntity.getContent();
                             responseString = ConvertUtils.parseString(inputStream);
 
-                            T result = mJsonHelper.fromJson(responseString, clazz);
+                            T result = mJsonParser.toObject(responseString, clazz);
                             String responseInfo = "request_info | " + "\n" +
                                     "response_data_string -> " + responseString + "\n" +
-                                    "response_data_object -> " + mJsonHelper.toJson(result) + "\n";
+                                    "response_data_object -> " + mJsonParser.toJson(result) + "\n";
                             LogUtils.i(Configs.TAG_VOLLEY, responseInfo);
                             responseListener.onResponse(result);
                         } catch (Exception e) {

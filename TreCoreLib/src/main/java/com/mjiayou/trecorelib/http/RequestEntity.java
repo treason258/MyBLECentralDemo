@@ -2,7 +2,7 @@ package com.mjiayou.trecorelib.http;
 
 import android.text.TextUtils;
 
-import com.mjiayou.trecorelib.json.JsonHelper;
+import com.mjiayou.trecorelib.json.JsonParser;
 import com.mjiayou.trecorelib.util.LogUtils;
 
 import org.json.JSONObject;
@@ -191,7 +191,7 @@ public class RequestEntity implements Serializable {
 
     public void setContent(Object object) {
         if (object != null) {
-            this.content = JsonHelper.get().toJson(object);
+            this.content = JsonParser.get().toJson(object);
         }
     }
 }

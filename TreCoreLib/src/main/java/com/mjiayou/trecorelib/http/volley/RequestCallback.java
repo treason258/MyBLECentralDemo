@@ -15,7 +15,7 @@ import com.mjiayou.trecorelib.bean.TCResponse;
 import com.mjiayou.trecorelib.common.Configs;
 import com.mjiayou.trecorelib.http.RequestEntity;
 import com.mjiayou.trecorelib.http.RequestMethod;
-import com.mjiayou.trecorelib.json.JsonHelper;
+import com.mjiayou.trecorelib.json.JsonParser;
 import com.mjiayou.trecorelib.util.ConvertUtils;
 import com.mjiayou.trecorelib.util.LogUtils;
 
@@ -27,7 +27,7 @@ public class RequestCallback<T extends TCResponse> extends Request<T> {
     private RequestEntity mRequestEntity;
     private final Class<T> mClazz;
     private final Listener<T> mResponseListener;
-    private final JsonHelper mJsonHelper;
+    private final JsonParser mJsonParser;
 
     /**
      * 构造函数
@@ -37,7 +37,7 @@ public class RequestCallback<T extends TCResponse> extends Request<T> {
         this.mRequestEntity = requestEntity;
         this.mClazz = clazz;
         this.mResponseListener = responseListener;
-        this.mJsonHelper = JsonHelper.get();
+        this.mJsonParser = JsonParser.get();
     }
 
     @Override
@@ -68,10 +68,10 @@ public class RequestCallback<T extends TCResponse> extends Request<T> {
             } else {
                 responseString = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
             }
-            T result = mJsonHelper.fromJson(responseString, mClazz);
+            T result = mJsonParser.toObject(responseString, mClazz);
             String responseInfo = "request_info | " + "\n" +
                     "response_data_string -> " + responseString + "\n" +
-                    "response_data_object -> " + mJsonHelper.toJson(result) + "\n";
+                    "response_data_object -> " + mJsonParser.toJson(result) + "\n";
             LogUtils.i(Configs.TAG_VOLLEY, responseInfo);
             return Response.success(result, HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {
