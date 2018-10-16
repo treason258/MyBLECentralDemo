@@ -12,8 +12,8 @@ import java.lang.reflect.Type;
 public class FastjsonImpl extends JsonParser {
 
     @Override
-    public String toJson(Object src) {
-        return JSON.toJSONString(src);
+    public String toJson(Object object) {
+        return JSON.toJSONString(object);
     }
 
     @Override

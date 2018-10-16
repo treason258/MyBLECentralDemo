@@ -15,8 +15,8 @@ public class GsonImpl extends JsonParser {
     private Gson mGson = GsonHelper.get();
 
     @Override
-    public String toJson(Object src) {
-        return mGson.toJson(src);
+    public String toJson(Object object) {
+        return mGson.toJson(object);
     }
 
     @Override

@@ -29,7 +29,7 @@ public abstract class JsonParser {
         return mJsonParser;
     }
 
-    public abstract String toJson(Object src);
+    public abstract String toJson(Object object);
 
     public abstract <T> T toObject(String json, Class<T> clazz);
 
