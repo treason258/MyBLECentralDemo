@@ -3,13 +3,10 @@ apply from: "config.gradle"
 
 buildscript {
     repositories {
-//        jcenter()
-//        google()
-//        mavenCentral()
-//        maven {
-//            url 'http://maven.aliyun.com/nexus/content/repositories/jcenter/'
-//        }
-        maven { // 先从url中下载jar，若没有找到，则在artifactUrls中寻找
+        jcenter()
+        google()
+        mavenCentral()
+        maven { // 先从url中下载jar，若没有找到，则在artifactUrls中寻找 (url 'http://maven.aliyun.com/nexus/content/repositories/jcenter/')
             url 'http://maven.aliyun.com/nexus/content/groups/public/'
             artifactUrls 'https://repo1.maven.org/maven2'
         }
@@ -25,13 +22,10 @@ buildscript {
 
 allprojects {
     repositories {
-//        jcenter()
-//        google()
-//        mavenCentral()
-//        maven {
-//            url 'http://maven.aliyun.com/nexus/content/repositories/jcenter/'
-//        }
-        maven { // 先从url中下载jar，若没有找到，则在artifactUrls中寻找
+        jcenter()
+        google()
+        mavenCentral()
+        maven { // 先从url中下载jar，若没有找到，则在artifactUrls中寻找 (url 'http://maven.aliyun.com/nexus/content/repositories/jcenter/')
             url 'http://maven.aliyun.com/nexus/content/groups/public/'
             artifactUrls 'https://repo1.maven.org/maven2'
         }
@@ -44,7 +38,7 @@ task clean(type: Delete) {
 
 ext {
     compileSdkVersion = 25
-    buildToolsVersion = '25.0.2'
+    buildToolsVersion = '25.0.3'
 
     minSdkVersion = 15
     targetSdkVersion = 19
@@ -54,9 +48,9 @@ ext {
     versionName = '2.0.0'
 
     dependencies = [
-            'supportV4'     : 'com.android.support:support-v4:25.0.1',
-            'appcompatV7'   : 'com.android.support:appcompat-v7:25.0.1',
-            'recyclerviewV7': 'com.android.support:recyclerview-v7:25.0.1',
+            'supportV4'     : 'com.android.support:support-v4:25.3.1',
+            'appcompatV7'   : 'com.android.support:appcompat-v7:25.3.1',
+            'recyclerviewV7': 'com.android.support:recyclerview-v7:25.3.1',
             'constraint'    : 'com.android.support.constraint:constraint-layout:1.0.2',
     ]
 }
