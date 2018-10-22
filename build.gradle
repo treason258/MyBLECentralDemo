@@ -54,9 +54,9 @@ ext {
     versionName = '2.0.0'
 
     dependencies = [
-            'supportV4'     : 'com.android.support:support-v4:24.2.1',
-            'appcompatV7'   : 'com.android.support:appcompat-v7:24.2.1',
-            'recyclerviewV7': 'com.android.support:recyclerview-v7:24.2.1',
-            'constraint'    : 'com.android.support.constraint:constraint-layout:1.0.0-alpha8',
+            'supportV4'     : 'com.android.support:support-v4:25.0.1',
+            'appcompatV7'   : 'com.android.support:appcompat-v7:25.0.1',
+            'recyclerviewV7': 'com.android.support:recyclerview-v7:25.0.1',
+            'constraint'    : 'com.android.support.constraint:constraint-layout:1.0.2',
     ]
 }
