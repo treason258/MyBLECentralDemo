@@ -54,22 +54,9 @@ ext {
     versionName = '2.0.0'
 
     dependencies = [
-            'appcompatV7'    : 'com.android.support:appcompat-v7:24.2.1',
-            'constraint'     : 'com.android.support.constraint:constraint-layout:1.0.0-alpha8',
-            'recyclerviewV7' : 'com.android.support:recyclerview-v7:24.2.1',
-
-            'butterknife'    : 'com.jakewharton:butterknife:5.1.2',         // https://github.com/JakeWharton/butterknife
-            'dart'           : 'com.f2prateek.dart:dart:1.1.0',             // https://github.com/f2prateek/dart
-            'eventbus'       : 'de.greenrobot:eventbus:2.2.1',              // https://github.com/greenrobot/EventBus
-            'fastjson'       : 'com.alibaba:fastjson:1.2.49',               // https://github.com/alibaba/fastjson
-            'glide'          : 'com.github.bumptech.glide:glide:3.7.0',     // https://github.com/bumptech/glide
-            'gson'           : 'com.google.code.gson:gson:2.7',             // https://github.com/google/gson
-            'imageloader'    : 'com.nostra13.universalimageloader:universal-image-loader:1.9.4',    // https://github.com/nostra13/Android-Universal-Image-Loader
-            'logger'         : 'com.orhanobut:logger:1.15',                 // https://github.com/orhanobut/logger
-            'meituan_walle'  : 'com.meituan.android.walle:payload_reader:1.1.4',                    // https://github.com/Meituan-Dianping/walle
-            'okhttputils'    : 'com.zhy:okhttputils:2.6.2',                 // https://github.com/hongyangAndroid/okhttputils
-            'umeng_analytics': 'com.umeng.analytics:analytics:latest.integration',
-            'volley'         : 'com.android.volley:volley:1.0.0',           // https://github.com/google/volley
-            'volley2'        : 'com.mcxiaoke.volley:library:1.0.7',         // https://github.com/mcxiaoke/android-volley
+            'supportV4'     : 'com.android.support:support-v4:24.2.1',
+            'appcompatV7'   : 'com.android.support:appcompat-v7:24.2.1',
+            'recyclerviewV7': 'com.android.support:recyclerview-v7:24.2.1',
+            'constraint'    : 'com.android.support.constraint:constraint-layout:1.0.0-alpha8',
     ]
 }
