@@ -63,7 +63,7 @@ dependencies {
     compile 'com.facebook.fresco:fresco:1.9.0' // https://github.com/facebook/fresco
 
     // tool
-    compile 'com.jakewharton:butterknife:5.1.2' // https://github.com/JakeWharton/butterknife
+    compile 'com.jakewharton:butterknife:8.4.0' // https://github.com/JakeWharton/butterknife
     compile 'de.greenrobot:eventbus:2.2.1' // https://github.com/greenrobot/EventBus
     compile 'com.f2prateek.dart:dart:1.1.0' // https://github.com/f2prateek/dart
     compile 'com.squareup.picasso:picasso:2.5.2' // https://github.com/square/picasso
