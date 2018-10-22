@@ -101,7 +101,6 @@ android {
             resValue "string", "gradle_product_flavors_value", "应用宝"
         }
     }
-
     productFlavors.all {
         flavor ->
             flavor.manifestPlaceholders = [gradle_tc_channel: name]
@@ -118,6 +117,18 @@ android {
                     // println("gradle | output | fileName -> " + fileName)
             }
     }
+
+//    configurations.all {
+//        resolutionStrategy.eachDependency {
+//            DependencyResolveDetails details ->
+//                def requested = details.requested
+//                if (requested.group == 'com.android.support') {
+//                    if (!requested.name.startsWith("multidex")) {
+//                        details.useVersion '25.3.1'
+//                    }
+//                }
+//        }
+//    }
 
     // 打包时的相关配置
     packagingOptions {
