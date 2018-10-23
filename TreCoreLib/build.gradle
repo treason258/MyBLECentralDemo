@@ -60,23 +60,21 @@ dependencies {
     // image
     compile 'com.github.bumptech.glide:glide:3.7.0' // https://github.com/bumptech/glide
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5' // https://github.com/nostra13/Android-Universal-Image-Loader
-    compile 'com.facebook.fresco:fresco:1.9.0' // https://github.com/facebook/fresco
 
     // tool
     compile 'com.jakewharton:butterknife:7.0.1' // https://github.com/JakeWharton/butterknife
     compile 'de.greenrobot:eventbus:2.2.1' // https://github.com/greenrobot/EventBus
-    compile 'com.f2prateek.dart:dart:1.1.0' // https://github.com/f2prateek/dart
-    compile 'com.squareup.picasso:picasso:2.5.2' // https://github.com/square/picasso
-
-    // other
-    compile 'com.umeng.analytics:analytics:6.1.4'
 
     // unused
+    // compile 'com.f2prateek.dart:dart:1.1.0' // https://github.com/f2prateek/dart
     // compile 'com.mcxiaoke.volley:library:1.0.7' // https://github.com/mcxiaoke/android-volley
     // compile 'com.orhanobut:logger:1.15' // https://github.com/orhanobut/logger
     // compile 'com.meituan.android.walle:payload_reader:1.1.4' // https://github.com/Meituan-Dianping/walle
+    // compile 'com.umeng.analytics:analytics:6.1.4'
     // compile 'com.umeng.umsdk:analytics:7.5.2'
     // compile 'com.umeng.umsdk:common:1.5.4'
+    // compile 'com.squareup.picasso:picasso:2.5.2' // https://github.com/square/picasso
+    // compile 'com.facebook.fresco:fresco:1.9.0' // https://github.com/facebook/fresco
 
     println("******************************** TreCoreLib-build.gradle-dependencies-start ********************************")
     Project projectRoot = getRootProject()
