@@ -2,9 +2,7 @@ package com.mjiayou.trecorelib.helper;
 
 import android.content.Context;
 
-import com.mjiayou.trecorelib.common.Configs;
 import com.mjiayou.trecorelib.util.LogUtils;
-import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by treason on 16/5/14.
@@ -39,10 +37,10 @@ public class UmengHelper {
         // 应用统计、第三方登录、第三方分享
         // 自定义参数、自动更新
 
-        // 友盟调试模式
-        MobclickAgent.setDebugMode(Configs.DEBUG_UMENG);
-        // 友盟异常统计
-        MobclickAgent.setCatchUncaughtExceptions(true);
+//        // 友盟调试模式
+//        MobclickAgent.setDebugMode(Configs.DEBUG_UMENG);
+//        // 友盟异常统计
+//        MobclickAgent.setCatchUncaughtExceptions(true);
 
 //        // 社会化分享调试模式
 //        com.umeng.socialize.utils.Log.LOG = Configs.DEBUG_UMENG;
@@ -56,38 +54,38 @@ public class UmengHelper {
 //        // 用户反馈调试模式
 //        com.umeng.fb.util.Log.LOG = Configs.DEBUG_UMENG;
 
-        // 友盟统计，统计APP打开次数
-        UmengHelper.onEvent(context, UmengHelper.EVENT_UMENG_INIT);
+//        // 友盟统计，统计APP打开次数
+//        UmengHelper.onEvent(context, UmengHelper.EVENT_UMENG_INIT);
 //
 //        // 如有需要，更新在线参数，并测试
 //        updateOnlineConfig(context);
 //        LogUtils.i(TAG, "测试友盟在线参数 -> test_by_treason=" + getOnlineParam(context, UmengHelper.PARAM_TEST));
     }
 
-    // ******************************** 统计分析 ********************************
+//    // ******************************** 统计分析 ********************************
+//
+//    /**
+//     * 手动提交错误日志-throwable
+//     */
+//    public static void reportError(Context context, Throwable throwable) {
+//        MobclickAgent.reportError(context, throwable);
+//    }
+//
+//    /**
+//     * 手动提交错误日志-error
+//     */
+//    public static void reportError(Context context, String error) {
+//        MobclickAgent.reportError(context, error);
+//    }
 
-    /**
-     * 手动提交错误日志-throwable
-     */
-    public static void reportError(Context context, Throwable throwable) {
-        MobclickAgent.reportError(context, throwable);
-    }
-
-    /**
-     * 手动提交错误日志-error
-     */
-    public static void reportError(Context context, String error) {
-        MobclickAgent.reportError(context, error);
-    }
-
-    // ******************************** 自定义事件 ********************************
-
-    /**
-     * 计数事件
-     */
-    public static void onEvent(Context context, String eventId) {
-        MobclickAgent.onEvent(context, eventId);
-    }
+//    // ******************************** 自定义事件 ********************************
+//
+//    /**
+//     * 计数事件
+//     */
+//    public static void onEvent(Context context, String eventId) {
+//        MobclickAgent.onEvent(context, eventId);
+//    }
 
 //    // ******************************** 在线参数 ********************************
 //
