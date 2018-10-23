@@ -12,14 +12,14 @@ import com.mjiayou.trecorelib.helper.UmengHelper;
 import com.mjiayou.trecorelib.manager.ActivityManager;
 import com.mjiayou.trecorelib.manager.CrashHandler;
 
-import butterknife.BindView;
+import butterknife.Bind;
 
 /**
  * MainActivity
  */
 public class MainActivity extends TCActivity {
 
-    @BindView(R.id.tv_info)
+    @Bind(R.id.tv_info)
     TextView mTvInfo;
 
     @Override

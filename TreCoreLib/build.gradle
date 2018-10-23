@@ -59,13 +59,11 @@ dependencies {
 
     // image
     compile 'com.github.bumptech.glide:glide:3.7.0' // https://github.com/bumptech/glide
-    // compile 'com.github.bumptech.glide:glide:4.8.0' // https://github.com/bumptech/glide
-    // annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5' // https://github.com/nostra13/Android-Universal-Image-Loader
     compile 'com.facebook.fresco:fresco:1.9.0' // https://github.com/facebook/fresco
 
     // tool
-    compile 'com.jakewharton:butterknife:8.4.0' // https://github.com/JakeWharton/butterknife
+    compile 'com.jakewharton:butterknife:7.0.1' // https://github.com/JakeWharton/butterknife
     compile 'de.greenrobot:eventbus:2.2.1' // https://github.com/greenrobot/EventBus
     compile 'com.f2prateek.dart:dart:1.1.0' // https://github.com/f2prateek/dart
     compile 'com.squareup.picasso:picasso:2.5.2' // https://github.com/square/picasso
