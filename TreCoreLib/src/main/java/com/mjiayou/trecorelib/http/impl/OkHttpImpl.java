@@ -4,8 +4,14 @@ import com.mjiayou.trecorelib.http.BaseCallback;
 import com.mjiayou.trecorelib.http.RequestEntity;
 import com.mjiayou.trecorelib.http.RequestSender;
 import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.builder.PostFormBuilder;
+import com.zhy.http.okhttp.callback.FileCallBack;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zhy.http.okhttp.request.RequestCall;
+
+import java.io.File;
+import java.util.Map;
+import java.util.Set;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -49,6 +55,20 @@ public class OkHttpImpl extends RequestSender {
                         .params(requestEntity.getParams())
                         .build();
                 break;
+            case POST_FILE:
+                PostFormBuilder postFormBuilder = OkHttpUtils.post();
+                Map<String, File> files = requestEntity.getFiles();
+                Set<Map.Entry<String, File>> sets = files.entrySet();
+                for (Map.Entry<String, File> entry : sets) {
+                    File file = entry.getValue();
+                    postFormBuilder.addFile(entry.getKey(), file.getName(), file);
+                }
+                requestCall = postFormBuilder
+                        .url(requestEntity.getUrl())
+                        .headers(requestEntity.getHeaders())
+                        .params(requestEntity.getParams())
+                        .build();
+                break;
             default:
                 break;
         }
@@ -71,6 +91,9 @@ public class OkHttpImpl extends RequestSender {
                 @Override
                 public void inProgress(float progress, long total, int id) {
                     super.inProgress(progress, total, id);
+                    if (callback != null) {
+                        callback.inProgress(progress, total);
+                    }
                 }
 
                 @Override
@@ -90,5 +113,14 @@ public class OkHttpImpl extends RequestSender {
                 }
             });
         }
+    }
+
+    @Override
+    public void downloadFile(String url, FileCallBack fileCallBack) {
+        OkHttpUtils
+                .get()
+                .url(url)
+                .build()
+                .execute(fileCallBack);
     }
 }

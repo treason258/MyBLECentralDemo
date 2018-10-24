@@ -2,6 +2,7 @@ package com.mjiayou.trecorelib.http;
 
 import com.mjiayou.trecorelib.http.impl.OkHttpImpl;
 import com.mjiayou.trecorelib.util.LogUtils;
+import com.zhy.http.okhttp.callback.FileCallBack;
 
 /**
  * Created by xin on 18/10/16.
@@ -34,6 +35,12 @@ public abstract class RequestSender {
         return mRequestSender;
     }
 
+    // ******************************** method ********************************
+
+    public abstract void send(RequestEntity requestEntity, final BaseCallback baseCallback);
+
+    public abstract void downloadFile(String url, FileCallBack fileCallBack);
+
     // ******************************** 工具 ********************************
 
     /**
@@ -45,7 +52,10 @@ public abstract class RequestSender {
                 "request_method -> " + requestEntity.getMethod().toString() + "\n" +
                 "request_headers -> " + requestEntity.getHeaders() + "\n" +
                 "request_params -> " + requestEntity.getParams() + "\n" +
-                "request_content -> " + requestEntity.getContent() + "\n";
+                "request_files -> " + requestEntity.getFiles() + "\n" +
+                "request_content -> " + requestEntity.getContent() + "\n" +
+                "request_filePath -> " + requestEntity.getFilePath() + "\n" +
+                "request_jsonObject -> " + requestEntity.getJsonObject() + "\n";
         LogUtils.d(TAG, requestInfo);
     }
 
@@ -58,8 +68,4 @@ public abstract class RequestSender {
                 "response_data -> " + responseData + "\n";
         LogUtils.d(TAG, responseInfo);
     }
-
-    // ******************************** method ********************************
-
-    public abstract void send(RequestEntity requestEntity, final BaseCallback baseCallback);
 }

@@ -23,6 +23,8 @@ import com.mjiayou.trecorelib.http.RequestMethod;
 import com.mjiayou.trecorelib.http.RequestSender;
 import com.mjiayou.trecorelib.util.ConvertUtils;
 import com.mjiayou.trecorelib.util.ToastUtils;
+import com.zhy.http.okhttp.callback.FileCallBack;
+
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
@@ -43,6 +45,11 @@ public class VolleyImpl extends RequestSender {
     request.setShouldCache(true);
     request.setRetryPolicy(new DefaultRetryPolicy(Configs.DEFAULT_TIMEOUT_MS, Configs.DEFAULT_MAX_RETRIES, Configs.DEFAULT_BACKOFF_MULT)); // 设置超时时间、重连次数
     VolleyHelper.getRequestQueue().add(request);
+  }
+
+  @Override
+  public void downloadFile(String url, FileCallBack fileCallBack) {
+
   }
 
   /**
