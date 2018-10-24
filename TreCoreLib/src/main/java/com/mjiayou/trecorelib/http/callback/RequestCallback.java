@@ -1,6 +1,7 @@
-package com.mjiayou.trecorelib.http;
+package com.mjiayou.trecorelib.http.callback;
 
 import com.google.gson.reflect.TypeToken;
+import com.mjiayou.trecorelib.http.ResponseBean;
 import com.mjiayou.trecorelib.json.JsonParser;
 import com.mjiayou.trecorelib.util.LogUtils;
 

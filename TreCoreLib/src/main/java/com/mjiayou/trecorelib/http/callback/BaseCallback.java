@@ -1,4 +1,4 @@
-package com.mjiayou.trecorelib.http;
+package com.mjiayou.trecorelib.http.callback;
 
 /**
  * Created by xin on 17/4/28.

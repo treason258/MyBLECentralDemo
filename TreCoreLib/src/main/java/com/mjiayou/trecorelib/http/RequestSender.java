@@ -1,5 +1,6 @@
 package com.mjiayou.trecorelib.http;
 
+import com.mjiayou.trecorelib.http.callback.BaseCallback;
 import com.mjiayou.trecorelib.http.impl.OkHttpImpl;
 import com.mjiayou.trecorelib.util.LogUtils;
 import com.zhy.http.okhttp.callback.FileCallBack;

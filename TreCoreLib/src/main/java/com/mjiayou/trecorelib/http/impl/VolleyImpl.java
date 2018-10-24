@@ -17,7 +17,7 @@ import com.mjiayou.trecorelib.R;
 import com.mjiayou.trecorelib.base.TCApp;
 import com.mjiayou.trecorelib.common.Configs;
 import com.mjiayou.trecorelib.helper.VolleyHelper;
-import com.mjiayou.trecorelib.http.BaseCallback;
+import com.mjiayou.trecorelib.http.callback.BaseCallback;
 import com.mjiayou.trecorelib.http.RequestEntity;
 import com.mjiayou.trecorelib.http.RequestMethod;
 import com.mjiayou.trecorelib.http.RequestSender;
