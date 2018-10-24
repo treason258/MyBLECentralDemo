@@ -1,11 +1,22 @@
 package com.mjiayou.trecorelib.http.okhttp;
 
+import android.graphics.Bitmap;
+import android.os.Environment;
+import android.util.Log;
+
 import com.mjiayou.trecorelib.http.BaseCallback;
 import com.mjiayou.trecorelib.http.RequestEntity;
 import com.mjiayou.trecorelib.util.LogUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.builder.PostFormBuilder;
+import com.zhy.http.okhttp.callback.BitmapCallback;
+import com.zhy.http.okhttp.callback.FileCallBack;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zhy.http.okhttp.request.RequestCall;
+
+import java.io.File;
+import java.util.Map;
+import java.util.Set;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -73,6 +84,20 @@ public class RequestBuilder {
                         .params(requestEntity.getParams())
                         .build();
                 break;
+            case POST_FILE:
+                PostFormBuilder postFormBuilder = OkHttpUtils.post();
+                Map<String, File> files = requestEntity.getFiles();
+                Set<Map.Entry<String, File>> sets = files.entrySet();
+                for (Map.Entry<String, File> entry : sets) {
+                    File file = entry.getValue();
+                    postFormBuilder.addFile(entry.getKey(), file.getName(), file);
+                }
+                requestCall = postFormBuilder
+                        .url(requestEntity.getUrl())
+                        .headers(requestEntity.getHeaders())
+                        .params(requestEntity.getParams())
+                        .build();
+                break;
             default:
                 break;
         }
@@ -82,6 +107,7 @@ public class RequestBuilder {
                 @Override
                 public void onBefore(Request request, int id) {
                     super.onBefore(request, id);
+                    LogUtils.d(TAG, "onBefore() called with: request = [" + request + "], id = [" + id + "]");
                     if (callback != null) {
                         callback.onStart();
                     }
@@ -90,15 +116,21 @@ public class RequestBuilder {
                 @Override
                 public void onAfter(int id) {
                     super.onAfter(id);
+                    LogUtils.d(TAG, "onAfter() called with: id = [" + id + "]");
                 }
 
                 @Override
                 public void inProgress(float progress, long total, int id) {
                     super.inProgress(progress, total, id);
+                    LogUtils.d(TAG, "inProgress() called with: progress = [" + progress + "], total = [" + total + "], id = [" + id + "]");
+                    if (callback != null) {
+                        callback.inProgress(progress, total);
+                    }
                 }
 
                 @Override
                 public void onError(Call call, Exception ex, int id) {
+                    LogUtils.d(TAG, "onError() called with: call = [" + call + "], ex = [" + ex + "], id = [" + id + "]");
                     if (callback != null) {
                         callback.onException(ex);
                     }
@@ -106,6 +138,7 @@ public class RequestBuilder {
 
                 @Override
                 public void onResponse(String responseData, int id) {
+                    LogUtils.d(TAG, "onResponse() called with: responseData = [" + responseData + "], id = [" + id + "]");
                     logResponse(logTag, requestEntity, responseData);
 
                     if (callback != null) {
@@ -114,6 +147,38 @@ public class RequestBuilder {
                 }
             });
         }
+    }
+
+    /**
+     * downloadFile
+     */
+    public void downloadFile(String url, FileCallBack fileCallBack) {
+        OkHttpUtils
+                .get()
+                .url(url)
+                .build()
+                .execute(fileCallBack);
+    }
+
+    /**
+     * downLoadBitmap
+     */
+    public void downLoadBitmap(String url) {
+        OkHttpUtils
+                .get()
+                .url(url)
+                .build()
+                .execute(new BitmapCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+
+                    }
+
+                    @Override
+                    public void onResponse(Bitmap bitmap, int id) {
+
+                    }
+                });
     }
 
     // ******************************** CookieStore ********************************
@@ -131,7 +196,10 @@ public class RequestBuilder {
                 "request_method -> " + requestEntity.getMethod().toString() + "\n" +
                 "request_headers -> " + requestEntity.getHeaders() + "\n" +
                 "request_params -> " + requestEntity.getParams() + "\n" +
-                "request_content -> " + requestEntity.getContent() + "\n";
+                "request_files -> " + requestEntity.getFiles() + "\n" +
+                "request_content -> " + requestEntity.getContent() + "\n" +
+                "request_filePath -> " + requestEntity.getFilePath() + "\n" +
+                "request_jsonObject -> " + requestEntity.getJsonObject() + "\n";
         LogUtils.d(TAG, requestInfo);
     }
 

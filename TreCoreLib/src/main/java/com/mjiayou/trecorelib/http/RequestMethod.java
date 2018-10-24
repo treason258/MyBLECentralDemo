@@ -20,7 +20,8 @@ public enum RequestMethod {
     COPY("COPY"),
     MOVE("MOVE"),
     CONNECT("CONNECT"),
-    
+
+    POST_FILE("POST_FILE"),
     POST_STRING("POST_STRING");
 
     private final String value;

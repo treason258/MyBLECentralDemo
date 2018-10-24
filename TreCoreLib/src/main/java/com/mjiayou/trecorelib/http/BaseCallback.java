@@ -7,6 +7,8 @@ public interface BaseCallback {
 
     void onStart();
 
+    void inProgress(float progress, long total);
+
     void onResult(String response);
 
     void onException(Exception ex);

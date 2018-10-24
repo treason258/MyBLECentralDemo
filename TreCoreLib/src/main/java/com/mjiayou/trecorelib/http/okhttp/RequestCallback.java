@@ -98,6 +98,10 @@ public abstract class RequestCallback<T> implements BaseCallback {
         }
     }
 
+    @Override
+    public void inProgress(float progress, long total) {
+    }
+
     /**
      * 请求异常
      *
