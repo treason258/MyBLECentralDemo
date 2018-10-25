@@ -3,6 +3,7 @@ package com.mjiayou.trecorelib.http.impl;
 import com.mjiayou.trecorelib.http.callback.BaseCallback;
 import com.mjiayou.trecorelib.http.RequestEntity;
 import com.mjiayou.trecorelib.http.RequestSender;
+import com.mjiayou.trecorelib.util.LogUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.builder.PostFormBuilder;
 import com.zhy.http.okhttp.callback.FileCallBack;
@@ -86,20 +87,23 @@ public class OkHttpImpl extends RequestSender {
                 @Override
                 public void onAfter(int id) {
                     super.onAfter(id);
+                    if (callback != null) {
+                        callback.onEnd();
+                    }
                 }
 
                 @Override
                 public void inProgress(float progress, long total, int id) {
                     super.inProgress(progress, total, id);
                     if (callback != null) {
-                        callback.inProgress(progress, total);
+                        callback.onProgress(progress, total);
                     }
                 }
 
                 @Override
-                public void onError(Call call, Exception ex, int id) {
+                public void onError(Call call, Exception e, int id) {
                     if (callback != null) {
-                        callback.onException(ex);
+                        callback.onException(e);
                     }
                 }
 
