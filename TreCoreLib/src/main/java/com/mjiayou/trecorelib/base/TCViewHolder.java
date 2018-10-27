@@ -10,5 +10,5 @@ public abstract class TCViewHolder<T> {
 
     protected abstract void findView(View view);
 
-    protected abstract void initView(T bean);
+    protected abstract void initView(T bean, int position);
 }
