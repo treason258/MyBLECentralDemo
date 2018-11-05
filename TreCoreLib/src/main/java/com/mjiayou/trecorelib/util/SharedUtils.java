@@ -44,6 +44,7 @@ public class SharedUtils {
     private SharedPreferences mSharedCommon;
     private final String PREFERENCE_COMMON = "preference_common";
     private final String KEY_COMMON_TEST = "key_common_test";
+    private final String kEY_COMMON_USER = "key_common_user";
 
     // var
     private static SharedUtils mInstance;
@@ -479,6 +480,26 @@ public class SharedUtils {
 
     public String getCommon(String key) {
         return getShared(mSharedCommon, key, "");
+    }
+
+    /**
+     * setTcUser
+     */
+    public void setTcUser(TCUser tcUser) {
+        String data = "";
+        if (tcUser != null) {
+            data = JsonParser.get().toJson(tcUser);
+        }
+        SharedUtils.get().setCommon(kEY_COMMON_USER, data);
+    }
+
+    public TCUser getTcUser() {
+        String data = SharedUtils.get().getCommon(kEY_COMMON_USER);
+        if (!TextUtils.isEmpty(data)) {
+            return JsonParser.get().toObject(data, TCUser.class);
+        } else {
+            return null;
+        }
     }
 
     /**
