@@ -7,8 +7,6 @@ import android.widget.TextView;
 
 import com.mjiayou.trecore.test.TestActivity;
 import com.mjiayou.trecorelib.base.TCActivity;
-import com.mjiayou.trecorelib.base.TCApp;
-import com.mjiayou.trecorelib.helper.UmengHelper;
 import com.mjiayou.trecorelib.manager.ActivityManager;
 import com.mjiayou.trecorelib.manager.CrashHandler;
 
@@ -34,7 +32,6 @@ public class MainActivity extends TCActivity {
         CrashHandler.get().init(mActivity, new CrashHandler.OnCaughtExceptionListener() {
             @Override
             public boolean onCaughtException(Thread thread, Throwable throwable) {
-                UmengHelper.reportError(TCApp.get(), throwable);
                 return false;
             }
         });
