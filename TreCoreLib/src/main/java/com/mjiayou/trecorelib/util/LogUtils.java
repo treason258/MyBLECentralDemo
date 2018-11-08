@@ -1,6 +1,7 @@
 package com.mjiayou.trecorelib.util;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.LinkedList;
@@ -106,7 +107,15 @@ public class LogUtils {
     public static void i(String tag, String msg) {
         try {
             if (mShow) {
-                Log.i(TAG + "-" + tag, buildMessage(msg));
+                String finalTag = TextUtils.isEmpty(tag) ? (TAG) : (TAG + "-" + tag);
+                String finalMsg = buildMessage(msg);
+                // 因为String的length是字符数量不是字节数量所以为了防止中文字符过多，把4*1024的MAX字节打印长度改为2001字符数
+                int maxLength = 2000 - finalTag.length();
+                while (finalMsg.length() > maxLength) {
+                    Log.i(finalTag, finalMsg.substring(0, maxLength));
+                    finalMsg = finalMsg.substring(maxLength);
+                }
+                Log.i(finalTag, finalMsg);
             }
         } catch (Exception e) {
             printStackTrace(e);
@@ -114,13 +123,7 @@ public class LogUtils {
     }
 
     public static void i(String msg) {
-        try {
-            if (mShow) {
-                Log.i(TAG, buildMessage(msg));
-            }
-        } catch (Exception e) {
-            printStackTrace(e);
-        }
+        i(null, msg);
     }
 
     /**
