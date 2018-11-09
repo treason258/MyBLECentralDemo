@@ -21,10 +21,10 @@ import com.mjiayou.trecorelib.http.callback.BaseCallback;
 import com.mjiayou.trecorelib.http.RequestEntity;
 import com.mjiayou.trecorelib.http.RequestMethod;
 import com.mjiayou.trecorelib.http.RequestSender;
+import com.mjiayou.trecorelib.http.callback.FileCallback;
 import com.mjiayou.trecorelib.util.ConvertUtils;
 import com.mjiayou.trecorelib.util.LogUtils;
 import com.mjiayou.trecorelib.util.ToastUtils;
-import com.zhy.http.okhttp.callback.FileCallBack;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
@@ -49,8 +49,7 @@ public class VolleyImpl extends RequestSender {
   }
 
   @Override
-  public void downloadFile(String url, FileCallBack fileCallBack) {
-
+  public void downloadFile(String url, String destFileDir, String destFileName, FileCallback fileCallback) {
   }
 
   /**

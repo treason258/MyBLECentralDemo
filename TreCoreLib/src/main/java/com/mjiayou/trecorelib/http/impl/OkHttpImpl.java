@@ -3,6 +3,7 @@ package com.mjiayou.trecorelib.http.impl;
 import com.mjiayou.trecorelib.http.callback.BaseCallback;
 import com.mjiayou.trecorelib.http.RequestEntity;
 import com.mjiayou.trecorelib.http.RequestSender;
+import com.mjiayou.trecorelib.http.callback.FileCallback;
 import com.mjiayou.trecorelib.util.LogUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.builder.PostFormBuilder;
@@ -25,7 +26,7 @@ import okhttp3.Request;
 public class OkHttpImpl extends RequestSender {
 
     @Override
-    public void send(final RequestEntity requestEntity, final BaseCallback callback) {
+    public void send(final RequestEntity requestEntity, final BaseCallback baseCallback) {
         final String logTag = "send";
         logRequest(logTag, requestEntity);
 
@@ -79,24 +80,24 @@ public class OkHttpImpl extends RequestSender {
                 @Override
                 public void onBefore(Request request, int id) {
                     super.onBefore(request, id);
-                    if (callback != null) {
-                        callback.onStart();
+                    if (baseCallback != null) {
+                        baseCallback.onStart();
                     }
                 }
 
                 @Override
                 public void onAfter(int id) {
                     super.onAfter(id);
-                    if (callback != null) {
-                        callback.onEnd();
+                    if (baseCallback != null) {
+                        baseCallback.onEnd();
                     }
                 }
 
                 @Override
                 public void inProgress(float progress, long total, int id) {
                     super.inProgress(progress, total, id);
-                    if (callback != null) {
-                        callback.onProgress(progress, total);
+                    if (baseCallback != null) {
+                        baseCallback.onProgress(progress, total);
                     }
                 }
 
@@ -104,8 +105,8 @@ public class OkHttpImpl extends RequestSender {
                 public void onError(Call call, Exception e, int id) {
                     LogUtils.printStackTrace(e);
 
-                    if (callback != null) {
-                        callback.onFailure(BaseCallback.TC_CODE_FAILURE_SERVER, BaseCallback.TC_MSG_FAILURE_SERVER);
+                    if (baseCallback != null) {
+                        baseCallback.onFailure(BaseCallback.TC_CODE_FAILURE_SERVER, BaseCallback.TC_MSG_FAILURE_SERVER);
                     }
                 }
 
@@ -113,8 +114,8 @@ public class OkHttpImpl extends RequestSender {
                 public void onResponse(String responseData, int id) {
                     logResponse(logTag, requestEntity, responseData);
 
-                    if (callback != null) {
-                        callback.onResponse(responseData);
+                    if (baseCallback != null) {
+                        baseCallback.onResponse(responseData);
                     }
                 }
             });
@@ -122,11 +123,51 @@ public class OkHttpImpl extends RequestSender {
     }
 
     @Override
-    public void downloadFile(String url, FileCallBack fileCallBack) {
+    public void downloadFile(String url, String destFileDir, String destFileName, final FileCallback fileCallback) {
         OkHttpUtils
                 .get()
                 .url(url)
                 .build()
-                .execute(fileCallBack);
+                .execute(new FileCallBack(destFileDir, destFileName) {
+                    @Override
+                    public void onBefore(Request request, int id) {
+                        super.onBefore(request, id);
+                        if (fileCallback != null) {
+                            fileCallback.onStart();
+                        }
+                    }
+
+                    @Override
+                    public void onAfter(int id) {
+                        super.onAfter(id);
+                        if (fileCallback != null) {
+                            fileCallback.onEnd();
+                        }
+                    }
+
+                    @Override
+                    public void inProgress(float progress, long total, int id) {
+                        super.inProgress(progress, total, id);
+                        if (fileCallback != null) {
+                            fileCallback.onProgress(progress, total);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        LogUtils.printStackTrace(e);
+
+                        if (fileCallback != null) {
+                            fileCallback.onFailure(BaseCallback.TC_CODE_FAILURE_SERVER, BaseCallback.TC_MSG_FAILURE_SERVER);
+                        }
+                    }
+
+                    @Override
+                    public void onResponse(File file, int id) {
+                        if (fileCallback != null) {
+                            fileCallback.onSuccess(BaseCallback.TC_CODE_SUCCESS, file);
+                        }
+                    }
+                });
     }
 }

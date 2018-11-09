@@ -1,9 +1,9 @@
 package com.mjiayou.trecorelib.http;
 
 import com.mjiayou.trecorelib.http.callback.BaseCallback;
+import com.mjiayou.trecorelib.http.callback.FileCallback;
 import com.mjiayou.trecorelib.http.impl.OkHttpImpl;
 import com.mjiayou.trecorelib.util.LogUtils;
-import com.zhy.http.okhttp.callback.FileCallBack;
 
 /**
  * Created by xin on 18/10/16.
@@ -40,7 +40,7 @@ public abstract class RequestSender {
 
     public abstract void send(RequestEntity requestEntity, final BaseCallback baseCallback);
 
-    public abstract void downloadFile(String url, FileCallBack fileCallBack);
+    public abstract void downloadFile(String url, String destFileDir, String destFileName, final FileCallback fileCallback);
 
     // ******************************** 工具 ********************************
 
