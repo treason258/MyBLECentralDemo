@@ -22,6 +22,7 @@ import com.mjiayou.trecorelib.http.RequestEntity;
 import com.mjiayou.trecorelib.http.RequestMethod;
 import com.mjiayou.trecorelib.http.RequestSender;
 import com.mjiayou.trecorelib.util.ConvertUtils;
+import com.mjiayou.trecorelib.util.LogUtils;
 import com.mjiayou.trecorelib.util.ToastUtils;
 import com.zhy.http.okhttp.callback.FileCallBack;
 
@@ -108,7 +109,7 @@ public class VolleyImpl extends RequestSender {
       logResponse(TAG, mRequestEntity, responseData);
 
       if (mBaseCallback != null) {
-        mBaseCallback.onResult(responseData);
+        mBaseCallback.onResponse(responseData);
       }
     }
   }
@@ -126,8 +127,10 @@ public class VolleyImpl extends RequestSender {
 
     @Override
     public void onErrorResponse(VolleyError error) {
+      LogUtils.printStackTrace(error);
+
       if (mBaseCallback != null) {
-        mBaseCallback.onException(error);
+        mBaseCallback.onFailure(BaseCallback.TC_CODE_FAILURE_SERVER, BaseCallback.TC_MSG_FAILURE_SERVER);
       }
       if (error instanceof NoConnectionError) {
         ToastUtils.show(TCApp.get().getString(R.string.tc_error_no_connection));

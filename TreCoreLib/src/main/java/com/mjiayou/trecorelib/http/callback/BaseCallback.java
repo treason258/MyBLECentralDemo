@@ -5,12 +5,25 @@ package com.mjiayou.trecorelib.http.callback;
  */
 public abstract class BaseCallback<T> {
 
-    // ******************************** 抽象方法，子类务必实现 ********************************
+    public static final String TAG = BaseCallback.class.getSimpleName();
+
+    // 成功
+    public static final int TC_CODE_SUCCESS = 200;
+
+    // 连接服务器失败
+    public static final int TC_CODE_FAILURE_SERVER = -258;
+    public static final String TC_MSG_FAILURE_SERVER = "连接服务器失败";
+
+    // 解析失败
+    public static final int TC_CODE_FAILURE_JSON = -259;
+    public static final String TC_MSG_FAILURE_JSON = "解析数据失败";
 
     /**
      * 解析请求结果
      */
-    public abstract void onResult(String response);
+    public abstract void onResponse(String response);
+
+    // ******************************** 抽象方法，子类务必实现 ********************************
 
     /**
      * 请求开始
@@ -45,14 +58,6 @@ public abstract class BaseCallback<T> {
     }
 
     /**
-     * 请求返回 - 请求异常
-     *
-     * @param e 异常信息
-     */
-    public void onException(Exception e) {
-    }
-
-    /**
      * 请求结束
      */
     public void onEnd() {
@@ -63,10 +68,10 @@ public abstract class BaseCallback<T> {
     /**
      * CALLBACK_DEFAULT
      */
-    public static BaseCallback CALLBACK_DEFAULT = new BaseCallback() {
+    public static BaseCallback DEFAULT = new BaseCallback() {
 
         @Override
-        public void onResult(String response) {
+        public void onResponse(String response) {
 
         }
 

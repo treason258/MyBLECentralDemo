@@ -9,6 +9,15 @@ public class ResponseBean<T> {
     private int statusCode;
     private String msg;
     private T data;
+    private long timestamp;
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
 
     public int getStatusCode() {
         return statusCode;

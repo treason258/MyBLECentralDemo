@@ -102,8 +102,10 @@ public class OkHttpImpl extends RequestSender {
 
                 @Override
                 public void onError(Call call, Exception e, int id) {
+                    LogUtils.printStackTrace(e);
+
                     if (callback != null) {
-                        callback.onException(e);
+                        callback.onFailure(BaseCallback.TC_CODE_FAILURE_SERVER, BaseCallback.TC_MSG_FAILURE_SERVER);
                     }
                 }
 
@@ -112,7 +114,7 @@ public class OkHttpImpl extends RequestSender {
                     logResponse(logTag, requestEntity, responseData);
 
                     if (callback != null) {
-                        callback.onResult(responseData);
+                        callback.onResponse(responseData);
                     }
                 }
             });
