@@ -80,6 +80,9 @@ public abstract class TCActivity<VB extends ViewDataBinding> extends AppCompatAc
         mLayoutContainer = (FrameLayout) rootView.findViewById(R.id.layout_container);
         super.setContentView(rootView);
 
+        // TODO
+        mTitleBar.setVisible(false);
+
         // getLayoutId
         if (getLayoutId() == 0) {
             LogUtils.i(TAG, "getLayoutId() == 0");
@@ -90,7 +93,8 @@ public abstract class TCActivity<VB extends ViewDataBinding> extends AppCompatAc
             if (checkUseDataBinding()) {
                 mBinding = DataBindingUtil.bind(containerView);
             } else {
-                ButterKnife.bind(this);
+                // TODO
+//                ButterKnife.bind(this);
             }
             LogUtils.printLifeRecycle(TAG, "getLayoutId() -> " + getLayoutId());
         }
