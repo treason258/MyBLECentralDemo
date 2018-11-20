@@ -103,7 +103,8 @@ public abstract class TCActivity<VB extends ViewDataBinding> extends AppCompatAc
         ActivityManager.get().addActivity(mActivity);
 
         // 通过程序改变屏幕显示的方向
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+        // TODO
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
         // afterOnCreate
         afterOnCreate(savedInstanceState);
