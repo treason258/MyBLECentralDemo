@@ -1,5 +1,6 @@
 package com.mjiayou.trecorelib.dialog;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +37,8 @@ public class TCLoadingDialog extends TCDialog {
 
     private String mMessageStr = "";
 
+    ObjectAnimator objectAnimator;
+
     public TCLoadingDialog(Context context, int theme) {
         super(context, theme);
     }
@@ -46,7 +50,7 @@ public class TCLoadingDialog extends TCDialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tc_dialog_loading);
+        setContentView(R.layout.tc_dialog_loading_circle);
 
         // findViewById
         // root
@@ -73,8 +77,25 @@ public class TCLoadingDialog extends TCDialog {
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        AnimationDrawable animationDrawable = (AnimationDrawable) mIvLoading.getBackground();
-        animationDrawable.start();
+//        AnimationDrawable animationDrawable = (AnimationDrawable) mIvLoading.getBackground();
+//        animationDrawable.start();
+
+        if (hasFocus) {
+            if (objectAnimator == null) {
+                objectAnimator = ObjectAnimator.ofFloat(mIvLoading, "rotation", 0f, 359f); // 添加旋转动画，旋转中心默认为控件中点
+                objectAnimator.setDuration(800); // 设置动画时间
+                objectAnimator.setInterpolator(new LinearInterpolator()); // 动画时间线性渐变
+                objectAnimator.setRepeatCount(ObjectAnimator.INFINITE);
+                objectAnimator.setRepeatMode(ObjectAnimator.RESTART);
+            }
+            if (objectAnimator != null) {
+                objectAnimator.start();
+            }
+        } else {
+            if (objectAnimator != null) {
+                objectAnimator.end();
+            }
+        }
     }
 
     // ******************************** 自定义操作 ********************************
