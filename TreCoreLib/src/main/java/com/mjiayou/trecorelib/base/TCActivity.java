@@ -80,12 +80,9 @@ public abstract class TCActivity<VB extends ViewDataBinding> extends AppCompatAc
         mLayoutContainer = (FrameLayout) rootView.findViewById(R.id.layout_container);
         super.setContentView(rootView);
 
-        // TODO
-        mTitleBar.setVisible(false);
-
         // getLayoutId
         if (getLayoutId() == 0) {
-            LogUtils.i(TAG, "getLayoutId() == 0");
+            LogUtils.printLifeRecycle(TAG, "getLayoutId() == 0");
         } else {
             View containerView = getLayoutInflater().inflate(getLayoutId(), null, false);
             mLayoutContainer.addView(containerView);
@@ -102,9 +99,19 @@ public abstract class TCActivity<VB extends ViewDataBinding> extends AppCompatAc
         // Activity压栈操作
         ActivityManager.get().addActivity(mActivity);
 
-        // 通过程序改变屏幕显示的方向
-        // TODO
-//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+        // 是否隐藏标题栏
+        if (checkHideTitleBar()) {
+            mTitleBar.setVisible(false);
+        } else {
+            mTitleBar.setVisible(true);
+        }
+
+        // 是否根据传感器旋转屏幕
+        if (checkRotateScreeBySensor()) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+        } else {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
 
         // afterOnCreate
         afterOnCreate(savedInstanceState);
@@ -295,6 +302,22 @@ public abstract class TCActivity<VB extends ViewDataBinding> extends AppCompatAc
      */
     protected boolean checkUseDataBinding() {
         LogUtils.printLifeRecycle(TAG, "checkUseDataBinding");
+        return false;
+    }
+
+    /**
+     * 是否隐藏标题栏
+     */
+    protected boolean checkHideTitleBar() {
+        LogUtils.printLifeRecycle(TAG, "checkHideTitleBar");
+        return false;
+    }
+
+    /**
+     * 是否根据传感器旋转屏幕
+     */
+    protected boolean checkRotateScreeBySensor() {
+        LogUtils.printLifeRecycle(TAG, "checkRotateScreeBySensor");
         return false;
     }
 
