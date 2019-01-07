@@ -90,8 +90,7 @@ public abstract class TCActivity<VB extends ViewDataBinding> extends AppCompatAc
             if (checkUseDataBinding()) {
                 mBinding = DataBindingUtil.bind(containerView);
             } else {
-                // TODO
-//                ButterKnife.bind(this);
+                ButterKnife.bind(this);
             }
             LogUtils.printLifeRecycle(TAG, "getLayoutId() -> " + getLayoutId());
         }
