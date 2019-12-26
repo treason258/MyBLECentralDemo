@@ -14,6 +14,7 @@ import com.zhy.http.okhttp.request.RequestCall;
 import java.io.File;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -124,9 +125,12 @@ public class OkHttpImpl extends RequestSender {
 
     @Override
     public void downloadFile(String url, String destFileDir, String destFileName, final FileCallback fileCallback) {
+        Map<String, String> headers = new TreeMap<>();
+        headers.put("Accept-Encoding", "identity");
         OkHttpUtils
                 .get()
                 .url(url)
+                .headers(headers)
                 .build()
                 .execute(new FileCallBack(destFileDir, destFileName) {
                     @Override

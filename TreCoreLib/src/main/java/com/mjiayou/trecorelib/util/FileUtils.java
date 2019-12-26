@@ -158,28 +158,19 @@ public class FileUtils {
         return size;
     }
 
-//    public static long getFileSize(String filePath) {
-//        long size = 0l;
-//        try {
-//            File file = new File(filePath);
-//            if (!file.exists()) {
-//                return size;
-//            }
-//
-//            File[] files = file.listFiles();
-//            for (int i = 0; i < files.length; i++) {
-//                if (files[i].isDirectory()) {
-//                    size = size + getFolderSize(files[i].getPath());
-//                } else {
-//                    size = size + files[i].length();
-//
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return size;
-//    }
+    public static long getFileSize(String filePath) {
+        long size = 0l;
+        try {
+            File file = new File(filePath);
+            if (!file.exists()) {
+                return size;
+            }
+            size = file.length();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return size;
+    }
 
     /**
      * 删除指定目录下文件及目录
