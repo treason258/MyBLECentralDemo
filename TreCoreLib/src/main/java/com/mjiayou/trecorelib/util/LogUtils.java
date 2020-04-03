@@ -314,4 +314,11 @@ public class LogUtils {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 调试log
+     */
+    public static void debug(String msg) {
+        LogUtils.e("matengfei111", msg);
+    }
 }
