@@ -30,7 +30,7 @@ android {
     }
 
     dataBinding {
-        enabled = true
+        enabled = false
     }
     buildToolsVersion '26.0.2'
 }

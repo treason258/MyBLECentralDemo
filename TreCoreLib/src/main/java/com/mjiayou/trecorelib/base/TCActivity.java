@@ -7,8 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
+//import android.databinding.DataBindingUtil;
+//import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.IdRes;
@@ -37,7 +37,7 @@ import butterknife.ButterKnife;
 /**
  * TCActivity
  */
-public abstract class TCActivity<VB extends ViewDataBinding> extends AppCompatActivity implements RequestAdapter.DataRequest, RequestAdapter.DataResponse {
+public abstract class TCActivity extends AppCompatActivity implements RequestAdapter.DataRequest, RequestAdapter.DataResponse {
 
     // TAG
     protected final String TAG = this.getClass().getSimpleName();
@@ -46,7 +46,7 @@ public abstract class TCActivity<VB extends ViewDataBinding> extends AppCompatAc
     protected Activity mActivity;
     protected Context mContext;
     protected Intent mIntent;
-    protected VB mBinding;
+//    protected VB mBinding;
 
     // view
     private LinearLayout mLayoutRoot;
@@ -87,11 +87,11 @@ public abstract class TCActivity<VB extends ViewDataBinding> extends AppCompatAc
             View containerView = getLayoutInflater().inflate(getLayoutId(), null, false);
             mLayoutContainer.addView(containerView);
             // 控件注解
-            if (checkUseDataBinding()) {
-                mBinding = DataBindingUtil.bind(containerView);
-            } else {
+//            if (checkUseDataBinding()) {
+//                mBinding = DataBindingUtil.bind(containerView);
+//            } else {
                 ButterKnife.bind(this);
-            }
+//            }
             LogUtils.printLifeRecycle(TAG, "getLayoutId() -> " + getLayoutId());
         }
 

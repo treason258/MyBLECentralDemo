@@ -44,8 +44,6 @@
         <activity android:name=".test.MaterialDrawerActivity" />
         <!-- CustomViewActivity -->
         <activity android:name=".test.CustomViewActivity" />
-        <!-- DataBindingActivity -->
-        <activity android:name=".test.DataBindingActivity" />
         <!-- ImageLoaderActivity -->
         <activity android:name=".test.ImageLoaderActivity" />
     </application>

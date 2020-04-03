@@ -269,12 +269,6 @@ public class TestActivity extends TCActivity {
                 startActivity(new Intent(mContext, CustomViewActivity.class));
             }
         }));
-        tcMenus.add(new TCMenu("DataBindingActivity", new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(mContext, DataBindingActivity.class));
-            }
-        }));
         tcMenus.add(new TCMenu("ImageLoaderActivity", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
