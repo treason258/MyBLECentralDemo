@@ -123,7 +123,7 @@ public class TCBottomMenuDialog extends TCDialog {
 
         // 设置窗口宽高
         if (mViewRoot != null) {
-            int width = Caches.get().getScreenWidth(WIDTH_RATIO_BIG);
+            int width = Caches.get().getScreenWidth(WIDTH_RATIO_FULL);
             int height = WindowManager.LayoutParams.WRAP_CONTENT;
             ViewUtils.setWidthAndHeight(mViewRoot, width, height);
         }
