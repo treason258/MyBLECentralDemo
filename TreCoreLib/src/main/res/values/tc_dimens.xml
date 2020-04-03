@@ -20,6 +20,11 @@
     <dimen name="tc_text_size_mini">10sp</dimen>
     <dimen name="tc_text_size_mini_8">8sp</dimen>
 
+    <!-- SystemBar -->
+    <dimen name="tc_status_bar_height">21dp</dimen>
+    <dimen name="tc_action_bar_height">45dp</dimen>
+    <dimen name="tc_action_bar_height_width_status_bar">66dp</dimen>
+
     <!-- TitleBar -->
     <dimen name="tc_title_bar_height">45dp</dimen>
 

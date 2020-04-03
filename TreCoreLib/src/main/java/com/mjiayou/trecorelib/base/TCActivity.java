@@ -30,6 +30,7 @@ import com.mjiayou.trecorelib.manager.StatusViewManager;
 import com.mjiayou.trecorelib.http.volley.RequestAdapter;
 import com.mjiayou.trecorelib.util.ConvertUtils;
 import com.mjiayou.trecorelib.util.LogUtils;
+import com.mjiayou.trecorelib.util.StatusBarUtils;
 import com.mjiayou.trecorelib.widget.TitleBar;
 
 import butterknife.ButterKnife;
@@ -94,6 +95,10 @@ public abstract class TCActivity extends AppCompatActivity implements RequestAda
 //            }
             LogUtils.printLifeRecycle(TAG, "getLayoutId() -> " + getLayoutId());
         }
+
+        // 沉浸式状态栏
+        StatusBarUtils.with(mActivity).init();
+        StatusBarUtils.setAndroidNativeLightStatusBar(mActivity, false);
 
         // Activity压栈操作
         ActivityManager.get().addActivity(mActivity);

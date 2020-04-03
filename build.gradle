@@ -38,11 +38,11 @@ task clean(type: Delete) {
 }
 
 ext {
-    compileSdkVersion = 25
+    compileSdkVersion = 28
     buildToolsVersion = '25.0.3'
 
-    minSdkVersion = 15
-    targetSdkVersion = 19
+    minSdkVersion = 19
+    targetSdkVersion = 28
 
     dependencies = [
         'supportV4'     : 'com.android.support:support-v4:25.3.1',

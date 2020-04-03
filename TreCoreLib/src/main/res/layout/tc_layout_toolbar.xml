@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_bar"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/tc_title_bar_height"
+    android:layout_height="@dimen/tc_action_bar_height_width_status_bar"
     android:background="@color/tc_theme"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="@dimen/tc_status_bar_height">
 
     <!-- 内容 -->
     <RelativeLayout
@@ -19,8 +20,8 @@
             android:id="@+id/layout_left_container"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:minWidth="@dimen/tc_menu_min_width"
             android:orientation="horizontal"
