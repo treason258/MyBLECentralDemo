@@ -1,4 +1,4 @@
-## Edit by Treason on 170206 version 1.0
+## Edit by Treason on 200404
 
 # 递归忽略文件
 .DS_Store
@@ -21,8 +21,9 @@ proguard
 bin
 gen
 out
-*.jks
 *.keystore
+*.jks
+*.jks.txt
 *.log
 *.apk
 *.ap_

@@ -3,19 +3,16 @@ apply plugin: 'com.github.dcendents.android-maven'
 
 group = 'com.github.treason258'
 
-//def versionCodeForLib = 21
-//def versionNameForLib = '3.0.1'
-
 android {
-    compileSdkVersion 28
-    buildToolsVersion '25.0.3'
+    compileSdkVersion rootProject.android.compileSdkVersion
+    buildToolsVersion rootProject.android.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 28
+        minSdkVersion rootProject.android.minSdkVersion
+        targetSdkVersion rootProject.android.targetSdkVersion
 
-        versionCode 25
-        versionName '3.1.1'
+        versionCode rootProject.trecore.versionCode
+        versionName rootProject.trecore.versionName
 
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
 
@@ -32,7 +29,6 @@ android {
     dataBinding {
         enabled = false
     }
-    buildToolsVersion '26.0.2'
 }
 
 dependencies {
@@ -42,11 +38,27 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
 
-    // android
-    compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+//    // android-方式0
+//    compile 'com.android.support:support-v4:25.3.1'
+//    compile 'com.android.support:appcompat-v7:25.3.1'
+//    compile 'com.android.support:recyclerview-v7:25.3.1'
+//    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+//    // android-方式1
+//    def support_version = '25.3.1'
+//    compile 'com.android.support:support-v4:' + support_version
+//    compile 'com.android.support:appcompat-v7:' + support_version
+//    compile 'com.android.support:recyclerview-v7:' + support_version
+//    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+//    // android-方式2
+//    compile rootProject.library.supportV4
+//    compile rootProject.library.appcompatV7
+//    compile rootProject.library.recyclerviewV7
+//    compile rootProject.library.constraintLayout
+
+    // android-方式3
+    compile rootProject.libraryValues
 
     // jar
     compile files('libs/org.apache.http.legacy.jar')
@@ -80,14 +92,27 @@ dependencies {
     // compile 'com.facebook.fresco:fresco:1.9.0' // https://github.com/facebook/fresco
 
     println("******************************** TreCoreLib-build.gradle-dependencies-start ********************************")
-    Project projectRoot = getRootProject()
-    println(projectRoot)
-    println(projectRoot.ext.dependencies)
-    println("********************************")
-    List<Project> projectList = getAllprojects().asList()
-    for (int i = 0; i < projectList.size(); i++) {
-        Project project = projectList.get(i)
-        println(project)
-    }
+    println("project = " + project)
+    println("allprojects = " + allprojects)
+    println("subprojects = " + subprojects)
+    println("rootProject = " + rootProject)
+    println("****************")
+    println("rootProject.app.applicationId = " + rootProject.app.applicationId)
+    println("rootProject.app.versionCode = " + rootProject.app.versionCode)
+    println("rootProject.app.versionName = " + rootProject.app.versionName)
+    println("****************")
+    println("rootProject.trecore.versionCode = " + rootProject.trecore.versionCode)
+    println("rootProject.trecore.versionName = " + rootProject.trecore.versionName)
+    println("****************")
+    println("rootProject.android.compileSdkVersion = " + rootProject.android.compileSdkVersion)
+    println("rootProject.android.buildToolsVersion = " + rootProject.android.buildToolsVersion)
+    println("rootProject.android.minSdkVersion = " + rootProject.android.minSdkVersion)
+    println("rootProject.android.targetSdkVersion = " + rootProject.android.targetSdkVersion)
+    println("****************")
+    println("rootProject.library.supportV4 = " + rootProject.library.supportV4)
+    println("rootProject.library.appcompatV7 = " + rootProject.library.appcompatV7)
+    println("rootProject.library.recyclerviewV7 = " + rootProject.library.recyclerviewV7)
+    println("rootProject.library.constraintLayout = " + rootProject.library.constraintLayout)
+    println("rootProject.libraryValues = " + rootProject.libraryValues)
     println("******************************** TreCoreLib-build.gradle-dependencies-end ********************************")
 }

@@ -3,17 +3,16 @@ import java.text.SimpleDateFormat
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion rootProject.buildToolsVersion
+    compileSdkVersion rootProject.android.compileSdkVersion
+    buildToolsVersion rootProject.android.buildToolsVersion
 
-    // 默认配置：包名、版本号
     defaultConfig {
-        minSdkVersion rootProject.minSdkVersion
-        targetSdkVersion rootProject.targetSdkVersion
+        minSdkVersion rootProject.android.minSdkVersion
+        targetSdkVersion rootProject.android.targetSdkVersion
 
-        applicationId rootProject.applicationId
-        versionCode rootProject.versionCode
-        versionName rootProject.versionName + ".${defaultConfig.versionCode}"
+        applicationId rootProject.app.applicationId
+        versionCode rootProject.app.versionCode
+        versionName rootProject.app.versionName + ".${defaultConfig.versionCode}"
 
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
@@ -155,7 +154,7 @@ android {
     }
 
     dataBinding {
-        enabled = true
+        enabled = false
     }
 
     // 拷贝文件到local目录下

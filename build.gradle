@@ -38,20 +38,30 @@ task clean(type: Delete) {
 }
 
 ext {
-    compileSdkVersion = 28
-    buildToolsVersion = '25.0.3'
-
-    minSdkVersion = 19
-    targetSdkVersion = 28
-
-    dependencies = [
-        'supportV4'     : 'com.android.support:support-v4:25.3.1',
-        'appcompatV7'   : 'com.android.support:appcompat-v7:25.3.1',
-        'recyclerviewV7': 'com.android.support:recyclerview-v7:25.3.1',
-        'constraint'    : 'com.android.support.constraint:constraint-layout:1.0.2',
+    app = [
+            'applicationId': 'com.mjiayou.trecore', // 包名
+            'versionCode'  : 20,                    // 版本码
+            'versionName'  : '3.0.0',               // 版本号
     ]
 
-    applicationId = 'com.mjiayou.trecore'
-    versionCode = 20
-    versionName = '3.0.0'
+    trecore = [
+            'versionCode': 25,                      // 版本码
+            'versionName': '3.1.1',                 // 版本号
+    ]
+
+    android = [
+            'compileSdkVersion': 28,        // 编译版本
+            'buildToolsVersion': '26.0.2',  // 构建版本
+            'minSdkVersion'    : 19,        // 最小支持版本
+            'targetSdkVersion' : 28,        // 目标版本
+            'supportVersion'   : '25.3.1',  // Support库版本号
+    ]
+
+    library = [
+            'supportV4'       : 'com.android.support:support-v4:' + android.supportVersion,
+            'appcompatV7'     : 'com.android.support:appcompat-v7:' + android.supportVersion,
+            'recyclerviewV7'  : 'com.android.support:recyclerview-v7:' + android.supportVersion,
+            'constraintLayout': 'com.android.support.constraint:constraint-layout:1.0.2',
+    ]
+    libraryValues = library.values()
 }
