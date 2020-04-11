@@ -26,7 +26,9 @@
         <!-- SplashActivity -->
         <activity android:name=".SplashActivity">
             <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -36,20 +38,12 @@
 
         <!-- TestActivity -->
         <activity android:name=".test.TestActivity" />
-
-        <!-- WebViewActivity -->
         <activity android:name=".test.WebViewActivity" />
-        <!-- CameraActivity -->
         <activity android:name=".test.CameraActivity" />
-        <!-- ServiceActivity -->
         <activity android:name=".test.ServiceActivity" />
-        <!-- FloatTagActivity -->
         <activity android:name=".test.FloatTagActivity" />
-        <!-- MaterialDrawerActivity -->
         <activity android:name=".test.MaterialDrawerActivity" />
-        <!-- CustomViewActivity -->
         <activity android:name=".test.CustomViewActivity" />
-        <!-- ImageLoaderActivity -->
         <activity android:name=".test.ImageLoaderActivity" />
     </application>
 
