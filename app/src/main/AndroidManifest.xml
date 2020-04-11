@@ -23,15 +23,20 @@
             android:name="TC_CHANNEL"
             android:value="${gradle_tc_channel}" />
 
-        <activity android:name=".MainActivity">
+        <!-- SplashActivity -->
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- MainActivity -->
+        <activity android:name=".MainActivity" />
+
         <!-- TestActivity -->
         <activity android:name=".test.TestActivity" />
+
         <!-- WebViewActivity -->
         <activity android:name=".test.WebViewActivity" />
         <!-- CameraActivity -->
