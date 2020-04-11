@@ -45,6 +45,7 @@
         <activity android:name=".test.MaterialDrawerActivity" />
         <activity android:name=".test.CustomViewActivity" />
         <activity android:name=".test.ImageLoaderActivity" />
+        <activity android:name=".test.hotfix.HotFixActivity" />
     </application>
 
 </manifest>
