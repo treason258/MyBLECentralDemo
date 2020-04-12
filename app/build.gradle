@@ -217,3 +217,20 @@ Properties getProperties(String filePath) {
     properties.load(project.file(filePath).newDataInputStream()) // properties.load(project.rootProject.file("local.properties").newDataInputStream())
     return properties
 }
+
+
+apply plugin: 'com.mjiayou.gradle'
+
+buildscript {
+    repositories {
+        maven {//本地Maven仓库地址
+            url uri('../myplugin/repos')
+        }
+    }
+    dependencies {
+        //格式为-->group:module:version
+        classpath 'com.mjiayou.myplugin:myplugin:1.0.0'
+    }
+}
+//com.hc.gradle为resources/META-INF/gradle-plugins
+//下的properties文件名称

@@ -1,4 +1,4 @@
-include ':app', ':TreCoreLib'
+include ':app', ':TreCoreLib', ':myplugin'
 
 //include ':TreCoreLib'
 //project(':TreCoreLib').projectDir = new File('../TreCoreOld/TreCoreLib')
