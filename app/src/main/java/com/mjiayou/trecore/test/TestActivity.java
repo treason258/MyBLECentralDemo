@@ -35,7 +35,7 @@ import com.mjiayou.trecorelib.util.UserUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by treason on 2017/9/25.
@@ -43,9 +43,9 @@ import butterknife.Bind;
 
 public class TestActivity extends TCActivity {
 
-    @Bind(R.id.layout_menu_container)
+    @BindView(R.id.layout_menu_container)
     LinearLayout mLayoutMenuContainer;
-    @Bind(R.id.tv_info)
+    @BindView(R.id.tv_info)
     TextView mTvInfo;
 
     /**

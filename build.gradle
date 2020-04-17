@@ -3,9 +3,9 @@ apply from: "config.gradle"
 
 buildscript {
     repositories {
-//        jcenter()
-//        google()
-//        mavenCentral()
+        jcenter()
+        google()
+        mavenCentral()
         // 先从url中下载jar，若没有找到，则在artifactUrls中寻找
         // url 'http://maven.aliyun.com/nexus/content/repositories/jcenter/'
         maven {
@@ -14,16 +14,16 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.5.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
     }
 }
 
 allprojects {
     repositories {
-//        jcenter()
-//        google()
-//        mavenCentral()
+        jcenter()
+        google()
+        mavenCentral()
         // 先从url中下载jar，若没有找到，则在artifactUrls中寻找
         // url 'http://maven.aliyun.com/nexus/content/repositories/jcenter/'
         maven {

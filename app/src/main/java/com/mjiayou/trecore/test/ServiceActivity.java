@@ -12,7 +12,7 @@ import com.mjiayou.trecorelib.service.FloatService;
 import com.mjiayou.trecorelib.service.HeartService;
 import com.mjiayou.trecorelib.util.ServiceUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -20,11 +20,11 @@ import butterknife.OnClick;
  */
 public class ServiceActivity extends TCActivity {
 
-    @Bind(R.id.tv_info)
+    @BindView(R.id.tv_info)
     TextView mTvInfo;
-    @Bind(R.id.btn_start_heart_service)
+    @BindView(R.id.btn_start_heart_service)
     Button mBtnStartHeartService;
-    @Bind(R.id.btn_start_float_service)
+    @BindView(R.id.btn_start_float_service)
     Button mBtnStartFloatService;
 
     @OnClick({R.id.btn_start_heart_service, R.id.btn_start_float_service})

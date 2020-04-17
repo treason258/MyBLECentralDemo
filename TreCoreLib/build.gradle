@@ -66,6 +66,7 @@ dependencies {
 
     // http
     compile 'com.zhy:okhttputils:2.6.2' // https://github.com/hongyangAndroid/okhttputils
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.android.volley:volley:1.0.0' // https://github.com/google/volley
 
     // json
@@ -77,8 +78,9 @@ dependencies {
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5' // https://github.com/nostra13/Android-Universal-Image-Loader
 
     // tool
-    compile 'com.jakewharton:butterknife:7.0.1' // https://github.com/JakeWharton/butterknife
-    compile 'de.greenrobot:eventbus:2.2.1' // https://github.com/greenrobot/EventBus
+    api 'com.jakewharton:butterknife:8.4.0' // https://github.com/JakeWharton/butterknife
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    api 'de.greenrobot:eventbus:2.2.1' // https://github.com/greenrobot/EventBus
 
     // unused
     // compile 'com.f2prateek.dart:dart:1.1.0' // https://github.com/f2prateek/dart

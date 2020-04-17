@@ -19,7 +19,7 @@ import com.mjiayou.trecorelib.util.DipUtils;
 
 import java.util.Random;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 
@@ -30,22 +30,22 @@ public class FloatTagActivity extends TCActivity {
 
     private final String LONG_TEXT = "测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字";
 
-    @Bind(R.id.rl_container)
+    @BindView(R.id.rl_container)
     RelativeLayout mRlContainer;
-    @Bind(R.id.iv_bg)
+    @BindView(R.id.iv_bg)
     ImageView mIvBg;
-    @Bind(R.id.btn_add_new_tag)
+    @BindView(R.id.btn_add_new_tag)
     Button mBtnAddNewTag;
-    @Bind(R.id.btn_remove_last_tag)
+    @BindView(R.id.btn_remove_last_tag)
     Button mBtnRemoveLastTag;
-    @Bind(R.id.btn_remove_all_tag)
+    @BindView(R.id.btn_remove_all_tag)
     Button mBtnRemoveAllTag;
 
-    @Bind(R.id.tv_text)
+    @BindView(R.id.tv_text)
     TextView mTvText;
-    @Bind(R.id.tv_line_count)
+    @BindView(R.id.tv_line_count)
     TextView mTvLineCount;
-    @Bind(R.id.btn_reset_text)
+    @BindView(R.id.btn_reset_text)
     TextView mBtnResetText;
 
     private int mImageWidth;
