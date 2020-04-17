@@ -5,7 +5,6 @@ group = 'com.github.treason258'
 
 android {
     compileSdkVersion rootProject.android.compileSdkVersion
-    buildToolsVersion rootProject.android.buildToolsVersion
 
     defaultConfig {
         minSdkVersion rootProject.android.minSdkVersion
@@ -15,7 +14,6 @@ android {
         versionName rootProject.trecore.versionName
 
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
-
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
     }
 
@@ -32,66 +30,54 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 
 //    // android-方式0
-//    compile 'com.android.support:support-v4:25.3.1'
-//    compile 'com.android.support:appcompat-v7:25.3.1'
-//    compile 'com.android.support:recyclerview-v7:25.3.1'
-//    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-
-//    // android-方式1
-//    def support_version = '25.3.1'
-//    compile 'com.android.support:support-v4:' + support_version
-//    compile 'com.android.support:appcompat-v7:' + support_version
-//    compile 'com.android.support:recyclerview-v7:' + support_version
-//    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+//    api 'com.android.support:support-v4:26.1.0'
+//    api 'com.android.support:appcompat-v7:26.1.0'
+//    api 'com.android.support:recyclerview-v7:26.1.0'
+//    api 'com.android.support.constraint:constraint-layout:1.0.2'
 
 //    // android-方式2
-//    compile rootProject.library.supportV4
-//    compile rootProject.library.appcompatV7
-//    compile rootProject.library.recyclerviewV7
-//    compile rootProject.library.constraintLayout
+//    api rootProject.library.supportV4
+//    api rootProject.library.appcompatV7
+//    api rootProject.library.recyclerviewV7
+//    api rootProject.library.constraintLayout
 
     // android-方式3
-    compile rootProject.libraryValues
+    api rootProject.libraryValues
 
     // jar
-    compile files('libs/org.apache.http.legacy.jar')
-    compile files('libs/httpmime-4.1.3.jar')
+    api files('libs/org.apache.http.legacy.jar')
+    api files('libs/httpmime-4.1.3.jar')
 
-    // http
-    compile 'com.zhy:okhttputils:2.6.2' // https://github.com/hongyangAndroid/okhttputils
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
-    compile 'com.android.volley:volley:1.0.0' // https://github.com/google/volley
+    // api
+    api 'com.squareup.okhttp3:okhttp:3.3.1'     // https://github.com/square/okhttp
+    api 'com.zhy:okhttputils:2.6.2'             // https://github.com/hongyangAndroid/okhttputils
+    api 'com.android.volley:volley:1.1.0'       // https://github.com/google/volley
+    api 'com.google.code.gson:gson:2.8.5'       // https://github.com/google/gson
+    api 'com.alibaba:fastjson:1.2.49'           // https://github.com/alibaba/fastjson
+    api 'com.github.bumptech.glide:glide:3.7.0' // https://github.com/bumptech/glide
+    api 'com.nostra13.universalimageloader:universal-image-loader:1.9.5' // https://github.com/nostra13/Android-Universal-Image-Loader
+    api 'com.jakewharton:butterknife:8.4.0'     // https://github.com/JakeWharton/butterknife
+    api 'de.greenrobot:eventbus:2.2.1'          // https://github.com/greenrobot/EventBus
 
-    // json
-    compile 'com.google.code.gson:gson:2.8.2' // https://github.com/google/gson
-    compile 'com.alibaba:fastjson:1.2.49' // https://github.com/alibaba/fastjson
-
-    // image
-    compile 'com.github.bumptech.glide:glide:3.7.0' // https://github.com/bumptech/glide
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5' // https://github.com/nostra13/Android-Universal-Image-Loader
-
-    // tool
-    api 'com.jakewharton:butterknife:8.4.0' // https://github.com/JakeWharton/butterknife
+    // annotationProcessor
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-    api 'de.greenrobot:eventbus:2.2.1' // https://github.com/greenrobot/EventBus
 
-    // unused
+    // other
     // compile 'com.f2prateek.dart:dart:1.1.0' // https://github.com/f2prateek/dart
-    // compile 'com.mcxiaoke.volley:library:1.0.7' // https://github.com/mcxiaoke/android-volley
     // compile 'com.orhanobut:logger:1.15' // https://github.com/orhanobut/logger
+    // compile 'com.squareup.picasso:picasso:2.5.2' // https://github.com/square/picasso
+    // compile 'com.facebook.fresco:fresco:1.9.0' // https://github.com/facebook/fresco
     // compile 'com.meituan.android.walle:payload_reader:1.1.4' // https://github.com/Meituan-Dianping/walle
     // compile 'com.umeng.analytics:analytics:6.1.4'
     // compile 'com.umeng.umsdk:analytics:7.5.2'
     // compile 'com.umeng.umsdk:common:1.5.4'
-    // compile 'com.squareup.picasso:picasso:2.5.2' // https://github.com/square/picasso
-    // compile 'com.facebook.fresco:fresco:1.9.0' // https://github.com/facebook/fresco
 
     println("******************************** TreCoreLib-build.gradle-dependencies-start ********************************")
     println("project = " + project)
@@ -107,9 +93,11 @@ dependencies {
     println("rootProject.trecore.versionName = " + rootProject.trecore.versionName)
     println("****************")
     println("rootProject.android.compileSdkVersion = " + rootProject.android.compileSdkVersion)
-    println("rootProject.android.buildToolsVersion = " + rootProject.android.buildToolsVersion)
     println("rootProject.android.minSdkVersion = " + rootProject.android.minSdkVersion)
     println("rootProject.android.targetSdkVersion = " + rootProject.android.targetSdkVersion)
+    println("rootProject.android.buildToolsVersion = " + rootProject.android.buildToolsVersion)
+    println("rootProject.android.supportVersion = " + rootProject.android.supportVersion)
+    println("rootProject.android.constraintVersion = " + rootProject.android.constraintVersion)
     println("****************")
     println("rootProject.library.supportV4 = " + rootProject.library.supportV4)
     println("rootProject.library.appcompatV7 = " + rootProject.library.appcompatV7)

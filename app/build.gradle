@@ -4,7 +4,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion rootProject.android.compileSdkVersion
-    buildToolsVersion rootProject.android.buildToolsVersion
 
     defaultConfig {
         minSdkVersion rootProject.android.minSdkVersion
@@ -183,21 +182,16 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile project(':TreCoreLib')
+    api project(':TreCoreLib')
 
     // materialdrawer
-    compile('com.mikepenz:materialdrawer:5.8.1@aar') {
+    api('com.mikepenz:materialdrawer:5.8.1@aar') {
         transitive = true
     }
 
-    // butterknife
-    api 'com.jakewharton:butterknife:8.4.0' // https://github.com/JakeWharton/butterknife
+    // annotationProcessor
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 }
 

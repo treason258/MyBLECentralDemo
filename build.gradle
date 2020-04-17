@@ -51,17 +51,18 @@ ext {
 
     android = [
             'compileSdkVersion': 28,        // 编译版本
-            'buildToolsVersion': '26.0.2',  // 构建版本
             'minSdkVersion'    : 19,        // 最小支持版本
             'targetSdkVersion' : 28,        // 目标版本
-            'supportVersion'   : '25.3.1',  // Support库版本号
+            'buildToolsVersion': '26.0.2',  // 构建版本
+            'supportVersion'   : '26.1.0',  // Support库版本号
+            'constraintVersion': '1.0.2',   // constraint库版本号
     ]
 
     library = [
             'supportV4'       : 'com.android.support:support-v4:' + android.supportVersion,
             'appcompatV7'     : 'com.android.support:appcompat-v7:' + android.supportVersion,
             'recyclerviewV7'  : 'com.android.support:recyclerview-v7:' + android.supportVersion,
-            'constraintLayout': 'com.android.support.constraint:constraint-layout:1.0.2',
+            'constraintLayout': 'com.android.support.constraint:constraint-layout:' + android.constraintVersion,
     ]
     libraryValues = library.values()
 }
