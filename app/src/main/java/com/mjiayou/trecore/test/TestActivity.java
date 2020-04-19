@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.mjiayou.trecore.R;
 import com.mjiayou.trecore.test.hotfix.HotFixActivity;
+import com.mjiayou.trecore.test.router.RouterActivity;
 import com.mjiayou.trecore.util.DebugUtils;
 import com.mjiayou.trecorelib.base.TCActivity;
 import com.mjiayou.trecorelib.base.TCApp;
@@ -280,6 +281,12 @@ public class TestActivity extends TCActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(mContext, HotFixActivity.class));
+            }
+        }));
+        tcMenus.add(new TCMenu("RouterActivity", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(mContext, RouterActivity.class));
             }
         }));
         return tcMenus;

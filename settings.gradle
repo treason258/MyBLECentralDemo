@@ -1,4 +1,12 @@
-include ':app', ':TreCoreLib', ':myplugin'
+include ':app',
+        ':TreCoreLib',
+        ':myplugin',
+        ':myannotation',
+        ':myannotationcompiler',
+        ':TreRouter',
+        ':TestModuleA',
+        ':TestModuleB',
+        ':TestModuleC'
 
 //include ':TreCoreLib'
 //project(':TreCoreLib').projectDir = new File('../TreCoreOld/TreCoreLib')

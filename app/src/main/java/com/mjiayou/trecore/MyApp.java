@@ -1,8 +1,8 @@
 package com.mjiayou.trecore;
 
 import com.mjiayou.trecorelib.base.TCApp;
-import com.mjiayou.trecorelib.helper.TCHelper;
 import com.mjiayou.trecorelib.util.LogUtils;
+import com.mjiayou.trerouter.TCRouter;
 
 /**
  * Created by treason on 2017/6/15.
@@ -15,5 +15,7 @@ public class MyApp extends TCApp {
         LogUtils.traceStart(TAG);
         super.onCreate();
         LogUtils.traceStop(TAG);
+
+        TCRouter.get().init(this);
     }
 }

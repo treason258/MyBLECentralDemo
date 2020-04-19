@@ -1,0 +1,7 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mjiayou.testmodulea">
+
+    <application>
+        <activity android:name=".TestModuleAActivity" />
+    </application>
+</manifest>

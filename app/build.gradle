@@ -173,6 +173,11 @@ android {
     task bdr(dependsOn: ['assembleRelease', 'copyTask']) {
         copyTask.mustRunAfter 'assembleRelease'
     }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
 }
 
 repositories {
@@ -185,14 +190,19 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     api project(':TreCoreLib')
+    api project(':TreRouter')
+    api project(':TestModuleA')
+    api project(':TestModuleB')
+    api project(':TestModuleC')
+    api project(':myannotation')
 
-    // materialdrawer
     api('com.mikepenz:materialdrawer:5.8.1@aar') {
         transitive = true
     }
 
     // annotationProcessor
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    annotationProcessor project(':myannotationcompiler')
 }
 
 /**

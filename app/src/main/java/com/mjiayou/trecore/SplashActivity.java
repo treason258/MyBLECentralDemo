@@ -15,7 +15,16 @@ import com.mjiayou.trecorelib.util.ToastUtils;
 public class SplashActivity extends BaseActivity {
 
     private static final int REQUEST_CODE_STORAGE_PERMISSION = 300;
-    private String[] mStoragePermissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    private String[] mStoragePermissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE
+            , Manifest.permission.READ_PHONE_STATE
+            , Manifest.permission.ACCESS_FINE_LOCATION
+            , Manifest.permission.ACCESS_COARSE_LOCATION
+            , Manifest.permission.READ_PHONE_STATE
+            , Manifest.permission.READ_EXTERNAL_STORAGE
+            , Manifest.permission.WRITE_EXTERNAL_STORAGE
+            , Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS
+            , Manifest.permission.INTERNET
+    };
 
     @Override
     protected boolean checkHideTitleBar() {
