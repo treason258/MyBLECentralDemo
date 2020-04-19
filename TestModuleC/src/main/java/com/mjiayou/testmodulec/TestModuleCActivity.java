@@ -7,8 +7,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mjiayou.myannotation.BindPath;
+import com.mjiayou.trerouter.RouterName;
 
-@BindPath("TestModuleCActivity")
+@BindPath(RouterName.TEST_MODULE_C_ACTIVITY)
 public class TestModuleCActivity extends AppCompatActivity {
 
     private TextView tvTestModuleC;

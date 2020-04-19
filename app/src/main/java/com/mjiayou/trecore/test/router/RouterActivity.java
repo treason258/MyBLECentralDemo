@@ -8,9 +8,10 @@ import android.widget.TextView;
 
 import com.mjiayou.myannotation.BindPath;
 import com.mjiayou.trecore.R;
+import com.mjiayou.trerouter.RouterName;
 import com.mjiayou.trerouter.TCRouter;
 
-@BindPath("RouterActivity")
+@BindPath(RouterName.ROUTER_ACTIVITY)
 public class RouterActivity extends AppCompatActivity {
 
     private TextView tvRouter;
@@ -42,7 +43,7 @@ public class RouterActivity extends AppCompatActivity {
         tvRouter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TCRouter.get().startActivity(RouterActivity.this, "TestModuleAActivity", null);
+                TCRouter.get().startActivity(RouterActivity.this, RouterName.TEST_MODULE_A_ACTIVITY, null);
             }
         });
     }

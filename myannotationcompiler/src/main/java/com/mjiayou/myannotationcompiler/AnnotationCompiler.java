@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -28,6 +27,8 @@ import javax.tools.JavaFileObject;
 public class AnnotationCompiler extends AbstractProcessor {
 
     private Filer mFiler; // 生成文件的对象
+    public static String TC_ROUTER_UTILS_PACKAGE_NAME = "com.mjiayou.myannotation";
+    public static String TC_ROUTER_UTILS_CLASS_NAME = "TCRouterUtils";
 
     @Override
     public synchronized void init(ProcessingEnvironment processingEnvironment) {
@@ -58,17 +59,14 @@ public class AnnotationCompiler extends AbstractProcessor {
      */
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {
-        log("******************************** AnnotationCompiler-process-start ********************************");
-//        log("processingEnv = " + processingEnv);
-//        log("set = " + set.toString());
-//        log("roundEnvironment = " + roundEnvironment);
-
         // 获取到所有依赖了这个注解处理器的模块中用到了BindPath注解的下面的内容：Element
         // TypeElement-类
         // VariableElement-成员变量
         // ExecutableElement-方法
         Set<? extends Element> activitySet = roundEnvironment.getElementsAnnotatedWith(BindPath.class);
-        log("activitySet = " + activitySet.toString());
+        if (activitySet == null || activitySet.size() == 0) {
+            return false;
+        }
 
         Map<String, String> map = new HashMap<>();
         for (Element activity : activitySet) {
@@ -77,60 +75,45 @@ public class AnnotationCompiler extends AbstractProcessor {
                 // 得到这个类上面的注解，以及它里面的类
                 String key = typeElement.getAnnotation(BindPath.class).value();
                 // 获取这个类的包名和类名
-                String activityName = typeElement.getQualifiedName().toString();
-                map.put(key, activityName + ".class");
+                String clazz = typeElement.getQualifiedName().toString() + ".class";
+                map.put(key, clazz);
             }
         }
+        log("******************************** process-start ********************************");
         log("map = " + map.toString());
+        log("******************************** process-end ********************************");
 
-//        if (true) {
-//            Writer writer = null;
-//            try {
-//                String activityName = "TCRouterUtils_" + System.currentTimeMillis();
-//                JavaFileObject sourceFile = mFiler.createSourceFile("com.mjiayou.myannotation." + activityName);
-//                writer = sourceFile.openWriter();
-//                writer.write("// Generated code from TreCore111. Do not modify!\n");
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            } finally {
-//                if (writer != null) {
-//                    try {
-//                        writer.close();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//            return false;
-//        }
-
-        // 写代码
         if (map.size() > 0) {
             Writer writer = null;
-            // 创建一个类名
-            String activityName = "TCRouterUtils_" + System.currentTimeMillis();
             try {
-                JavaFileObject sourceFile = mFiler.createSourceFile("com.mjiayou.myannotation." + activityName);
-                writer = sourceFile.openWriter();
-                writer.write("// Generated code from TreCore. Do not modify!\n");
-                writer.write("package com.mjiayou.myannotation;\n" +
-                        "\n" +
-                        "import com.mjiayou.trerouter.IRouter;\n" +
-                        "import com.mjiayou.trerouter.TCRouter;\n" +
-                        "\n" +
-                        "public class " + activityName + " implements IRouter {\n" +
-                        "\n" +
-                        "    @Override\n" +
-                        "    public void putActivity() {");
+                // 定义类名
+                String activityName = TC_ROUTER_UTILS_CLASS_NAME + "_" + System.currentTimeMillis();
+                String activityPath = TC_ROUTER_UTILS_PACKAGE_NAME + "." + activityName;
 
-                Iterator<String> iterator = map.keySet().iterator();
-                while (iterator.hasNext()) {
-                    String key = iterator.next();
-                    String className = map.get(key);
-                    writer.write("TCRouter.get().addActivity(\"" + key + "\", " + className + ");");
+                // 编辑代码
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("// Generated code from TreCore. Do not modify! 333").append("\n");
+                stringBuilder.append("\n");
+                stringBuilder.append("package com.mjiayou.myannotation;").append("\n");
+                stringBuilder.append("\n");
+                stringBuilder.append("import com.mjiayou.trerouter.IRouter;").append("\n");
+                stringBuilder.append("import com.mjiayou.trerouter.TCRouter;").append("\n");
+                stringBuilder.append("\n");
+                stringBuilder.append("public class " + activityName + " implements IRouter {").append("\n");
+                stringBuilder.append("\n");
+                stringBuilder.append("\t").append("@Override").append("\n");
+                stringBuilder.append("\t").append("public void putActivity() {").append("\n");
+                for (String key : map.keySet()) {
+                    String clazz = map.get(key);
+                    stringBuilder.append("\t").append("\t").append("TCRouter.get().addActivity(\"" + key + "\", " + clazz + ");").append("\n");
                 }
-                writer.write("    }\n" +
-                        "}\n");
+                stringBuilder.append("\t").append("}").append("\n");
+                stringBuilder.append("}").append("\n");
+
+                // 写代码
+                JavaFileObject sourceFile = mFiler.createSourceFile(activityPath);
+                writer = sourceFile.openWriter();
+                writer.write(stringBuilder.toString());
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {

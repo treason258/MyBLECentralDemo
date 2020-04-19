@@ -1,4 +1,8 @@
-apply plugin: 'com.android.library'
+if (IS_MODULE_APPLICATION.toBoolean()) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
 
 android {
     compileSdkVersion rootProject.android.compileSdkVersion
@@ -7,11 +11,11 @@ android {
         minSdkVersion rootProject.android.minSdkVersion
         targetSdkVersion rootProject.android.targetSdkVersion
 
+        if (IS_MODULE_APPLICATION.toBoolean()) {
+            applicationId "com.mjiayou.testmoduleb"
+        }
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles 'consumer-rules.pro'
     }
 
     buildTypes {
@@ -21,19 +25,19 @@ android {
         }
     }
 
-    // 打包时的相关配置
-    packagingOptions {
-        exclude 'META-INF/services/javax.annotation.processing.Processor'
-    }
-
-    compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
+    sourceSets {
+        main {
+            if (IS_MODULE_APPLICATION.toBoolean()) {
+                manifest.srcFile 'src/main/application/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }
+        }
     }
 }
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     api rootProject.libraryValues
     api project(':TreRouter')

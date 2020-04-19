@@ -32,7 +32,7 @@ public class TCRouter {
 
     public void init(Context context) {
         mContext = context;
-        List<String> className = getClassName("com.mjiayou.myannotation");
+        List<String> className = getClassName(RouterName.TC_ROUTER_UTILS_PACKAGE_NAME);
         for (String s : className) {
             try {
                 Class<?> aClass = Class.forName(s);
