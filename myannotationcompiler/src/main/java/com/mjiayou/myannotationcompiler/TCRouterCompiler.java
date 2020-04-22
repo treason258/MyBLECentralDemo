@@ -27,7 +27,7 @@ import javax.tools.JavaFileObject;
 public class TCRouterCompiler extends AbstractProcessor {
 
     private Filer mFiler; // 生成文件的对象
-    public static String TC_ROUTER_UTILS_PACKAGE_NAME = "com.mjiayou.myannotation";
+    public static final String TC_ROUTER_UTILS_PACKAGE_NAME = "com.mjiayou.myannotation";
     public static String TC_ROUTER_UTILS_CLASS_NAME = "TCRouterUtils";
 
     @Override

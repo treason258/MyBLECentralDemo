@@ -4,8 +4,10 @@ import android.app.Activity;
 
 public class TCKnife {
 
+    public static final String TC_KNIFE_NAME_SUFFIX = "_TCKnife";
+
     public static void bind(Activity activity) {
-        String viewBindingName = activity.getClass().getName() + "_TCViewBinding";
+        String viewBindingName = activity.getClass().getName() + TC_KNIFE_NAME_SUFFIX;
         try {
             // 获取到activity对应的ViewBinding文件的类对象
             Class<?> aClass = Class.forName(viewBindingName);

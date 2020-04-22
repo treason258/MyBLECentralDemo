@@ -30,6 +30,8 @@ import javax.tools.JavaFileObject;
 //@SupportedSourceVersion(processingEnv.getSourceVersion())
 public class TCKnifeCompiler extends AbstractProcessor {
 
+    public static final String TC_KNIFE_NAME_SUFFIX = "_TCKnife";
+
     private Filer mFiler; // 生成文件的对象
 
     @Override
@@ -81,7 +83,7 @@ public class TCKnifeCompiler extends AbstractProcessor {
         Writer writer = null;
         for (String key : map.keySet()) {
             // 获取到类名
-            String activityName = key + "_TCViewBinding";
+            String activityName = key + TC_KNIFE_NAME_SUFFIX;
             // 获取到这个类下面所有的控件
             List<VariableElement> variableElements = map.get(key);
             // 获取到包名

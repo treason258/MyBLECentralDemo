@@ -17,6 +17,8 @@ import dalvik.system.DexFile;
 
 public class TCRouter {
 
+    public static final String TC_ROUTER_UTILS_PACKAGE_NAME = "com.mjiayou.myannotation";
+
     private Context mContext;
     private Map<String, Class<? extends Activity>> mActivityMap; // 所有Activity的容器
 
@@ -32,7 +34,7 @@ public class TCRouter {
 
     public void init(Context context) {
         mContext = context;
-        List<String> className = getClassName(TCRouterName.TC_ROUTER_UTILS_PACKAGE_NAME);
+        List<String> className = getClassName(TC_ROUTER_UTILS_PACKAGE_NAME);
         for (String s : className) {
             try {
                 Class<?> aClass = Class.forName(s);
