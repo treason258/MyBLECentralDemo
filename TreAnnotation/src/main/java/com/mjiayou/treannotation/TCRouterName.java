@@ -1,6 +1,6 @@
 package com.mjiayou.treannotation;
 
-public class RouterName {
+public class TCRouterName {
 
     public static final String TC_ROUTER_UTILS_PACKAGE_NAME = "com.mjiayou.myannotation";
 

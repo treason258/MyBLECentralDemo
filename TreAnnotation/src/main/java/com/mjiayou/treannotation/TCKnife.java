@@ -9,8 +9,8 @@ public class TCKnife {
         try {
             // 获取到activity对应的ViewBinding文件的类对象
             Class<?> aClass = Class.forName(viewBindingName);
-            IViewBinder iViewBinder = (IViewBinder) aClass.newInstance();
-            iViewBinder.bind(activity);
+            ITCKnife iViewBinder = (ITCKnife) aClass.newInstance();
+            iViewBinder.bindView(activity);
 
             // other
 //            Field[] declaredFields = activity.getClass().getDeclaredFields();

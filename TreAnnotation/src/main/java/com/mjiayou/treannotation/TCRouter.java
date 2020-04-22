@@ -32,13 +32,13 @@ public class TCRouter {
 
     public void init(Context context) {
         mContext = context;
-        List<String> className = getClassName(RouterName.TC_ROUTER_UTILS_PACKAGE_NAME);
+        List<String> className = getClassName(TCRouterName.TC_ROUTER_UTILS_PACKAGE_NAME);
         for (String s : className) {
             try {
                 Class<?> aClass = Class.forName(s);
                 // 如果aClass是IRouter的子类
-                if (IRouter.class.isAssignableFrom(aClass)) {
-                    IRouter iRouter = (IRouter) aClass.newInstance();
+                if (ITCRouter.class.isAssignableFrom(aClass)) {
+                    ITCRouter iRouter = (ITCRouter) aClass.newInstance();
                     iRouter.putActivity();
                 }
             } catch (Exception e) {

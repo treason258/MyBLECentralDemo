@@ -6,12 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.mjiayou.myannotation.BindPath;
+import com.mjiayou.myannotation.TCBindPath;
 import com.mjiayou.trecore.R;
-import com.mjiayou.treannotation.RouterName;
+import com.mjiayou.treannotation.TCRouterName;
 import com.mjiayou.treannotation.TCRouter;
 
-@BindPath(RouterName.ROUTER_ACTIVITY)
+@TCBindPath(TCRouterName.ROUTER_ACTIVITY)
 public class RouterActivity extends AppCompatActivity {
 
     private TextView tvRouter;
@@ -43,7 +43,7 @@ public class RouterActivity extends AppCompatActivity {
         tvRouter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TCRouter.get().startActivity(RouterActivity.this, RouterName.TEST_MODULE_A_ACTIVITY, null);
+                TCRouter.get().startActivity(RouterActivity.this, TCRouterName.TEST_MODULE_A_ACTIVITY, null);
             }
         });
     }

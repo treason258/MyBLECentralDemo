@@ -1,6 +1,6 @@
 package com.mjiayou.treannotation;
 
-public interface IRouter {
+public interface ITCRouter {
 
     void putActivity();
 }

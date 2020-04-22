@@ -6,11 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.mjiayou.myannotation.BindPath;
-import com.mjiayou.treannotation.RouterName;
+import com.mjiayou.myannotation.TCBindPath;
+import com.mjiayou.treannotation.TCRouterName;
 import com.mjiayou.treannotation.TCRouter;
 
-@BindPath(RouterName.TEST_MODULE_A_ACTIVITY)
+@TCBindPath(TCRouterName.TEST_MODULE_A_ACTIVITY)
 public class TestModuleAActivity extends AppCompatActivity {
 
     private TextView tvTestModuleA;
@@ -24,7 +24,7 @@ public class TestModuleAActivity extends AppCompatActivity {
         tvTestModuleA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TCRouter.get().startActivity(TestModuleAActivity.this, RouterName.TEST_MODULE_B_ACTIVITY, null);
+                TCRouter.get().startActivity(TestModuleAActivity.this, TCRouterName.TEST_MODULE_B_ACTIVITY, null);
             }
         });
     }

@@ -93,11 +93,11 @@ public class TCKnifeCompiler extends AbstractProcessor {
                 stringBuffer.append("\n");
                 stringBuffer.append("package " + packageName + ";").append("\n");
                 stringBuffer.append("\n");
-                stringBuffer.append("import com.mjiayou.treannotation.IViewBinder;").append("\n");
+                stringBuffer.append("import com.mjiayou.treannotation.ITCKnife;").append("\n");
                 stringBuffer.append("\n");
-                stringBuffer.append("public class " + activityName + " implements IViewBinder<" + packageName + "." + key + "> {").append("\n");
+                stringBuffer.append("public class " + activityName + " implements ITCKnife<" + packageName + "." + key + "> {").append("\n");
                 stringBuffer.append("\n");
-                stringBuffer.append("\t").append("public void bind(" + packageName + "." + key + " target) {").append("\n");
+                stringBuffer.append("\t").append("public void bindView(" + packageName + "." + key + " target) {").append("\n");
                 for (VariableElement variableElement : variableElements) {
                     // 得到控件的名字
                     String varibleName = variableElement.getSimpleName().toString();

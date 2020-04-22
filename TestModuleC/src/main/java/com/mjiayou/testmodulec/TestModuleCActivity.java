@@ -6,10 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.mjiayou.myannotation.BindPath;
-import com.mjiayou.treannotation.RouterName;
+import com.mjiayou.myannotation.TCBindPath;
+import com.mjiayou.treannotation.TCRouterName;
 
-@BindPath(RouterName.TEST_MODULE_C_ACTIVITY)
+@TCBindPath(TCRouterName.TEST_MODULE_C_ACTIVITY)
 public class TestModuleCActivity extends AppCompatActivity {
 
     private TextView tvTestModuleC;

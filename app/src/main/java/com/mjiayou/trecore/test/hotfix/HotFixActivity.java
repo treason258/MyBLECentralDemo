@@ -3,12 +3,12 @@ package com.mjiayou.trecore.test.hotfix;
 import android.os.Bundle;
 import android.view.View;
 
-import com.mjiayou.myannotation.BindPath;
+import com.mjiayou.myannotation.TCBindPath;
 import com.mjiayou.trecore.R;
 import com.mjiayou.trecorelib.base.TCActivity;
-import com.mjiayou.treannotation.RouterName;
+import com.mjiayou.treannotation.TCRouterName;
 
-@BindPath(RouterName.HOT_FIX_ACTIVITY)
+@TCBindPath(TCRouterName.HOT_FIX_ACTIVITY)
 public class HotFixActivity extends TCActivity {
 
     @Override

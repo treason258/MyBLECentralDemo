@@ -1,7 +1,7 @@
 package com.mjiayou.myannotationcompiler;
 
 import com.google.auto.service.AutoService;
-import com.mjiayou.myannotation.BindPath;
+import com.mjiayou.myannotation.TCBindPath;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -24,7 +24,7 @@ import javax.tools.JavaFileObject;
  * 注解处理器
  */
 @AutoService(Processor.class) // 进行注册
-public class AnnotationCompiler extends AbstractProcessor {
+public class TCRouterCompiler extends AbstractProcessor {
 
     private Filer mFiler; // 生成文件的对象
     public static String TC_ROUTER_UTILS_PACKAGE_NAME = "com.mjiayou.myannotation";
@@ -42,7 +42,7 @@ public class AnnotationCompiler extends AbstractProcessor {
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> types = new HashSet<>();
-        types.add(BindPath.class.getCanonicalName());
+        types.add(TCBindPath.class.getCanonicalName());
         return types;
     }
 
@@ -63,7 +63,7 @@ public class AnnotationCompiler extends AbstractProcessor {
         // TypeElement-类
         // VariableElement-成员变量
         // ExecutableElement-方法
-        Set<? extends Element> activitySet = roundEnvironment.getElementsAnnotatedWith(BindPath.class);
+        Set<? extends Element> activitySet = roundEnvironment.getElementsAnnotatedWith(TCBindPath.class);
         if (activitySet == null || activitySet.size() == 0) {
             return false;
         }
@@ -73,7 +73,7 @@ public class AnnotationCompiler extends AbstractProcessor {
             if (activity instanceof TypeElement) {
                 TypeElement typeElement = (TypeElement) activity;
                 // 得到这个类上面的注解，以及它里面的类
-                String key = typeElement.getAnnotation(BindPath.class).value();
+                String key = typeElement.getAnnotation(TCBindPath.class).value();
                 // 获取这个类的包名和类名
                 String clazz = typeElement.getQualifiedName().toString() + ".class";
                 map.put(key, clazz);
@@ -96,10 +96,10 @@ public class AnnotationCompiler extends AbstractProcessor {
                 stringBuilder.append("\n");
                 stringBuilder.append("package com.mjiayou.myannotation;").append("\n");
                 stringBuilder.append("\n");
-                stringBuilder.append("import com.mjiayou.treannotation.IRouter;").append("\n");
+                stringBuilder.append("import com.mjiayou.treannotation.ITCRouter;").append("\n");
                 stringBuilder.append("import com.mjiayou.treannotation.TCRouter;").append("\n");
                 stringBuilder.append("\n");
-                stringBuilder.append("public class " + activityName + " implements IRouter {").append("\n");
+                stringBuilder.append("public class " + activityName + " implements ITCRouter {").append("\n");
                 stringBuilder.append("\n");
                 stringBuilder.append("\t").append("@Override").append("\n");
                 stringBuilder.append("\t").append("public void putActivity() {").append("\n");
@@ -130,6 +130,6 @@ public class AnnotationCompiler extends AbstractProcessor {
     }
 
     private void log(String msg) {
-        System.out.println("matengfei888 | AnnotationCompiler | " + msg);
+        System.out.println("matengfei888 | TCRouterCompiler | " + msg);
     }
 }
