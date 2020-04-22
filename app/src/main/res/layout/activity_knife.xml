@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/tvTCKnife1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="tvTCKnife1" />
+
+    <Button
+        android:id="@+id/tvTCKnife2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="tvTCKnife2" />
+
+    <Button
+        android:id="@+id/tvTCKnife3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="tvTCKnife3" />
+
+    <Button
+        android:id="@+id/tvTCKnife4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="tvTCKnife4" />
+
+    <Button
+        android:id="@+id/tvTCKnife5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="tvTCKnife5" />
+</LinearLayout>
