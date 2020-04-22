@@ -47,6 +47,7 @@ public class TCRouter {
         }
         // 打印
         Log.e("matengfei", "mActivityMap = ");
+
         for (Map.Entry<String, Class<? extends Activity>> entry : mActivityMap.entrySet()) {
             Log.e("matengfei", entry.getKey() + " | " + entry.getValue().getName());
         }
