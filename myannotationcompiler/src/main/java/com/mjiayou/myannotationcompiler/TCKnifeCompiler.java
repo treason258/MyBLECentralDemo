@@ -93,7 +93,7 @@ public class TCKnifeCompiler extends AbstractProcessor {
                 stringBuffer.append("\n");
                 stringBuffer.append("package " + packageName + ";").append("\n");
                 stringBuffer.append("\n");
-                stringBuffer.append("import com.mjiayou.trerouter.IViewBinder;").append("\n");
+                stringBuffer.append("import com.mjiayou.treannotation.IViewBinder;").append("\n");
                 stringBuffer.append("\n");
                 stringBuffer.append("public class " + activityName + " implements IViewBinder<" + packageName + "." + key + "> {").append("\n");
                 stringBuffer.append("\n");

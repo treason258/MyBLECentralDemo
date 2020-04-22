@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mjiayou.myannotation.BindPath;
-import com.mjiayou.trerouter.RouterName;
-import com.mjiayou.trerouter.TCRouter;
+import com.mjiayou.treannotation.RouterName;
+import com.mjiayou.treannotation.TCRouter;
 
 @BindPath(RouterName.TEST_MODULE_B_ACTIVITY)
 public class TestModuleBActivity extends AppCompatActivity {

@@ -1,7 +1,7 @@
 package com.mjiayou.testmodulea;
 
-import com.mjiayou.trerouter.IRouter;
-import com.mjiayou.trerouter.TCRouter;
+import com.mjiayou.treannotation.IRouter;
+import com.mjiayou.treannotation.TCRouter;
 
 public class TCRouterUtils implements IRouter {
 

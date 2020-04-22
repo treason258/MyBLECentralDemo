@@ -200,7 +200,7 @@ dependencies {
         api project(':TestModuleC')
     }
     api project(':TreCoreLib')
-    api project(':TreRouter')
+    api project(':TreAnnotation')
     api project(':myannotation')
 
     api('com.mikepenz:materialdrawer:5.8.1@aar') {

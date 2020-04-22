@@ -96,8 +96,8 @@ public class AnnotationCompiler extends AbstractProcessor {
                 stringBuilder.append("\n");
                 stringBuilder.append("package com.mjiayou.myannotation;").append("\n");
                 stringBuilder.append("\n");
-                stringBuilder.append("import com.mjiayou.trerouter.IRouter;").append("\n");
-                stringBuilder.append("import com.mjiayou.trerouter.TCRouter;").append("\n");
+                stringBuilder.append("import com.mjiayou.treannotation.IRouter;").append("\n");
+                stringBuilder.append("import com.mjiayou.treannotation.TCRouter;").append("\n");
                 stringBuilder.append("\n");
                 stringBuilder.append("public class " + activityName + " implements IRouter {").append("\n");
                 stringBuilder.append("\n");

@@ -40,7 +40,7 @@ dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
     api rootProject.libraryValues
-    api project(':TreRouter')
+    api project(':TreAnnotation')
     api project(':myannotation')
     annotationProcessor project(':myannotationcompiler')
 }

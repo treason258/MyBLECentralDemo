@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import com.mjiayou.myannotation.BindPath;
 import com.mjiayou.trecore.R;
-import com.mjiayou.trerouter.RouterName;
-import com.mjiayou.trerouter.TCRouter;
+import com.mjiayou.treannotation.RouterName;
+import com.mjiayou.treannotation.TCRouter;
 
 @BindPath(RouterName.ROUTER_ACTIVITY)
 public class RouterActivity extends AppCompatActivity {

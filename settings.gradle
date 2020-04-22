@@ -3,7 +3,7 @@ include ':app',
         ':myplugin',
         ':myannotation',
         ':myannotationcompiler',
-        ':TreRouter',
+        ':TreAnnotation',
         ':TestModuleA',
         ':TestModuleB',
         ':TestModuleC'

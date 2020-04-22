@@ -2,7 +2,7 @@ package com.mjiayou.trecore;
 
 import com.mjiayou.trecorelib.base.TCApp;
 import com.mjiayou.trecorelib.util.LogUtils;
-import com.mjiayou.trerouter.TCRouter;
+import com.mjiayou.treannotation.TCRouter;
 
 /**
  * Created by treason on 2017/6/15.

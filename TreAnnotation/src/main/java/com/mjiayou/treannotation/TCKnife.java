@@ -1,4 +1,4 @@
-package com.mjiayou.trerouter;
+package com.mjiayou.treannotation;
 
 import android.app.Activity;
 

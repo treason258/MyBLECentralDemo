@@ -6,7 +6,7 @@ import android.view.View;
 import com.mjiayou.myannotation.BindPath;
 import com.mjiayou.trecore.R;
 import com.mjiayou.trecorelib.base.TCActivity;
-import com.mjiayou.trerouter.RouterName;
+import com.mjiayou.treannotation.RouterName;
 
 @BindPath(RouterName.HOT_FIX_ACTIVITY)
 public class HotFixActivity extends TCActivity {

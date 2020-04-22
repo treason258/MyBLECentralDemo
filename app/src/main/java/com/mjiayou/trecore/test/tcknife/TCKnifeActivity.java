@@ -8,7 +8,7 @@ import com.mjiayou.myannotation.TCBindView;
 import com.mjiayou.trecore.R;
 import com.mjiayou.trecorelib.base.TCActivity;
 import com.mjiayou.trecorelib.util.ToastUtils;
-import com.mjiayou.trerouter.TCKnife;
+import com.mjiayou.treannotation.TCKnife;
 
 public class TCKnifeActivity extends TCActivity {
 
