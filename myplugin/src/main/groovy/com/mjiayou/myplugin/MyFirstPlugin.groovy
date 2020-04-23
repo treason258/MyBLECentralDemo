@@ -7,8 +7,10 @@ public class MyFirstPlugin implements Plugin<Project> {
 
     void apply(Project project) {
         log("******************************** apply-start ********************************");
-        log("Hello MyFirstPlugin v1.0.8")
+        log("Hello MyFirstPlugin 1.0.9")
         log("******************************** apply-end ********************************");
+
+        project.android.registerTransform(new MyFirstTransform(project))
     }
 
     private void log(String msg) {

@@ -8,7 +8,7 @@ dependencies {
     compile localGroovy()
 
     compile 'com.android.tools.build:gradle:3.5.0'
-//    compile 'org.javassist:javassist:3.20.0-GA'
+    compile 'org.javassist:javassist:3.20.0-GA'
 }
 
 repositories {
@@ -21,6 +21,6 @@ uploadArchives {
         repository(url: uri('repos'))
         pom.groupId = 'com.mjiayou.myplugin'
         pom.artifactId = 'MyFirstPlugin'
-        pom.version = '1.0.8'
+        pom.version = '1.0.9'
     }
 }
