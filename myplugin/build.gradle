@@ -2,62 +2,25 @@
 apply plugin: 'groovy'
 apply plugin: 'maven'
 
-//android {
-//    compileSdkVersion 29
-//    buildToolsVersion "29.0.0"
-//
-//
-//    defaultConfig {
-//        minSdkVersion 15
-//        targetSdkVersion 29
-//        versionCode 1
-//        versionName "1.0"
-//
-//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-//        consumerProguardFiles 'consumer-rules.pro'
-//    }
-//
-//    buildTypes {
-//        release {
-//            minifyEnabled false
-//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-//        }
-//    }
-//
-//}
-
 dependencies {
-//    compile fileTree(dir: 'libs', include: ['*.jar'])
-////    compile 'androidx.appcompat:appcompat:1.0.2'
-//    testCompile 'junit:junit:4.12'
-//    androidTestCompile('com.android.support.test.espresso:espresso-core:+', {
-//        exclude group: 'com.android.support', module: 'support-annotations'
-//    })
-
-    //gradle sdk
+    // gradle sdk
     compile gradleApi()
-    //groovy sdk
     compile localGroovy()
 
+    compile 'com.android.tools.build:gradle:3.5.0'
+//    compile 'org.javassist:javassist:3.20.0-GA'
 }
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
-//group和version在后面使用自定义插件的时候会用到
-group = 'com.mjiayou.myplugin'
-version = '1.0.0'
-
 uploadArchives {
-    repositories {
-        mavenDeployer {
-            //提交到远程服务器：
-            // repository(url: "http://www.xxx.com/repos") {
-            //    authentication(userName: "admin", password: "admin")
-            // }
-            //本地的Maven地址设置为D:/repos
-            repository(url: uri('repos'))
-        }
+    repositories.mavenDeployer {
+        repository(url: uri('repos'))
+        pom.groupId = 'com.mjiayou.myplugin'
+        pom.artifactId = 'MyFirstPlugin'
+        pom.version = '1.0.8'
     }
 }
