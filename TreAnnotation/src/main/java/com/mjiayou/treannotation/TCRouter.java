@@ -48,11 +48,12 @@ public class TCRouter {
             }
         }
         // 打印
-        Log.e("matengfei", "mActivityMap = ");
-
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("TCRouter | mActivityMap | key = value ").append("\n");
         for (Map.Entry<String, Class<? extends Activity>> entry : mActivityMap.entrySet()) {
-            Log.e("matengfei", entry.getKey() + " | " + entry.getValue().getName());
+            stringBuilder.append(entry.getKey() + " = " + entry.getValue().getName()).append("\n");
         }
+        Log.d("matengfei", stringBuilder.toString());
     }
 
     public Class<? extends Activity> getActivity(String key) {
