@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mjiayou.trecore.R;
+import com.mjiayou.trecore.test.asm.ASMActivity;
 import com.mjiayou.trecore.test.hotfix.HotFixActivity;
 import com.mjiayou.trecore.test.router.RouterActivity;
 import com.mjiayou.trecore.test.tcknife.TCKnifeActivity;
@@ -294,6 +295,12 @@ public class TestActivity extends TCActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(mContext, TCKnifeActivity.class));
+            }
+        }));
+        tcMenus.add(new TCMenu("ASMActivity", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(mContext, ASMActivity.class));
             }
         }));
         return tcMenus;

@@ -3,8 +3,12 @@ package com.mjiayou.myplugin
 import com.android.build.api.transform.*
 import com.android.build.gradle.internal.pipeline.TransformManager
 import com.android.utils.FileUtils
+import com.mjiayou.myvisitor.MyVisitor
 import groovy.io.FileType
 import org.gradle.api.Project
+import org.objectweb.asm.ClassReader
+import org.objectweb.asm.ClassVisitor
+import org.objectweb.asm.ClassWriter
 
 //import javassist.ClassPool
 //import com.android.SdkConstants
@@ -60,7 +64,7 @@ public class MyFirstTransform extends Transform {
         super.transform(transformInvocation)
 
         log("******************************** transform-start ********************************")
-        log("777")
+        log("999")
 
         TransformOutputProvider outputProvider = transformInvocation.outputProvider
         if (outputProvider != null) {
@@ -88,9 +92,24 @@ public class MyFirstTransform extends Transform {
                     File file ->
                         def fileName = file.name
                         def filePath = file.absolutePath
-                        log("fileName = " + fileName + " | filePath = " + filePath)
+                        // log("fileName = " + fileName + " | filePath = " + filePath)
                         if (fileName.endsWith(".class") && !fileName.startsWith("R\$") && !fileName.equals("R.class") && !fileName.equals("BuildConfig.class")) {
-                            log("fileName = " + fileName + " | --------------------------------")
+                            log("--------")
+                            log("fileName = " + fileName + " | filePath = " + filePath)
+
+                            // 解析class
+                            ClassReader classReader = new ClassReader(file.bytes)
+                            // 写入class
+                            ClassWriter classWriter = new ClassWriter(classReader, ClassWriter.COMPUTE_MAXS)
+                            // 访问class
+                            ClassVisitor classVisitor = new MyVisitor(classWriter)
+                            // 调用class里的方法
+                            classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES)
+
+                            byte[] bytes = classWriter.toByteArray()
+                            FileOutputStream fileOutputStream = new FileOutputStream(file.path);
+                            fileOutputStream.write(bytes)
+                            fileOutputStream.close()
                         }
                 }
                 def dest = outputProvider.getContentLocation(directoryInput.name, directoryInput.contentTypes, directoryInput.scopes, Format.DIRECTORY)

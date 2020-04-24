@@ -48,6 +48,7 @@
         <activity android:name=".test.hotfix.HotFixActivity" />
         <activity android:name=".test.router.RouterActivity" />
         <activity android:name=".test.tcknife.TCKnifeActivity" />
+        <activity android:name=".test.asm.ASMActivity" />
     </application>
 
 </manifest>

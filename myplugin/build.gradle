@@ -4,11 +4,17 @@ apply plugin: 'maven'
 
 dependencies {
     // gradle sdk
-    compile gradleApi()
-    compile localGroovy()
+    implementation gradleApi()
+    implementation localGroovy()
 
-    compile 'com.android.tools.build:gradle:3.5.0'
-    compile 'org.javassist:javassist:3.20.0-GA'
+    implementation 'com.android.tools.build:gradle:3.5.0'
+
+    // javassist
+    implementation 'org.javassist:javassist:3.20.0-GA'
+
+    // asm
+    implementation 'org.ow2.asm:asm:7.1'
+    implementation 'org.ow2.asm:asm-commons:7.1'
 }
 
 repositories {
