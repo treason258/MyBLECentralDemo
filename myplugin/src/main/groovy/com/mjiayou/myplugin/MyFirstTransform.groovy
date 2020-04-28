@@ -10,14 +10,7 @@ import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.ClassWriter
 
-//import javassist.ClassPool
-//import com.android.SdkConstants
-
-
 public class MyFirstTransform extends Transform {
-
-//    // 字节码池
-//    def pool = ClassPool.default;
 
     // 工程，有所有class的路径
     Project project
@@ -128,89 +121,8 @@ public class MyFirstTransform extends Transform {
             }
         }
 
-//        transformInputs.each {
-//            TransformInput transformInput ->
-//                transformInput.directoryInputs.each {
-//                    DirectoryInput directoryInput ->
-//                        File dir = directoryInput.file
-//                        if (dir) {
-//                            dir.traverse(types: FileType.FILES, nameFilter: ~/.*\.class/) {
-//                                File file ->
-//                                    def name = file.name
-//                                    if (name.endsWith(".class") && !name.startsWith("R\$") && !"R.class".equals(name) && !"BuildConfig.class".equals(name))
-//                                        log("class = " + file.name)
-//                            }
-//                        }
-//
-//                        def dest = outputProvider.getContentLocation(directoryInput.name, directoryInput.contentTypes, directoryInput.scopes, Format.DIRECTORY)
-//                        FileUtils.copyDirectory(directoryInput.file, dest)
-//                }
-//        }
-
-
-//        def startTime = System.currentTimeMillis()
-//        outputProvider.deleteAll()
-//        File jarFile = outputProvider.getContentLocation("h", getOutputTypes(), getScopes(), Format.JAR);
-//        log("jarFile" + jarFile.getAbsolutePath());
-
-//        project.android.bootClasspath.each {
-//            log("000");
-//            pool.appendClassPath(it.absolutePath)
-//        }
-
-        // 遍历上一个 transform 传递进来的文件
-        // class --- jar
-//        transformInvocation.inputs.each {
-//            log("111111");
-
-//            // 遍历jar包所有的类
-//            it.jarInputs.each {
-//                pool.inserClassPath(it.file.absolutePath)
-//
-//                // 设定输出参数，编译的输入与输出一一对应
-//                def dest = transformInvocation.outputProvider.getContentLocation(it.name, it.contentTypes, it.scopes, Format.JAR)
-//
-//                // copy文件到输出
-//                FileUtils.copyFile(it.file, dest)
-//            }
-
-//            // 所有的类，自己写的类
-//            it.directoryInputs.each {
-//                def preFileName = it.file.absolutePath
-//                // 耗内存 优化apk 加载 class --> dex
-//                pool.inserClassPath(preFileName)
-//
-//                // 修改class的代码
-//                findTarget(it.file, preFileName)
-//            }
-//        }
-
         log("******************************** transform-end ********************************")
     }
-
-//    private void findTarget(File dir, String fileName) {
-////        log("fileName = " + fileName);
-//        // 找到.class结尾的文件
-//        if (dir.isDirectory()) {
-//            dir.listFiles().each {
-//                findTarget(it, fileName)
-//            }
-//        } else {
-//            // 只会修改class文件
-//            modify(dir, fileName)
-//        }
-//    }
-//
-//    private void modify(File dir, String fileName) {
-//        def filePath = dir.absolutePath
-//        if (!filePath.endsWith(SdkConstants.DOT_CLASS)) {
-//            return
-//        }
-//
-//        if (filePath.concat('R$') || filePath.concat('R.class') || filePath.concat('BuildConfig.class')) {
-//            return
-//        }
-//    }
 
     private void log(String msg) {
         System.out.println("matengfei888 | MyFirstTransform | " + msg);
