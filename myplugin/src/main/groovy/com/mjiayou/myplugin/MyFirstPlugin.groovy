@@ -8,7 +8,7 @@ public class MyFirstPlugin implements Plugin<Project> {
 
     void apply(Project project) {
         log("******************************** apply-start ********************************");
-        log("Hello MyFirstPlugin 1.0.9")
+        log("Hello MyFirstPlugin 1.1.0")
         log("******************************** apply-end ********************************");
 
         MyFirstTransform myFirstTransform = new MyFirstTransform(project)

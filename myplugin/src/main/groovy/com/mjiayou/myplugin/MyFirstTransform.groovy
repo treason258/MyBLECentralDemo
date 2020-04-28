@@ -1,14 +1,18 @@
 package com.mjiayou.myplugin
 
+import com.android.SdkConstants
 import com.android.build.api.transform.*
 import com.android.build.gradle.internal.pipeline.TransformManager
 import com.android.utils.FileUtils
+import javassist.CtClass
+import javassist.CtMethod
 import com.mjiayou.myvisitor.MyVisitor
 import groovy.io.FileType
 import org.gradle.api.Project
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.ClassWriter
+import org.apache.commons.codec.digest.DigestUtils
 
 public class MyFirstTransform extends Transform {
 
@@ -40,7 +44,7 @@ public class MyFirstTransform extends Transform {
      */
     @Override
     Set<? super QualifiedContent.Scope> getScopes() {
-        return TransformManager.PROJECT_ONLY
+        return TransformManager.SCOPE_FULL_PROJECT
     }
 
     /**
@@ -57,7 +61,7 @@ public class MyFirstTransform extends Transform {
         super.transform(transformInvocation)
 
         log("******************************** transform-start ********************************")
-        log("999")
+        log("111")
 
         TransformOutputProvider outputProvider = transformInvocation.outputProvider
         if (outputProvider != null) {
@@ -66,7 +70,7 @@ public class MyFirstTransform extends Transform {
 
         // 拿到所有的class文件
         Collection<TransformInput> transformInputs = transformInvocation.inputs
-        log("-------------------------------- | transformInputs.size() = " + transformInputs.size())
+        log("transformInputs | transformInputs.size() = " + transformInputs.size() + " | --------------------------------")
         for (int i = 0; i < transformInputs.size(); i++) {
             TransformInput transformInput = transformInputs[i]
 
@@ -74,13 +78,18 @@ public class MyFirstTransform extends Transform {
             // 即文件夹中的class文件，directoryInputs代表着以源码方式参与项目编译的class文件
             // 比如我们手写的类，以及R.class、BuildConfig.class以及MainActivity.class等
             Collection<DirectoryInput> directoryInputs = transformInput.directoryInputs
-            log("-------------------------------- | directoryInputs.size() = " + directoryInputs.size())
+            log("transformInputs | directoryInputs | directoryInputs.size() = " + directoryInputs.size() + " | --------------------------------")
             for (int j = 0; j < directoryInputs.size(); j++) {
                 DirectoryInput directoryInput = directoryInputs[j]
-                def directoryInputName = directoryInput.name
-                def directoryInputFile = directoryInput.file
-                log("j = " + j + " | directoryInputName = " + directoryInputName + " | directoryInputFile = " + directoryInputFile.absolutePath)
+                // 信息
+                def directoryInputName = directoryInput.name // android.local.jars:httpmime-4.1.3.jar:00c4d7d6ff94005ea19e3ae22cb63ea9b0d65ea1
+                def directoryInputFile = directoryInput.file // /Users/xin/Documents/Projects/TreCore/TreCoreLib/libs/httpmime-4.1.3.jar
+                def directoryInputFileName = directoryInputFile.name // httpmime-4.1.3.jar
+                def directoryInputFilePath = directoryInputFile.absolutePath // /Users/xin/Documents/Projects/TreCore/TreCoreLib/libs/httpmime-4.1.3.jar
+                log("transformInputs | directoryInputs | j = " + j + " | directoryInputName = " + directoryInputName + " | directoryInputFile = " + directoryInputFile)
+                log("transformInputs | directoryInputs | j = " + j + " | directoryInputFileName = " + directoryInputFileName + " | directoryInputFilePath = " + directoryInputFilePath)
 
+                // AOP - ASM
                 directoryInputFile.traverse(type: FileType.FILES, nameFilter: ~/.*\.class/) {
                     File file ->
                         def fileName = file.name
@@ -105,6 +114,12 @@ public class MyFirstTransform extends Transform {
                             fileOutputStream.close()
                         }
                 }
+
+                // AOP - javassist
+                MyInsert myInsert = new MyInsert()
+                myInsert.insertCode(directoryInputFilePath, project)
+
+                // 输出
                 def dest = outputProvider.getContentLocation(directoryInput.name, directoryInput.contentTypes, directoryInput.scopes, Format.DIRECTORY)
                 FileUtils.copyDirectory(directoryInputFile, dest)
             }
@@ -112,12 +127,20 @@ public class MyFirstTransform extends Transform {
             // 遍历jarInputs
             // 代表着jar里的class文件
             Collection<JarInput> jarInputs = transformInput.jarInputs
-            log("-------------------------------- | jarInputs.size() = " + jarInputs.size())
+            log("transformInputs | jarInputs | jarInputs.size() = " + jarInputs.size() + " | --------------------------------")
             for (int k = 0; k < jarInputs.size(); k++) {
+                // 信息
                 JarInput jarInput = jarInputs[k]
-                def jarInputName = jarInput.name
-                def jarInputFile = jarInput.file
-                log("k = " + k + " | jarInputName = " + jarInputName + " | jarInputFile = " + jarInputFile.absolutePath)
+                def jarInputName = jarInput.name // 760d89b2c2d9beb87359daa3f0ee75f0fd5622cb
+                def jarInputFile = jarInput.file // /Users/xin/Documents/Projects/TreCore/app/build/intermediates/javac/officialDebug/classes
+                def jarInputFileName = jarInputFile.name // classes
+                def jarInputFilePath = jarInputFile.absolutePath // /Users/xin/Documents/Projects/TreCore/app/build/intermediates/javac/officialDebug/classes
+                log("transformInputs | jarInputs | k = " + k + " | jarInputName = " + jarInputName + " | jarInputFile = " + jarInputFile)
+                log("transformInputs | jarInputs | k = " + k + " | jarInputFileName = " + jarInputFileName + " | jarInputFilePath = " + jarInputFilePath)
+
+                // 输出
+                def dest = outputProvider.getContentLocation(jarInput.name, jarInput.contentTypes, jarInput.scopes, Format.JAR)
+                FileUtils.copyFile(jarInputFile, dest)
             }
         }
 
