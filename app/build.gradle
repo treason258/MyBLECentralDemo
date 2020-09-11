@@ -180,10 +180,11 @@ android {
 //        exclude 'META-INF/services/javax.annotation.processing.Processor'
 //    }
 //
-//    compileOptions {
-//        sourceCompatibility 1.8
-//        targetCompatibility 1.8
-//    }
+    // 为了处理问题：Static interface methods are only supported starting with Android N https://www.jianshu.com/p/49ff4c7c1e29
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
 }
 
 repositories {
@@ -209,7 +210,7 @@ dependencies {
     }
 
     // annotationProcessor
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
     annotationProcessor project(':myannotationcompiler')
 }
 

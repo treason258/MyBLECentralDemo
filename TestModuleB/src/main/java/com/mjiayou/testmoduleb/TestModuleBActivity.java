@@ -1,14 +1,15 @@
 package com.mjiayou.testmoduleb;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
 import com.mjiayou.myannotation.TCBindPath;
 import com.mjiayou.treannotation.TCRouterName;
 import com.mjiayou.treannotation.TCRouter;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 @TCBindPath(TCRouterName.TEST_MODULE_B_ACTIVITY)
 public class TestModuleBActivity extends AppCompatActivity {

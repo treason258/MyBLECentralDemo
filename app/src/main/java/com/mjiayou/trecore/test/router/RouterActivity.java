@@ -1,8 +1,6 @@
 package com.mjiayou.trecore.test.router;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,6 +8,9 @@ import com.mjiayou.myannotation.TCBindPath;
 import com.mjiayou.trecore.R;
 import com.mjiayou.treannotation.TCRouterName;
 import com.mjiayou.treannotation.TCRouter;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 @TCBindPath(TCRouterName.ROUTER_ACTIVITY)
 public class RouterActivity extends AppCompatActivity {
