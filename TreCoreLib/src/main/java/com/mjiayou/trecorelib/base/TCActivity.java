@@ -7,14 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-//import android.databinding.DataBindingUtil;
-//import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.os.Message;
-import android.support.annotation.IdRes;
-import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -25,14 +19,18 @@ import android.widget.LinearLayout;
 import com.mjiayou.trecorelib.R;
 import com.mjiayou.trecorelib.bean.TCResponse;
 import com.mjiayou.trecorelib.dialog.TCLoadingDialog;
+import com.mjiayou.trecorelib.http.volley.RequestAdapter;
 import com.mjiayou.trecorelib.manager.ActivityManager;
 import com.mjiayou.trecorelib.manager.StatusViewManager;
-import com.mjiayou.trecorelib.http.volley.RequestAdapter;
 import com.mjiayou.trecorelib.util.ConvertUtils;
 import com.mjiayou.trecorelib.util.LogUtils;
 import com.mjiayou.trecorelib.util.StatusBarUtils;
 import com.mjiayou.trecorelib.widget.TitleBar;
 
+import androidx.annotation.IdRes;
+import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
+import androidx.appcompat.app.AppCompatActivity;
 import butterknife.ButterKnife;
 
 /**

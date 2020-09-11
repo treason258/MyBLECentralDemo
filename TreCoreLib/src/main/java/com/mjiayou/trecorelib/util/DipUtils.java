@@ -1,10 +1,11 @@
 package com.mjiayou.trecorelib.util;
 
 import android.content.Context;
-import android.support.annotation.DimenRes;
 import android.util.TypedValue;
 
 import com.mjiayou.trecorelib.base.TCApp;
+
+import androidx.annotation.DimenRes;
 
 /**
  * Created by treason on 15-12-21.

@@ -4,9 +4,10 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 
 import com.mjiayou.trecorelib.util.LogUtils;
+
+import androidx.annotation.Nullable;
 
 /**
  * TCService

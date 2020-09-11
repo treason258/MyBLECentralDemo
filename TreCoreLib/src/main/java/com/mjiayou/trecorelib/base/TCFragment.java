@@ -2,10 +2,11 @@ package com.mjiayou.trecorelib.base;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 
 import com.mjiayou.trecorelib.util.ConvertUtils;
 import com.mjiayou.trecorelib.util.LogUtils;
+
+import androidx.annotation.Nullable;
 
 /**
  * TCFragment

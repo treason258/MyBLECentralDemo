@@ -15,7 +15,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -26,6 +25,8 @@ import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import androidx.core.app.ActivityCompat;
 
 /**
  * AppUtils
