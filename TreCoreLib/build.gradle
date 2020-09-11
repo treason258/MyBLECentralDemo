@@ -65,11 +65,11 @@ dependencies {
     api 'com.alibaba:fastjson:1.2.49'           // https://github.com/alibaba/fastjson
     api 'com.github.bumptech.glide:glide:3.7.0' // https://github.com/bumptech/glide
     api 'com.nostra13.universalimageloader:universal-image-loader:1.9.5' // https://github.com/nostra13/Android-Universal-Image-Loader
-    api 'com.jakewharton:butterknife:8.4.0'     // https://github.com/JakeWharton/butterknife
+    api 'com.jakewharton:butterknife:10.0.0'     // https://github.com/JakeWharton/butterknife
     api 'de.greenrobot:eventbus:2.2.1'          // https://github.com/greenrobot/EventBus
 
     // annotationProcessor
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
 
     // other
     // compile 'com.f2prateek.dart:dart:1.1.0' // https://github.com/f2prateek/dart
